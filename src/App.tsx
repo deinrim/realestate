@@ -16,8 +16,7 @@ import { TasksView } from './components/modules/TasksView.tsx';
 import { DocumentsView } from './components/modules/DocumentsView.tsx';
 import { ReportsView } from './components/modules/ReportsView.tsx';
 import { OrganizationSettingsView } from './components/modules/OrganizationSettingsView.tsx';
-import { AndroidMobileView } from './components/mobile/AndroidMobileView.tsx';
-import { AndroidDeviceModelModal } from './components/mobile/AndroidDeviceModelModal.tsx';
+import { MobileFooterNav } from './components/mobile/MobileFooterNav.tsx';
 import { apiFetch } from './services/apiClient.ts';
 import { CurrentUser, Organization, OrganizationSettings } from './types/index.ts';
 
@@ -29,7 +28,7 @@ export default function App() {
   const [currentModule, setCurrentModule] = useState<string>('dashboard');
   const [navParams, setNavParams] = useState<any>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showAndroidSimulator, setShowAndroidSimulator] = useState(false);
+  const [isMobileMode, setIsMobileMode] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const fetchSession = async () => {
@@ -75,16 +74,6 @@ export default function App() {
             organization={currentOrg}
             onNavigate={handleNavigate}
           />
-        );
-      case 'android-mobile':
-        return (
-          <div className="max-w-md mx-auto h-[820px] rounded-[38px] overflow-hidden shadow-2xl border-[8px] border-slate-900 ring-2 ring-slate-700/50">
-            <AndroidMobileView
-              user={currentUser}
-              organization={currentOrg}
-              onNavigate={handleNavigate}
-            />
-          </div>
         );
       case 'system-admin':
         return (
@@ -163,7 +152,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900 flex flex-col antialiased">
-      {/* Top Navigation */}
+      {/* Top Header Bar */}
       <Header
         user={currentUser}
         organization={currentOrg}
@@ -172,35 +161,48 @@ export default function App() {
         onSelectPersona={handleSelectPersona}
         onNavigate={handleNavigate}
         onRefreshUser={fetchSession}
-        onOpenAndroidSimulator={() => setShowAndroidSimulator(true)}
+        isMobileMode={isMobileMode}
+        onToggleMobileMode={() => setIsMobileMode(!isMobileMode)}
+        onToggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       />
 
       {/* Main Body with Sidebar + Content */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <Sidebar
-          currentModule={currentModule}
-          onSelectModule={handleNavigate}
-          user={currentUser}
-          isOpenMobile={isMobileMenuOpen}
-          onCloseMobile={() => setIsMobileMenuOpen(false)}
-        />
+      <div
+        className={`flex flex-1 overflow-hidden ${
+          isMobileMode ? 'justify-center bg-slate-900/10 py-2 sm:py-4' : ''
+        }`}
+      >
+        {/* Desktop Sidebar (hidden when in simulated mobile view or closed) */}
+        {!isMobileMode && (
+          <Sidebar
+            currentModule={currentModule}
+            onSelectModule={handleNavigate}
+            user={currentUser}
+            isOpenMobile={isMobileMenuOpen}
+            onCloseMobile={() => setIsMobileMenuOpen(false)}
+          />
+        )}
 
         {/* Dynamic Content View Area */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-          <div className="mx-auto max-w-7xl">
+        <main
+          className={`flex-1 overflow-y-auto ${
+            isMobileMode
+              ? 'max-w-md w-full bg-slate-50 min-h-[800px] rounded-2xl shadow-xl border border-slate-300 pb-24 p-3.5'
+              : 'p-4 sm:p-6 lg:p-8 pb-24 md:pb-8'
+          }`}
+        >
+          <div className={isMobileMode ? 'w-full' : 'mx-auto max-w-7xl'}>
             {renderModuleContent()}
           </div>
         </main>
       </div>
 
-      {/* Interactive Physical Android Hardware Model Modal Simulator */}
-      <AndroidDeviceModelModal
-        isOpen={showAndroidSimulator}
-        onClose={() => setShowAndroidSimulator(false)}
+      {/* Android Mobile Bottom Footer Navigation Menu */}
+      <MobileFooterNav
+        currentModule={currentModule}
+        onNavigate={handleNavigate}
         user={currentUser}
         organization={currentOrg}
-        onNavigate={handleNavigate}
       />
     </div>
   );

@@ -27,7 +27,9 @@ interface HeaderProps {
   onSelectPersona: (uid: string) => void;
   onNavigate: (module: string) => void;
   onRefreshUser: () => void;
-  onOpenAndroidSimulator?: () => void;
+  isMobileMode?: boolean;
+  onToggleMobileMode?: () => void;
+  onToggleMobileMenu?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -37,7 +39,9 @@ export const Header: React.FC<HeaderProps> = ({
   onSelectPersona,
   onNavigate,
   onRefreshUser,
-  onOpenAndroidSimulator,
+  isMobileMode = false,
+  onToggleMobileMode,
+  onToggleMobileMenu,
 }) => {
   const { isInstallable, isInstalled, isIOS, install } = usePWAInstall();
   const [searchQuery, setSearchQuery] = useState('');
@@ -107,25 +111,38 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-slate-200 bg-white/95 px-4 backdrop-blur shadow-xs sm:px-6">
       {/* Brand & Organization Title */}
-      <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-900 text-white shadow-xs">
-          <Building2 className="h-6 w-6 text-sky-400" />
+      <div className="flex items-center gap-2.5 sm:gap-3">
+        {/* Mobile Sidebar Hamburger Trigger */}
+        {onToggleMobileMenu && (
+          <button
+            onClick={onToggleMobileMenu}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 lg:hidden"
+            aria-label="Open navigation menu"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        )}
+
+        <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-slate-900 text-white shadow-xs shrink-0">
+          <Building2 className="h-5 w-5 sm:h-6 sm:w-6 text-sky-400" />
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-base font-bold text-slate-900 sm:text-lg leading-tight">
-              {organization ? organization.companyName : 'AuraEstate Global SaaS'}
+            <h1 className="text-sm font-bold text-slate-900 sm:text-lg leading-tight truncate max-w-[140px] sm:max-w-none">
+              {organization ? organization.companyName : 'AuraEstate'}
             </h1>
             {user?.isSystemAdmin && (
-              <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-semibold text-indigo-700">
+              <span className="hidden sm:inline rounded bg-indigo-100 px-2 py-0.5 text-xs font-semibold text-indigo-700">
                 System Admin
               </span>
             )}
           </div>
-          <div className="flex items-center gap-2 text-xs text-slate-500">
-            <span>Tenant Code: <strong className="text-slate-700">{organization?.code || 'SYSTEM'}</strong></span>
-            <span>•</span>
-            <span className="hidden sm:inline">Isolation: <strong className="text-emerald-600">PostgreSQL Strict RLS</strong></span>
+          <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+            <span>Code: <strong className="text-slate-700">{organization?.code || 'SYSTEM'}</strong></span>
+            <span className="hidden sm:inline">•</span>
+            <span className="hidden sm:inline text-emerald-600 font-medium">PostgreSQL RLS Active</span>
           </div>
         </div>
       </div>
@@ -256,16 +273,19 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Right Controls: Persona Switcher & Google Sign-In */}
       <div className="flex items-center gap-3">
-        {/* Launch Android Model Simulator */}
-        {onOpenAndroidSimulator && (
+        {/* Responsive Mobile / Desktop View Mode Toggle */}
+        {onToggleMobileMode && (
           <button
-            onClick={onOpenAndroidSimulator}
-            className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-sky-600 to-indigo-600 px-3 py-1.5 text-xs font-bold text-white shadow-xs hover:from-sky-500 hover:to-indigo-500 active:scale-95 transition"
-            title="Open Interactive Android Mobile Simulator with Card System"
+            onClick={onToggleMobileMode}
+            className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-semibold transition ${
+              isMobileMode
+                ? 'border-sky-500 bg-sky-50 text-sky-700 font-bold'
+                : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+            }`}
+            title="Toggle Android Mobile Card Layout"
           >
-            <Smartphone className="h-4 w-4 text-sky-200" />
-            <span className="hidden sm:inline">Android Model</span>
-            <span className="rounded bg-white/20 px-1 py-0.2 text-[9px] font-mono tracking-tight">CARD UI</span>
+            <Smartphone className="h-4 w-4 text-sky-600" />
+            <span className="hidden sm:inline">{isMobileMode ? 'Desktop View' : 'Mobile View'}</span>
           </button>
         )}
 

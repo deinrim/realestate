@@ -231,61 +231,137 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-sky-500 border-t-transparent" />
         </div>
       ) : viewMode === 'list' ? (
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                  <th className="py-3 px-2">Lead Code & Name</th>
-                  <th className="py-3 px-2">Contact</th>
-                  <th className="py-3 px-2">Project</th>
-                  <th className="py-3 px-2">Source / Budget</th>
-                  <th className="py-3 px-2">Assigned Agent</th>
-                  <th className="py-3 px-2">Pipeline Stage</th>
-                  <th className="py-3 px-2 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {leads.map((l) => (
-                  <tr key={l.id} className="hover:bg-slate-50 transition cursor-pointer" onClick={() => openLeadDetails(l.id)}>
-                    <td className="py-3 px-2">
-                      <div className="font-bold text-slate-800">{l.name}</div>
-                      <div className="font-mono text-[10px] text-sky-700">{l.leadCode}</div>
-                    </td>
-                    <td className="py-3 px-2">
-                      <div className="text-slate-700 font-medium">{l.mobile}</div>
-                      <div className="text-[10px] text-slate-400">{l.email || 'No email provided'}</div>
-                    </td>
-                    <td className="py-3 px-2 text-slate-700">
-                      {l.projectName || 'General Enquiry'}
-                    </td>
-                    <td className="py-3 px-2">
-                      <div className="font-medium text-slate-800">{l.source}</div>
-                      <div className="text-[10px] text-slate-500">{l.budget} • {l.unitPreference}</div>
-                    </td>
-                    <td className="py-3 px-2 text-slate-600">
-                      {l.assignedUserName || 'Unassigned'}
-                    </td>
-                    <td className="py-3 px-2">
-                      <span className="inline-flex rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-bold text-sky-700">
-                        {l.status}
+        <div className="space-y-3">
+          {/* Mobile Android-Style Card System (Visible on small screens) */}
+          <div className="grid grid-cols-1 gap-2.5 md:hidden">
+            {leads.map((l) => (
+              <div
+                key={`mob-${l.id}`}
+                onClick={() => openLeadDetails(l.id)}
+                className="rounded-xl border border-slate-200 bg-white p-3.5 shadow-xs space-y-2.5 active:bg-slate-50 transition cursor-pointer"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-bold text-sm text-slate-900">{l.name}</span>
+                      <span className="font-mono text-[9px] text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded font-semibold">
+                        {l.leadCode}
                       </span>
-                    </td>
-                    <td className="py-3 px-2 text-right">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openLeadDetails(l.id);
-                        }}
-                        className="rounded px-2 py-1 text-[11px] font-semibold text-sky-600 hover:bg-sky-50"
-                      >
-                        View & Log
-                      </button>
-                    </td>
+                    </div>
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                      {l.projectName || 'General Enquiry'} • {l.unitPreference || '3 BHK'}
+                    </p>
+                  </div>
+                  <span className="rounded-full bg-sky-50 text-sky-700 border border-sky-100 px-2 py-0.5 text-[10px] font-bold">
+                    {l.status}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between text-[11px] text-slate-600 bg-slate-50 p-2 rounded-lg">
+                  <div>
+                    <span className="text-[10px] text-slate-400 block">Budget</span>
+                    <span className="font-semibold text-slate-800">{l.budget || 'Flexible'}</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[10px] text-slate-400 block">Source</span>
+                    <span className="font-medium text-slate-700">{l.source}</span>
+                  </div>
+                </div>
+
+                {/* Mobile Quick Call & WhatsApp Action Buttons */}
+                <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={`tel:${l.mobile}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="flex items-center gap-1 rounded-lg bg-emerald-600 px-2.5 py-1 text-xs font-bold text-white shadow-2xs hover:bg-emerald-700 transition"
+                    >
+                      <Phone className="h-3 w-3" />
+                      <span>Call</span>
+                    </a>
+                    <a
+                      href={`https://wa.me/${l.mobile.replace(/\D/g, '')}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700 hover:bg-emerald-100 transition"
+                    >
+                      <MessageSquare className="h-3 w-3" />
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openLeadDetails(l.id);
+                    }}
+                    className="text-xs font-semibold text-sky-600 hover:text-sky-700"
+                  >
+                    Details →
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table View (Hidden on mobile) */}
+          <div className="hidden md:block rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                    <th className="py-3 px-2">Lead Code & Name</th>
+                    <th className="py-3 px-2">Contact</th>
+                    <th className="py-3 px-2">Project</th>
+                    <th className="py-3 px-2">Source / Budget</th>
+                    <th className="py-3 px-2">Assigned Agent</th>
+                    <th className="py-3 px-2">Pipeline Stage</th>
+                    <th className="py-3 px-2 text-right">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {leads.map((l) => (
+                    <tr key={l.id} className="hover:bg-slate-50 transition cursor-pointer" onClick={() => openLeadDetails(l.id)}>
+                      <td className="py-3 px-2">
+                        <div className="font-bold text-slate-800">{l.name}</div>
+                        <div className="font-mono text-[10px] text-sky-700">{l.leadCode}</div>
+                      </td>
+                      <td className="py-3 px-2">
+                        <div className="text-slate-700 font-medium">{l.mobile}</div>
+                        <div className="text-[10px] text-slate-400">{l.email || 'No email provided'}</div>
+                      </td>
+                      <td className="py-3 px-2 text-slate-700">
+                        {l.projectName || 'General Enquiry'}
+                      </td>
+                      <td className="py-3 px-2">
+                        <div className="font-medium text-slate-800">{l.source}</div>
+                        <div className="text-[10px] text-slate-500">{l.budget} • {l.unitPreference}</div>
+                      </td>
+                      <td className="py-3 px-2 text-slate-600">
+                        {l.assignedUserName || 'Unassigned'}
+                      </td>
+                      <td className="py-3 px-2">
+                        <span className="inline-flex rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-bold text-sky-700">
+                          {l.status}
+                        </span>
+                      </td>
+                      <td className="py-3 px-2 text-right">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openLeadDetails(l.id);
+                          }}
+                          className="rounded px-2 py-1 text-[11px] font-semibold text-sky-600 hover:bg-sky-50"
+                        >
+                          View & Log
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       ) : (

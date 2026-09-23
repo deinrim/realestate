@@ -162,71 +162,144 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
       </div>
 
       {/* Bookings List */}
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                <th className="py-3 px-2">Booking #</th>
-                <th className="py-3 px-2">Customer Name</th>
-                <th className="py-3 px-2">Project & Unit</th>
-                <th className="py-3 px-2">Total Consideration</th>
-                <th className="py-3 px-2">Token Paid</th>
-                <th className="py-3 px-2">Approval Stage</th>
-                <th className="py-3 px-2">Status</th>
-                <th className="py-3 px-2 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {bookings.map((b) => (
-                <tr key={b.id} className="hover:bg-slate-50 transition">
-                  <td className="py-3 px-2 font-mono font-bold text-slate-900">{b.bookingNumber}</td>
-                  <td className="py-3 px-2">
-                    <div className="font-semibold text-slate-800">{b.customerName}</div>
-                    <div className="text-[10px] text-slate-400">{b.customerMobile}</div>
-                  </td>
-                  <td className="py-3 px-2">
-                    <div className="text-slate-800 font-medium">{b.projectName}</div>
-                    <div className="text-sky-700 font-semibold text-[11px]">Unit {b.unitNumber} ({b.unitType})</div>
-                  </td>
-                  <td className="py-3 px-2 font-bold text-slate-900">{formatCurrency(b.totalConsideration)}</td>
-                  <td className="py-3 px-2 font-semibold text-emerald-600">{formatCurrency(b.bookingAmount)}</td>
-                  <td className="py-3 px-2">
-                    {b.status === 'Confirmed' ? (
-                      <span className="inline-flex items-center gap-1 font-semibold text-emerald-700 text-[11px]">
-                        <CheckCircle2 className="h-3 w-3" /> Fully Approved
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 font-medium text-amber-700 text-[11px]">
-                        <Clock className="h-3 w-3" /> {getStepName(b.currentApprovalStep)}
-                      </span>
-                    )}
-                  </td>
-                  <td className="py-3 px-2">
-                    <span
-                      className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                        b.status === 'Confirmed'
-                          ? 'bg-emerald-50 text-emerald-700'
-                          : 'bg-amber-50 text-amber-700'
-                      }`}
-                    >
-                      {b.status}
+      {/* Bookings View: Mobile Cards & Desktop Table */}
+      <div className="space-y-3">
+        {/* Mobile Android-Style Card System (Visible on small screens) */}
+        <div className="grid grid-cols-1 gap-2.5 md:hidden">
+          {bookings.map((b) => (
+            <div
+              key={`mob-${b.id}`}
+              className="rounded-xl border border-slate-200 bg-white p-3.5 shadow-xs space-y-2.5"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <span className="font-mono text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded">
+                    {b.bookingNumber}
+                  </span>
+                  <div className="font-bold text-sm text-slate-900 mt-1">{b.customerName}</div>
+                  <div className="text-[11px] text-slate-500">{b.customerMobile}</div>
+                </div>
+                <span
+                  className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                    b.status === 'Confirmed'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                      : 'bg-amber-50 text-amber-700 border border-amber-200'
+                  }`}
+                >
+                  {b.status}
+                </span>
+              </div>
+
+              <div className="rounded-lg bg-slate-50 p-2.5 space-y-1.5 text-xs">
+                <div className="flex justify-between items-center text-slate-600">
+                  <span>Project & Unit:</span>
+                  <span className="font-semibold text-slate-800">
+                    {b.projectName} • Unit {b.unitNumber}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center text-slate-600">
+                  <span>Consideration:</span>
+                  <span className="font-bold text-slate-900">{formatCurrency(b.totalConsideration)}</span>
+                </div>
+                <div className="flex justify-between items-center text-slate-600">
+                  <span>Token Received:</span>
+                  <span className="font-semibold text-emerald-600">{formatCurrency(b.bookingAmount)}</span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-1 border-t border-slate-100 text-xs">
+                <div>
+                  {b.status === 'Confirmed' ? (
+                    <span className="inline-flex items-center gap-1 font-semibold text-emerald-700 text-[11px]">
+                      <CheckCircle2 className="h-3 w-3" /> Fully Approved
                     </span>
-                  </td>
-                  <td className="py-3 px-2 text-right">
-                    {b.status !== 'Confirmed' && (
-                      <button
-                        onClick={() => setApprovalModalBooking(b)}
-                        className="rounded bg-sky-50 px-2.5 py-1 text-[11px] font-bold text-sky-700 hover:bg-sky-100 transition"
-                      >
-                        Review Step →
-                      </button>
-                    )}
-                  </td>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 font-medium text-amber-700 text-[11px]">
+                      <Clock className="h-3 w-3" /> {getStepName(b.currentApprovalStep)}
+                    </span>
+                  )}
+                </div>
+
+                {b.status !== 'Confirmed' && (
+                  <button
+                    onClick={() => setApprovalModalBooking(b)}
+                    className="rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-sky-700 transition"
+                  >
+                    Review Step →
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop Table View (Hidden on mobile) */}
+        <div className="hidden md:block rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                  <th className="py-3 px-2">Booking #</th>
+                  <th className="py-3 px-2">Customer Name</th>
+                  <th className="py-3 px-2">Project & Unit</th>
+                  <th className="py-3 px-2">Total Consideration</th>
+                  <th className="py-3 px-2">Token Paid</th>
+                  <th className="py-3 px-2">Approval Stage</th>
+                  <th className="py-3 px-2">Status</th>
+                  <th className="py-3 px-2 text-right">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {bookings.map((b) => (
+                  <tr key={b.id} className="hover:bg-slate-50 transition">
+                    <td className="py-3 px-2 font-mono font-bold text-slate-900">{b.bookingNumber}</td>
+                    <td className="py-3 px-2">
+                      <div className="font-semibold text-slate-800">{b.customerName}</div>
+                      <div className="text-[10px] text-slate-400">{b.customerMobile}</div>
+                    </td>
+                    <td className="py-3 px-2">
+                      <div className="text-slate-800 font-medium">{b.projectName}</div>
+                      <div className="text-sky-700 font-semibold text-[11px]">Unit {b.unitNumber} ({b.unitType})</div>
+                    </td>
+                    <td className="py-3 px-2 font-bold text-slate-900">{formatCurrency(b.totalConsideration)}</td>
+                    <td className="py-3 px-2 font-semibold text-emerald-600">{formatCurrency(b.bookingAmount)}</td>
+                    <td className="py-3 px-2">
+                      {b.status === 'Confirmed' ? (
+                        <span className="inline-flex items-center gap-1 font-semibold text-emerald-700 text-[11px]">
+                          <CheckCircle2 className="h-3 w-3" /> Fully Approved
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 font-medium text-amber-700 text-[11px]">
+                          <Clock className="h-3 w-3" /> {getStepName(b.currentApprovalStep)}
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-3 px-2">
+                      <span
+                        className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                          b.status === 'Confirmed'
+                            ? 'bg-emerald-50 text-emerald-700'
+                            : 'bg-amber-50 text-amber-700'
+                        }`}
+                      >
+                        {b.status}
+                      </span>
+                    </td>
+                    <td className="py-3 px-2 text-right">
+                      {b.status !== 'Confirmed' && (
+                        <button
+                          onClick={() => setApprovalModalBooking(b)}
+                          className="rounded bg-sky-50 px-2.5 py-1 text-[11px] font-bold text-sky-700 hover:bg-sky-100 transition"
+                        >
+                          Review Step →
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 

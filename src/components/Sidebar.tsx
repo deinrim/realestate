@@ -41,7 +41,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       title: 'Overview',
       items: [
         { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-        { id: 'android-mobile', label: 'Android Mobile Cards', icon: Smartphone, badge: 'Android' },
         ...(isSysAdmin
           ? [{ id: 'system-admin', label: 'System Admin SaaS', icon: ShieldAlert, highlight: true }]
           : []),

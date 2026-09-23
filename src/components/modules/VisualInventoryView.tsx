@@ -257,12 +257,12 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
                       </div>
 
                       {/* Units on this floor */}
-                      <div className="flex flex-wrap gap-2.5 flex-1">
+                      <div className="flex flex-wrap gap-2 flex-1">
                         {floorsMap[floorNum].map((unit) => (
                           <button
                             key={unit.id}
                             onClick={() => setSelectedUnit(unit)}
-                            className={`flex flex-col justify-between rounded-lg border p-2.5 text-left transition shadow-2xs w-36 sm:w-40 cursor-pointer ${getStatusColor(
+                            className={`flex flex-col justify-between rounded-lg border p-2.5 text-left transition shadow-2xs w-[calc(50%-0.3rem)] sm:w-40 cursor-pointer ${getStatusColor(
                               unit.status
                             )}`}
                           >
