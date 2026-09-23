@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="50%" stop-color="#0369a1" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="towerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#cbd5e1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded Base Background for Android Squircle Safe Zone -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+
+  <!-- Subtle grid rays -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.2" />
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.15" />
+
+  <!-- Main Towers Silhouette -->
+  <!-- Left Tower -->
+  <rect x="130" y="210" width="65" height="180" rx="6" fill="url(#towerGrad)" opacity="0.85" />
+  <rect x="145" y="230" width="14" height="20" rx="2" fill="#0369a1" />
+  <rect x="168" y="230" width="14" height="20" rx="2" fill="#0369a1" />
+  <rect x="145" y="270" width="14" height="20" rx="2" fill="#0369a1" />
+  <rect x="168" y="270" width="14" height="20" rx="2" fill="#0369a1" />
+  <rect x="145" y="310" width="14" height="20" rx="2" fill="#0369a1" />
+  <rect x="168" y="310" width="14" height="20" rx="2" fill="#0369a1" />
+
+  <!-- Center Landmark High-rise Tower -->
+  <polygon points="256,105 205,170 307,170" fill="url(#goldGrad)" />
+  <rect x="205" y="170" width="102" height="220" rx="8" fill="url(#towerGrad)" />
+  <!-- Center windows -->
+  <rect x="222" y="195" width="28" height="22" rx="3" fill="#0284c7" />
+  <rect x="262" y="195" width="28" height="22" rx="3" fill="#0284c7" />
+  <rect x="222" y="235" width="28" height="22" rx="3" fill="#0284c7" />
+  <rect x="262" y="235" width="28" height="22" rx="3" fill="#0284c7" />
+  <rect x="222" y="275" width="28" height="22" rx="3" fill="#0284c7" />
+  <rect x="262" y="275" width="28" height="22" rx="3" fill="#0284c7" />
+  <rect x="222" y="315" width="28" height="22" rx="3" fill="#0284c7" />
+  <rect x="262" y="315" width="28" height="22" rx="3" fill="#0284c7" />
+
+  <!-- Right Tower -->
+  <rect x="317" y="235" width="65" height="155" rx="6" fill="url(#towerGrad)" opacity="0.85" />
+  <rect x="330" y="255" width="14" height="18" rx="2" fill="#0369a1" />
+  <rect x="353" y="255" width="14" height="18" rx="2" fill="#0369a1" />
+  <rect x="330" y="290" width="14" height="18" rx="2" fill="#0369a1" />
+  <rect x="353" y="290" width="14" height="18" rx="2" fill="#0369a1" />
+  <rect x="330" y="325" width="14" height="18" rx="2" fill="#0369a1" />
+  <rect x="353" y="325" width="14" height="18" rx="2" fill="#0369a1" />
+
+  <!-- Foundation line -->
+  <rect x="110" y="385" width="292" height="12" rx="6" fill="#38bdf8" />
+  
+  <!-- Aura Brand Text -->
+  <text x="256" y="440" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="#ffffff" letter-spacing="4">AURAESTATE</text>
+  <text x="256" y="468" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#38bdf8" letter-spacing="2">ENTERPRISE ERP</text>
+</svg>

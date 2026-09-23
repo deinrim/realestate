@@ -1,0 +1,6 @@
+{
+  "name": "AuraEstate - Multi-Tenant Real Estate ERP & Management Platform",
+  "description": "Enterprise Multi-Tenant Real Estate Developer Office Management & ERP Platform with Projects, CRM, Inventory, Sales, Bookings, Collections, Handover, and Workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
