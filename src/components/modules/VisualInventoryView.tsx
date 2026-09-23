@@ -135,7 +135,8 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
   // Inventory stats calculation
   const totalUnitsCount = units.length;
   const availableCount = units.filter((u) => u.status === 'Available').length;
-  const holdCount = units.filter((u) => u.status === 'Hold' || u.status === 'Enquiry').length;
+  const enquiryCount = units.filter((u) => u.status === 'Enquiry' || u.status === 'Negotiation').length;
+  const holdCount = units.filter((u) => u.status === 'Hold').length;
   const soldCount = units.filter((u) => ['Booked', 'Agreement', 'Sold'].includes(u.status)).length;
 
   return (
@@ -203,7 +204,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
             </span>
             <span className="flex items-center gap-1.5 font-medium text-slate-600">
               <span className="h-2.5 w-2.5 rounded-full bg-sky-500" />
-              Enquiry
+              Enquiry ({enquiryCount})
             </span>
             <span className="flex items-center gap-1.5 font-medium text-slate-600">
               <span className="h-2.5 w-2.5 rounded-full bg-amber-500" />
