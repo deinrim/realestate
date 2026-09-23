@@ -8,7 +8,12 @@ const getHeaders = () => {
     headers['x-demo-user-uid'] = personaUid;
   }
 
-  const idToken = sessionStorage.getItem('auraestate_id_token');
+  const targetOrgId = localStorage.getItem('auraestate_target_org_id');
+  if (targetOrgId) {
+    headers['x-target-org-id'] = targetOrgId;
+  }
+
+  const idToken = sessionStorage.getItem('auraestate_id_token') || localStorage.getItem('auraestate_id_token');
   if (idToken) {
     headers['Authorization'] = `Bearer ${idToken}`;
   }

@@ -203,6 +203,7 @@ export default function App() {
         onNavigate={handleNavigate}
         user={currentUser}
         organization={currentOrg}
+        isMobileMode={isMobileMode}
       />
     </div>
   );

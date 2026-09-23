@@ -26,6 +26,7 @@ interface MobileFooterNavProps {
   user: CurrentUser | null;
   organization: Organization | null;
   onOpenQuickAction?: (action: 'lead' | 'booking' | 'visit') => void;
+  isMobileMode?: boolean;
 }
 
 export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
@@ -34,6 +35,7 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
   user,
   organization,
   onOpenQuickAction,
+  isMobileMode,
 }) => {
   const [showMoreDrawer, setShowMoreDrawer] = useState(false);
   const [showFabDial, setShowFabDial] = useState(false);
@@ -70,7 +72,13 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
   return (
     <>
       {/* Expandable Android Speed-Dial FAB (Floating Action Button) */}
-      <div className="fixed bottom-20 right-4 z-40 md:hidden">
+      <div
+        className={`fixed z-40 ${
+          isMobileMode
+            ? 'bottom-20 right-4 sm:right-auto sm:left-1/2 sm:ml-36'
+            : 'bottom-20 right-4 md:hidden'
+        }`}
+      >
         {showFabDial && (
           <div className="mb-3 flex flex-col items-end gap-2 animate-in fade-in slide-in-from-bottom-2 duration-150">
             <button
@@ -127,7 +135,9 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
 
       {/* Android Bottom Navigation Bar (Footer Menu) */}
       <nav
-        className="fixed bottom-0 inset-x-0 z-40 bg-slate-900/98 backdrop-blur-xl border-t border-slate-800 text-slate-300 md:hidden flex items-center justify-around h-16 px-1 select-none shadow-[0_-4px_20px_rgba(0,0,0,0.3)]"
+        className={`fixed bottom-0 inset-x-0 z-40 bg-slate-900/98 backdrop-blur-xl border-t border-slate-800 text-slate-300 flex items-center justify-around h-16 px-1 select-none shadow-[0_-4px_20px_rgba(0,0,0,0.3)] ${
+          isMobileMode ? 'max-w-md mx-auto sm:rounded-t-2xl sm:border-x' : 'md:hidden'
+        }`}
         aria-label="Mobile Navigation"
       >
         {mainTabs.map((tab) => {
@@ -174,11 +184,15 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
       {/* Full Android Material Bottom Sheet for "More" Menu */}
       {showMoreDrawer && (
         <div
-          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-xs md:hidden flex flex-col justify-end"
+          className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex flex-col justify-end ${
+            isMobileMode ? '' : 'md:hidden'
+          }`}
           onClick={() => setShowMoreDrawer(false)}
         >
           <div
-            className="bg-slate-900 border-t border-slate-800 rounded-t-3xl max-h-[82vh] overflow-y-auto p-4 pb-20 space-y-4 shadow-2xl animate-in slide-in-from-bottom duration-200"
+            className={`bg-slate-900 border-t border-slate-800 rounded-t-3xl max-h-[82vh] overflow-y-auto p-4 pb-20 space-y-4 shadow-2xl animate-in slide-in-from-bottom duration-200 ${
+              isMobileMode ? 'max-w-md mx-auto w-full' : ''
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Sheet Handle */}

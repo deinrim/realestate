@@ -201,7 +201,49 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               </button>
             </div>
 
-            <div className="mt-3 overflow-x-auto">
+            {/* Mobile Card Layout (visible on mobile / narrow viewports) */}
+            <div className="mt-3 space-y-2 md:hidden">
+              {data?.recentBookings?.length > 0 ? (
+                data.recentBookings.map((b: any) => (
+                  <div
+                    key={`mob-rb-${b.id}`}
+                    onClick={() => onNavigate('bookings')}
+                    className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs space-y-1.5 cursor-pointer active:bg-slate-100 transition"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono font-bold text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded">
+                        {b.bookingNumber}
+                      </span>
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                          b.status === 'Confirmed'
+                            ? 'bg-emerald-50 text-emerald-700'
+                            : b.status === 'Pending Approval'
+                            ? 'bg-amber-50 text-amber-700'
+                            : 'bg-slate-200 text-slate-700'
+                        }`}
+                      >
+                        {b.status}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-800">
+                      <span className="font-bold text-sm">{b.customerName}</span>
+                      <span className="font-bold text-emerald-600">{formatCurrency(b.total)}</span>
+                    </div>
+                    <div className="text-[11px] text-slate-500">
+                      {b.projectName} • Unit {b.unitNumber}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="py-4 text-center text-xs text-slate-400">
+                  No bookings recorded yet.
+                </div>
+              )}
+            </div>
+
+            {/* Desktop Table View (Hidden on mobile) */}
+            <div className="mt-3 hidden md:block overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
                   <tr className="border-b border-slate-100 text-[11px] font-semibold text-slate-400">

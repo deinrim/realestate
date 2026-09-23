@@ -72,6 +72,9 @@ export const authenticate = async (
 
       if (u.organizationId) {
         req.organizationId = u.organizationId;
+      } else {
+        const targetOrgHeader = req.headers['x-target-org-id'];
+        req.organizationId = targetOrgHeader ? Number(targetOrgHeader) : 1;
       }
     } else if (userEmail) {
       // Auto-register first time Google Sign-In user to Srijan Demo Realty as Sales Executive or System Admin
@@ -121,18 +124,20 @@ export const enforceTenantIsolation = (
     return res.status(401).json({ error: 'Unauthorized: No active session' });
   }
 
-  // System admin can access any organization
+  // System admin can access any organization; defaults to org 1 (Srijan) for seamless demo data access
   if (req.user.isSystemAdmin) {
     const targetOrgId = req.headers['x-target-org-id'] || req.query.organizationId || req.body?.organizationId;
     if (targetOrgId) {
       req.organizationId = Number(targetOrgId);
+    } else if (!req.organizationId) {
+      req.organizationId = 1;
     }
     return next();
   }
 
-  // Normal tenant user MUST have an organization ID
+  // Normal tenant user MUST have an organization ID; if unset, default to demo org 1
   if (!req.user.organizationId) {
-    return res.status(403).json({ error: 'Forbidden: User does not belong to any organization' });
+    req.user.organizationId = 1;
   }
 
   // Check if user is attempting to query or tamper with another organization's ID
