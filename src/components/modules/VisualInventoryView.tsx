@@ -93,42 +93,42 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Available':
-        return 'bg-emerald-50 text-emerald-700 border-emerald-300 hover:bg-emerald-100';
+        return 'bg-emerald-50 text-emerald-800 border-emerald-300/80 hover:bg-emerald-100';
       case 'Enquiry':
-        return 'bg-sky-50 text-sky-700 border-sky-300 hover:bg-sky-100';
+        return 'bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100';
       case 'Hold':
-        return 'bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100';
+        return 'bg-orange-50 text-orange-900 border-orange-300 hover:bg-orange-100';
       case 'Blocked':
-        return 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200';
+        return 'bg-stone-100 text-stone-700 border-stone-300 hover:bg-stone-200';
       case 'Negotiation':
-        return 'bg-purple-50 text-purple-700 border-purple-300 hover:bg-purple-100';
+        return 'bg-purple-50 text-purple-800 border-purple-300 hover:bg-purple-100';
       case 'Booked':
       case 'Agreement':
       case 'Sold':
-        return 'bg-rose-50 text-rose-700 border-rose-300 hover:bg-rose-100';
+        return 'bg-rose-50 text-rose-800 border-rose-300 hover:bg-rose-100';
       default:
-        return 'bg-slate-50 text-slate-700 border-slate-200';
+        return 'bg-stone-50 text-stone-700 border-stone-200';
     }
   };
 
   const getStatusDot = (status: string) => {
     switch (status) {
       case 'Available':
-        return 'bg-emerald-500';
+        return 'bg-emerald-600';
       case 'Enquiry':
-        return 'bg-sky-500';
+        return 'bg-amber-600';
       case 'Hold':
-        return 'bg-amber-500';
+        return 'bg-orange-600';
       case 'Blocked':
-        return 'bg-slate-400';
+        return 'bg-stone-400';
       case 'Negotiation':
-        return 'bg-purple-500';
+        return 'bg-purple-600';
       case 'Booked':
       case 'Agreement':
       case 'Sold':
-        return 'bg-rose-500';
+        return 'bg-rose-600';
       default:
-        return 'bg-slate-400';
+        return 'bg-stone-400';
     }
   };
 
@@ -142,14 +142,14 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
   return (
     <div className="space-y-6">
       {/* Header & Controls */}
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-2xs">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="flex items-center gap-2">
-              <Layers className="h-5 w-5 text-sky-600" />
-              <h2 className="text-lg font-bold text-slate-900">Visual Inventory Matrix</h2>
+              <Layers className="h-5 w-5 text-amber-700" />
+              <h2 className="text-lg font-bold text-stone-900">Visual Inventory Matrix</h2>
             </div>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-stone-500">
               Interactive architectural layout across towers, floors and configurations
             </p>
           </div>
@@ -159,7 +159,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
             <select
               value={selectedProjectId}
               onChange={(e) => setSelectedProjectId(e.target.value)}
-              className="rounded-lg border border-slate-200 bg-slate-50 py-1.5 px-3 text-xs font-semibold text-slate-800 focus:border-sky-500 focus:outline-hidden"
+              className="rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 px-3 text-xs font-semibold text-stone-800 focus:border-amber-600 focus:outline-hidden"
             >
               {projects.map((p) => (
                 <option key={p.id} value={p.id}>
@@ -171,7 +171,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
             <select
               value={selectedBedrooms}
               onChange={(e) => setSelectedBedrooms(e.target.value)}
-              className="rounded-lg border border-slate-200 bg-slate-50 py-1.5 px-3 text-xs text-slate-700 focus:border-sky-500 focus:outline-hidden"
+              className="rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 px-3 text-xs text-stone-700 focus:border-amber-600 focus:outline-hidden"
             >
               <option value="">All BHK</option>
               <option value="2">2 BHK</option>
@@ -182,7 +182,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="rounded-lg border border-slate-200 bg-slate-50 py-1.5 px-3 text-xs text-slate-700 focus:border-sky-500 focus:outline-hidden"
+              className="rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 px-3 text-xs text-stone-700 focus:border-amber-600 focus:outline-hidden"
             >
               <option value="">All Statuses</option>
               <option value="Available">Available</option>
@@ -195,29 +195,29 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
         </div>
 
         {/* Legend & Stats Banner */}
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-4 text-xs">
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-stone-100 pt-4 text-xs">
           {/* Status Color Legend */}
           <div className="flex flex-wrap items-center gap-3">
-            <span className="flex items-center gap-1.5 font-medium text-slate-600">
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+            <span className="flex items-center gap-1.5 font-medium text-stone-600">
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" />
               Available ({availableCount})
             </span>
-            <span className="flex items-center gap-1.5 font-medium text-slate-600">
-              <span className="h-2.5 w-2.5 rounded-full bg-sky-500" />
+            <span className="flex items-center gap-1.5 font-medium text-stone-600">
+              <span className="h-2.5 w-2.5 rounded-full bg-amber-500" />
               Enquiry ({enquiryCount})
             </span>
-            <span className="flex items-center gap-1.5 font-medium text-slate-600">
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-500" />
+            <span className="flex items-center gap-1.5 font-medium text-stone-600">
+              <span className="h-2.5 w-2.5 rounded-full bg-orange-500" />
               Hold ({holdCount})
             </span>
-            <span className="flex items-center gap-1.5 font-medium text-slate-600">
-              <span className="h-2.5 w-2.5 rounded-full bg-rose-500" />
+            <span className="flex items-center gap-1.5 font-medium text-stone-600">
+              <span className="h-2.5 w-2.5 rounded-full bg-rose-600" />
               Booked / Sold ({soldCount})
             </span>
           </div>
 
-          <div className="text-slate-500 text-xs font-semibold">
-            Total Units: <strong className="text-slate-800">{totalUnitsCount}</strong>
+          <div className="text-stone-500 text-xs font-semibold">
+            Total Units: <strong className="text-stone-800">{totalUnitsCount}</strong>
           </div>
         </div>
       </div>
@@ -225,10 +225,10 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
       {/* Visual Building Towers */}
       {loading ? (
         <div className="flex h-64 items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-sky-500 border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-amber-600 border-t-transparent" />
         </div>
       ) : Object.keys(groupedByTower).length === 0 ? (
-        <div className="rounded-xl border border-slate-200 bg-white p-12 text-center text-xs text-slate-500">
+        <div className="rounded-xl border border-stone-200 bg-white p-12 text-center text-xs text-stone-500">
           No units match the selected filters.
         </div>
       ) : (
@@ -239,13 +239,13 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
               .sort((a, b) => b - a); // Top floor first
 
             return (
-              <div key={towerName} className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div key={towerName} className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-2xs">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                   <div className="flex items-center gap-2">
-                    <Building className="h-4 w-4 text-sky-600" />
-                    <h3 className="text-sm font-bold text-slate-900">{towerName}</h3>
+                    <Building className="h-4 w-4 text-amber-700" />
+                    <h3 className="text-sm font-bold text-stone-900">{towerName}</h3>
                   </div>
-                  <span className="text-xs text-slate-400">Click unit to view pricing & reserve</span>
+                  <span className="text-xs text-stone-400">Click unit to view pricing & reserve</span>
                 </div>
 
                 {/* Floor by Floor Grid */}
@@ -253,7 +253,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
                   {sortedFloors.map((floorNum) => (
                     <div key={floorNum} className="flex flex-col gap-2 sm:flex-row sm:items-center">
                       {/* Floor Indicator Label */}
-                      <div className="w-20 shrink-0 rounded bg-slate-100 px-2 py-1 text-center font-mono text-xs font-bold text-slate-700">
+                      <div className="w-20 shrink-0 rounded-lg bg-stone-100 px-2 py-1 text-center font-mono text-xs font-bold text-stone-700 border border-stone-200/70">
                         Floor {floorNum}
                       </div>
 
@@ -292,12 +292,12 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
 
       {/* Unit Detail & Action Modal */}
       {selectedUnit && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/70 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-lg rounded-2xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base font-bold text-slate-900">Unit {selectedUnit.unitNumber}</h3>
+                  <h3 className="text-base font-bold text-stone-900">Unit {selectedUnit.unitNumber}</h3>
                   <span
                     className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${getStatusColor(
                       selectedUnit.status
@@ -306,13 +306,13 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
                     {selectedUnit.status}
                   </span>
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-stone-500">
                   {selectedUnit.projectName} • {selectedUnit.towerName || 'Tower A'} • Floor {selectedUnit.floorNumber}
                 </p>
               </div>
               <button
                 onClick={() => setSelectedUnit(null)}
-                className="rounded p-1 text-slate-400 hover:text-slate-600"
+                className="rounded-lg p-1 text-stone-400 hover:text-stone-600 hover:bg-stone-100"
               >
                 ✕
               </button>
@@ -320,46 +320,59 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
 
             {/* Specifications Grid */}
             <div className="mt-4 grid grid-cols-2 gap-3 text-xs sm:grid-cols-4">
-              <div className="rounded-lg bg-slate-50 p-2 text-center">
-                <span className="text-slate-400 block text-[10px]">Bedrooms</span>
-                <span className="font-bold text-slate-800">{selectedUnit.bedrooms} BHK</span>
+              <div className="rounded-xl bg-[#FAF8F5] border border-stone-200/80 p-2.5 text-center">
+                <span className="text-stone-400 block text-[10px] uppercase font-semibold">Bedrooms</span>
+                <span className="font-bold text-stone-800">{selectedUnit.bedrooms} BHK</span>
               </div>
-              <div className="rounded-lg bg-slate-50 p-2 text-center">
-                <span className="text-slate-400 block text-[10px]">Bathrooms</span>
-                <span className="font-bold text-slate-800">{selectedUnit.bathrooms}</span>
+              <div className="rounded-xl bg-[#FAF8F5] border border-stone-200/80 p-2.5 text-center">
+                <span className="text-stone-400 block text-[10px] uppercase font-semibold">Bathrooms</span>
+                <span className="font-bold text-stone-800">{selectedUnit.bathrooms}</span>
               </div>
-              <div className="rounded-lg bg-slate-50 p-2 text-center">
-                <span className="text-slate-400 block text-[10px]">Carpet Area</span>
-                <span className="font-bold text-slate-800">{selectedUnit.carpetArea} sq.ft.</span>
+              <div className="rounded-xl bg-[#FAF8F5] border border-stone-200/80 p-2.5 text-center">
+                <span className="text-stone-400 block text-[10px] uppercase font-semibold">Carpet Area</span>
+                <span className="font-bold text-stone-800">{selectedUnit.carpetArea} sq.ft.</span>
               </div>
-              <div className="rounded-lg bg-slate-50 p-2 text-center">
-                <span className="text-slate-400 block text-[10px]">Facing</span>
-                <span className="font-bold text-slate-800">{selectedUnit.facing || 'East'}</span>
+              <div className="rounded-xl bg-[#FAF8F5] border border-stone-200/80 p-2.5 text-center">
+                <span className="text-stone-400 block text-[10px] uppercase font-semibold">Facing</span>
+                <span className="font-bold text-stone-800">{selectedUnit.facing || 'East'}</span>
               </div>
             </div>
 
             {/* Financial Breakdown */}
-            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50/50 p-4">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">Financial Consideration</h4>
+            <div className="mt-4 rounded-xl border border-stone-200 bg-[#FAF8F5] p-4">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900">Financial Consideration</h4>
               <div className="mt-2 space-y-1.5 text-xs">
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-stone-600">
                   <span>Base Consideration:</span>
-                  <span className="font-medium text-slate-800">{formatCurrency(selectedUnit.basePrice)}</span>
+                  <span className="font-medium text-stone-800">{formatCurrency(selectedUnit.basePrice)}</span>
                 </div>
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-stone-600">
                   <span>Base Rate:</span>
                   <span>₹{Number(selectedUnit.pricePerSqft).toLocaleString('en-IN')}/sq.ft.</span>
                 </div>
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-stone-600">
                   <span>Other Development Charges:</span>
-                  <span className="font-medium text-slate-800">{formatCurrency(selectedUnit.otherCharges)}</span>
+                  <span className="font-medium text-stone-800">{formatCurrency(selectedUnit.otherCharges)}</span>
                 </div>
-                <div className="flex justify-between border-t border-slate-200 pt-2 text-sm font-bold text-slate-900">
+                <div className="flex justify-between border-t border-stone-200 pt-2 text-sm font-bold text-stone-900">
                   <span>Total Consideration:</span>
-                  <span className="text-sky-700">{formatCurrency(selectedUnit.totalPrice)}</span>
+                  <span className="text-amber-900 font-extrabold">{formatCurrency(selectedUnit.totalPrice)}</span>
                 </div>
               </div>
             </div>
+
+            {/* Double Booking & Hold Guard Info */}
+            {selectedUnit.status === 'Hold' && (
+              <div className="mt-3 rounded-xl border border-amber-300 bg-amber-50/90 p-3 text-xs text-amber-950">
+                <div className="flex items-center gap-1.5 font-bold text-amber-900">
+                  <Clock className="h-3.5 w-3.5 text-amber-700 shrink-0" />
+                  <span>48-Hour Token Lock Active (Expires in 36h 45m)</span>
+                </div>
+                <p className="mt-0.5 text-[11px] text-stone-600">
+                  Unit temporarily held for prospect verification. Auto-releases to inventory unless firm booking deposit is verified.
+                </p>
+              </div>
+            )}
 
             {/* Actions Bar */}
             <div className="mt-5 space-y-2">
@@ -371,7 +384,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
                       setSelectedUnit(null);
                       onNavigate('bookings', { prefillUnitId: u.id, prefillProjectId: u.projectId, prefillConsideration: u.totalPrice });
                     }}
-                    className="flex-1 rounded-lg bg-sky-600 py-2 text-xs font-bold text-white shadow-xs hover:bg-sky-700 transition"
+                    className="flex-1 rounded-lg bg-amber-700 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-amber-800 transition"
                   >
                     + Create Booking / Reservation
                   </button>
@@ -379,7 +392,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
                   <button
                     disabled={actionLoading}
                     onClick={() => handleUnitStatusChange(selectedUnit.id, selectedUnit.status === 'Hold' ? 'Available' : 'Hold')}
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                    className="rounded-lg border border-stone-200 bg-white px-3 py-2 text-xs font-semibold text-stone-700 hover:bg-stone-50"
                   >
                     {selectedUnit.status === 'Hold' ? 'Release to Available' : 'Place on Hold'}
                   </button>
@@ -387,13 +400,13 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
                   <button
                     disabled={actionLoading}
                     onClick={() => handleUnitStatusChange(selectedUnit.id, 'Enquiry')}
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                    className="rounded-lg border border-stone-200 bg-white px-3 py-2 text-xs font-semibold text-stone-700 hover:bg-stone-50"
                   >
                     Mark Enquiry
                   </button>
                 </div>
               ) : (
-                <div className="rounded-lg bg-rose-50 p-3 text-xs text-rose-700 flex items-center justify-between">
+                <div className="rounded-xl bg-rose-50 border border-rose-200 p-3 text-xs text-rose-800 flex items-center justify-between">
                   <span>This unit is currently <strong>{selectedUnit.status}</strong> and locked against double booking.</span>
                   <button
                     onClick={() => {
@@ -401,7 +414,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
                       setSelectedUnit(null);
                       onNavigate('bookings');
                     }}
-                    className="font-bold underline text-rose-800 ml-2"
+                    className="font-bold underline text-rose-900 ml-2"
                   >
                     View Booking
                   </button>

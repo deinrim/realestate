@@ -109,14 +109,14 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-slate-200 bg-white/95 px-4 backdrop-blur shadow-xs sm:px-6">
+    <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-stone-200/90 bg-white/95 px-4 backdrop-blur shadow-2xs sm:px-6">
       {/* Brand & Organization Title */}
       <div className="flex items-center gap-2.5 sm:gap-3">
         {/* Mobile Sidebar Hamburger Trigger */}
         {onToggleMobileMenu && (
           <button
             onClick={onToggleMobileMenu}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 lg:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-stone-200 text-stone-700 hover:bg-stone-100 lg:hidden"
             aria-label="Open navigation menu"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -125,24 +125,27 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         )}
 
-        <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-slate-900 text-white shadow-xs shrink-0">
-          <Building2 className="h-5 w-5 sm:h-6 sm:w-6 text-sky-400" />
+        <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br from-stone-950 via-stone-900 to-stone-800 text-amber-400 border border-amber-500/30 shadow-xs shrink-0">
+          <Building2 className="h-5 w-5 sm:h-6 sm:w-6 text-amber-400" />
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-sm font-bold text-slate-900 sm:text-lg leading-tight truncate max-w-[140px] sm:max-w-none">
+            <h1 className="text-sm font-bold text-stone-900 sm:text-lg leading-tight truncate max-w-[140px] sm:max-w-none">
               {organization ? organization.companyName : 'AuraEstate'}
             </h1>
             {user?.isSystemAdmin && (
-              <span className="hidden sm:inline rounded bg-indigo-100 px-2 py-0.5 text-xs font-semibold text-indigo-700">
+              <span className="hidden sm:inline rounded bg-amber-100/80 px-2 py-0.5 text-xs font-semibold text-amber-900 border border-amber-200">
                 System Admin
               </span>
             )}
           </div>
-          <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
-            <span>Code: <strong className="text-slate-700">{organization?.code || 'SYSTEM'}</strong></span>
+          <div className="flex items-center gap-1.5 text-[11px] text-stone-500">
+            <span>Code: <strong className="text-stone-700">{organization?.code || 'SYSTEM'}</strong></span>
             <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline text-emerald-600 font-medium">PostgreSQL RLS Active</span>
+            <span className="hidden sm:inline text-emerald-700 font-medium flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 inline-block"></span>
+              RERA Compliant ERP
+            </span>
           </div>
         </div>
       </div>
@@ -150,13 +153,13 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Global Search Bar */}
       <div ref={searchRef} className="relative hidden md:block w-72 lg:w-96">
         <div className="relative flex items-center">
-          <Search className="absolute left-3 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 h-4 w-4 text-stone-400" />
           <input
             type="text"
             placeholder="Search leads, units, bookings, customers..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pl-9 pr-4 text-sm text-slate-800 placeholder-slate-400 transition focus:border-sky-500 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-sky-100"
+            className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-9 pr-4 text-sm text-stone-800 placeholder-stone-400 transition focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
           />
         </div>
 
@@ -272,19 +275,19 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Right Controls: Persona Switcher & Google Sign-In */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5 sm:gap-3">
         {/* Responsive Mobile / Desktop View Mode Toggle */}
         {onToggleMobileMode && (
           <button
             onClick={onToggleMobileMode}
             className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-semibold transition ${
               isMobileMode
-                ? 'border-sky-500 bg-sky-50 text-sky-700 font-bold'
-                : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                ? 'border-amber-500 bg-amber-50 text-amber-800 font-bold shadow-2xs'
+                : 'border-stone-200 bg-white text-stone-700 hover:bg-stone-50'
             }`}
             title="Toggle Android Mobile Card Layout"
           >
-            <Smartphone className="h-4 w-4 text-sky-600" />
+            <Smartphone className={`h-4 w-4 ${isMobileMode ? 'text-amber-700' : 'text-stone-500'}`} />
             <span className="hidden sm:inline">{isMobileMode ? 'Desktop View' : 'Mobile View'}</span>
           </button>
         )}
@@ -299,10 +302,10 @@ export const Header: React.FC<HeaderProps> = ({
                 alert('PWA Ready: You can install AuraEstate via your browser menu ("Install App" / "Add to Home screen").');
               }
             }}
-            className="hidden md:flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-2.5 py-1.5 text-xs font-bold text-emerald-700 hover:bg-emerald-100 transition shadow-2xs"
+            className="hidden md:flex items-center gap-1 rounded-lg border border-amber-300 bg-amber-50/80 px-2.5 py-1.5 text-xs font-bold text-amber-900 hover:bg-amber-100 transition shadow-2xs"
             title="Install AuraEstate PWA to Android or Desktop"
           >
-            <Download className="h-3.5 w-3.5" />
+            <Download className="h-3.5 w-3.5 text-amber-700" />
             <span>Install App</span>
           </button>
         )}
@@ -311,24 +314,24 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="relative">
           <button
             onClick={() => setShowPersonaMenu(!showPersonaMenu)}
-            className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100 transition shadow-2xs"
+            className="flex items-center gap-2 rounded-lg border border-stone-200 bg-[#FAF8F5] px-3 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-100 transition shadow-2xs"
             title="Switch Persona / Role"
           >
-            <Shield className="h-3.5 w-3.5 text-sky-600" />
+            <Shield className="h-3.5 w-3.5 text-amber-700" />
             <div className="text-left hidden lg:block">
-              <span className="block font-semibold text-slate-900 leading-tight">
+              <span className="block font-semibold text-stone-900 leading-tight">
                 {user ? user.name : 'Select Persona'}
               </span>
-              <span className="block text-[10px] text-slate-500 capitalize">
+              <span className="block text-[10px] text-stone-500 capitalize">
                 {user?.roleCode.replace('_', ' ')} • {organization ? organization.code : 'Global'}
               </span>
             </div>
-            <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
+            <ChevronDown className="h-3.5 w-3.5 text-stone-400" />
           </button>
 
           {showPersonaMenu && (
-            <div className="absolute right-0 top-11 z-50 w-72 rounded-lg border border-slate-200 bg-white p-2 shadow-xl">
-              <div className="border-b border-slate-100 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+            <div className="absolute right-0 top-11 z-50 w-72 rounded-xl border border-stone-200 bg-white p-2 shadow-xl">
+              <div className="border-b border-stone-100 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-stone-400">
                 Switch Live Persona (Multi-Tenant Demo)
               </div>
               <div className="max-h-72 overflow-y-auto py-1">
@@ -341,17 +344,17 @@ export const Header: React.FC<HeaderProps> = ({
                         onSelectPersona(p.uid);
                         setShowPersonaMenu(false);
                       }}
-                      className={`flex w-full items-start gap-2 rounded-md p-2 text-left text-xs transition ${
-                        isActive ? 'bg-sky-50 text-sky-900 font-medium' : 'hover:bg-slate-50 text-slate-700'
+                      className={`flex w-full items-start gap-2 rounded-lg p-2 text-left text-xs transition ${
+                        isActive ? 'bg-amber-50 text-amber-950 font-medium' : 'hover:bg-stone-50 text-stone-700'
                       }`}
                     >
-                      <UserCheck className={`h-4 w-4 mt-0.5 shrink-0 ${isActive ? 'text-sky-600' : 'text-slate-400'}`} />
+                      <UserCheck className={`h-4 w-4 mt-0.5 shrink-0 ${isActive ? 'text-amber-700' : 'text-stone-400'}`} />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
                           <span className="font-semibold truncate">{p.name}</span>
-                          {isActive && <CheckCircle2 className="h-3.5 w-3.5 text-sky-600 shrink-0 ml-1" />}
+                          {isActive && <CheckCircle2 className="h-3.5 w-3.5 text-amber-600 shrink-0 ml-1" />}
                         </div>
-                        <div className="text-[11px] text-slate-500">
+                        <div className="text-[11px] text-stone-500">
                           {p.roleCode.replace('_', ' ')} • {p.organizationName}
                         </div>
                       </div>
@@ -366,7 +369,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Google Sign-In with Firebase Auth */}
         <button
           onClick={handleGoogleSignIn}
-          className="hidden sm:flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 transition shadow-2xs"
+          className="hidden sm:flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-2.5 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-50 transition shadow-2xs"
           title="Sign in with Google (Firebase Auth)"
         >
           <svg className="h-3.5 w-3.5" viewBox="0 0 24 24">
@@ -393,11 +396,11 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Notifications indicator */}
         <button
           onClick={() => onNavigate('dashboard')}
-          className="relative rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition"
+          className="relative rounded-lg p-2 text-stone-500 hover:bg-stone-100 hover:text-stone-800 transition"
           title="Notifications"
         >
           <Bell className="h-4 w-4" />
-          <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-sky-500 ring-2 ring-white"></span>
+          <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-amber-600 ring-2 ring-white"></span>
         </button>
       </div>
     </header>

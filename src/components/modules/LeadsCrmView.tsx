@@ -15,6 +15,7 @@ import {
   Filter,
   ArrowRight,
   Send,
+  ShieldAlert,
 } from 'lucide-react';
 import { apiFetch, formatCurrency } from '../../services/apiClient.ts';
 import { CurrentUser, Lead, Project } from '../../types/index.ts';
@@ -112,18 +113,18 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
     }
   };
 
-  const openLeadDetails = async (leadId: number) => {
+  const openLeadDetails = async (id: number) => {
     try {
-      const details = await apiFetch(`/api/leads/${leadId}`);
-      setSelectedLeadDetails(details);
-    } catch (err) {
-      console.error(err);
+      const data = await apiFetch(`/api/leads/${id}`);
+      setSelectedLeadDetails(data);
+    } catch (err: any) {
+      alert('Failed to load lead details');
     }
   };
 
   const handleAddActivity = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedLeadDetails?.lead?.id) return;
+    if (!selectedLeadDetails) return;
     try {
       await apiFetch(`/api/leads/${selectedLeadDetails.lead.id}/activities`, {
         method: 'POST',
@@ -136,16 +137,14 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
         nextAction: '',
         nextFollowUpDate: '',
       });
-      // Refresh lead details
       openLeadDetails(selectedLeadDetails.lead.id);
-      loadLeads();
     } catch (err: any) {
-      alert(err.message || 'Failed to log activity');
+      alert('Failed to log activity');
     }
   };
 
   const handleUpdateStatus = async (newStatus: string) => {
-    if (!selectedLeadDetails?.lead?.id) return;
+    if (!selectedLeadDetails) return;
     try {
       await apiFetch(`/api/leads/${selectedLeadDetails.lead.id}/status`, {
         method: 'PUT',
@@ -168,16 +167,30 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
     'Booking',
   ];
 
+  const normalizeIndianMobile = (num: string) => {
+    const digits = num.replace(/\D/g, '');
+    return digits.length >= 10 ? digits.slice(-10) : digits;
+  };
+
+  const detectedDuplicateLead =
+    formData.mobile && formData.mobile.length >= 8
+      ? leads.find((l) => {
+          const leadDigits = normalizeIndianMobile(l.mobile || '');
+          const formDigits = normalizeIndianMobile(formData.mobile);
+          return leadDigits.length === 10 && leadDigits === formDigits;
+        })
+      : null;
+
   return (
     <div className="space-y-6">
       {/* Header & Controls */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-stone-200/90 bg-white p-5 shadow-2xs">
         <div>
           <div className="flex items-center gap-2">
-            <Compass className="h-5 w-5 text-sky-600" />
-            <h2 className="text-lg font-bold text-slate-900">Lead Management & CRM Pipeline</h2>
+            <Compass className="h-5 w-5 text-amber-700" />
+            <h2 className="text-lg font-bold text-stone-900">Lead Management & CRM Pipeline</h2>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Track prospective homebuyers through acquisition, follow-up calls, and site visits
           </p>
         </div>
@@ -185,30 +198,30 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
         <div className="flex flex-wrap items-center gap-2">
           {/* Search */}
           <div className="relative w-56">
-            <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
+            <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-stone-400" />
             <input
               type="text"
               placeholder="Search leads..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pl-8 pr-3 text-xs focus:border-sky-500 focus:bg-white focus:outline-hidden"
+              className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
             />
           </div>
 
           {/* View Toggle */}
-          <div className="flex rounded-lg border border-slate-200 bg-slate-50 p-0.5 text-xs">
+          <div className="flex rounded-lg border border-stone-200 bg-[#FAF8F5] p-0.5 text-xs">
             <button
               onClick={() => setViewMode('list')}
-              className={`rounded px-2.5 py-1 font-medium ${
-                viewMode === 'list' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500'
+              className={`rounded px-2.5 py-1 font-semibold transition ${
+                viewMode === 'list' ? 'bg-white text-stone-900 shadow-2xs' : 'text-stone-500'
               }`}
             >
               Table View
             </button>
             <button
               onClick={() => setViewMode('kanban')}
-              className={`rounded px-2.5 py-1 font-medium ${
-                viewMode === 'kanban' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500'
+              className={`rounded px-2.5 py-1 font-semibold transition ${
+                viewMode === 'kanban' ? 'bg-white text-stone-900 shadow-2xs' : 'text-stone-500'
               }`}
             >
               Pipeline Board
@@ -217,7 +230,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
 
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-sky-700 transition"
+            className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
           >
             <Plus className="h-4 w-4" />
             <span>+ Add Lead</span>
@@ -228,7 +241,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
       {/* Main Content: Table or Kanban */}
       {loading ? (
         <div className="flex h-64 items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-sky-500 border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-amber-600 border-t-transparent" />
         </div>
       ) : viewMode === 'list' ? (
         <div className="space-y-3">
@@ -238,43 +251,43 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
               <div
                 key={`mob-${l.id}`}
                 onClick={() => openLeadDetails(l.id)}
-                className="rounded-xl border border-slate-200 bg-white p-3.5 shadow-xs space-y-2.5 active:bg-slate-50 transition cursor-pointer"
+                className="rounded-xl border border-stone-200 bg-white p-3.5 shadow-2xs space-y-2.5 active:bg-[#FAF8F5] transition cursor-pointer"
               >
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-sm text-slate-900">{l.name}</span>
-                      <span className="font-mono text-[9px] text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded font-semibold">
+                      <span className="font-bold text-sm text-stone-900">{l.name}</span>
+                      <span className="font-mono text-[9px] text-amber-900 bg-amber-100/70 border border-amber-300/50 px-1.5 py-0.5 rounded font-bold">
                         {l.leadCode}
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-500 mt-0.5">
+                    <p className="text-[11px] text-stone-500 mt-0.5">
                       {l.projectName || 'General Enquiry'} • {l.unitPreference || '3 BHK'}
                     </p>
                   </div>
-                  <span className="rounded-full bg-sky-50 text-sky-700 border border-sky-100 px-2 py-0.5 text-[10px] font-bold">
+                  <span className="rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 px-2 py-0.5 text-[10px] font-bold">
                     {l.status}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between text-[11px] text-slate-600 bg-slate-50 p-2 rounded-lg">
+                <div className="flex items-center justify-between text-[11px] text-stone-600 bg-[#FAF8F5] p-2 rounded-lg border border-stone-100">
                   <div>
-                    <span className="text-[10px] text-slate-400 block">Budget</span>
-                    <span className="font-semibold text-slate-800">{l.budget || 'Flexible'}</span>
+                    <span className="text-[10px] text-stone-400 block">Budget</span>
+                    <span className="font-semibold text-stone-800">{l.budget || 'Flexible'}</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] text-slate-400 block">Source</span>
-                    <span className="font-medium text-slate-700">{l.source}</span>
+                    <span className="text-[10px] text-stone-400 block">Source</span>
+                    <span className="font-medium text-stone-700">{l.source}</span>
                   </div>
                 </div>
 
                 {/* Mobile Quick Call & WhatsApp Action Buttons */}
-                <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+                <div className="flex items-center justify-between pt-1 border-t border-stone-100">
                   <div className="flex items-center gap-2">
                     <a
                       href={`tel:${l.mobile}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-1 rounded-lg bg-emerald-600 px-2.5 py-1 text-xs font-bold text-white shadow-2xs hover:bg-emerald-700 transition"
+                      className="flex items-center gap-1 rounded-lg bg-emerald-700 px-2.5 py-1 text-xs font-bold text-white shadow-2xs hover:bg-emerald-800 transition"
                     >
                       <Phone className="h-3 w-3" />
                       <span>Call</span>
@@ -284,7 +297,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                       target="_blank"
                       rel="noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700 hover:bg-emerald-100 transition"
+                      className="flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition"
                     >
                       <MessageSquare className="h-3 w-3" />
                       <span>WhatsApp</span>
@@ -296,7 +309,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                       e.stopPropagation();
                       openLeadDetails(l.id);
                     }}
-                    className="text-xs font-semibold text-sky-600 hover:text-sky-700"
+                    className="text-xs font-semibold text-amber-700 hover:text-amber-800"
                   >
                     Details →
                   </button>
@@ -306,11 +319,11 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
           </div>
 
           {/* Desktop Table View (Hidden on mobile) */}
-          <div className="hidden md:block rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+          <div className="hidden md:block rounded-xl border border-stone-200/90 bg-white p-5 shadow-2xs">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                  <tr className="border-b border-stone-100 text-[11px] font-semibold uppercase tracking-wider text-stone-400">
                     <th className="py-3 px-2">Lead Code & Name</th>
                     <th className="py-3 px-2">Contact</th>
                     <th className="py-3 px-2">Project</th>
@@ -320,29 +333,29 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                     <th className="py-3 px-2 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-stone-100">
                   {leads.map((l) => (
-                    <tr key={l.id} className="hover:bg-slate-50 transition cursor-pointer" onClick={() => openLeadDetails(l.id)}>
+                    <tr key={l.id} className="hover:bg-[#FAF8F5] transition cursor-pointer" onClick={() => openLeadDetails(l.id)}>
                       <td className="py-3 px-2">
-                        <div className="font-bold text-slate-800">{l.name}</div>
-                        <div className="font-mono text-[10px] text-sky-700">{l.leadCode}</div>
+                        <div className="font-bold text-stone-800">{l.name}</div>
+                        <div className="font-mono text-[10px] text-amber-800 font-bold">{l.leadCode}</div>
                       </td>
                       <td className="py-3 px-2">
-                        <div className="text-slate-700 font-medium">{l.mobile}</div>
-                        <div className="text-[10px] text-slate-400">{l.email || 'No email provided'}</div>
+                        <div className="text-stone-700 font-medium">{l.mobile}</div>
+                        <div className="text-[10px] text-stone-400">{l.email || 'No email provided'}</div>
                       </td>
-                      <td className="py-3 px-2 text-slate-700">
+                      <td className="py-3 px-2 text-stone-700">
                         {l.projectName || 'General Enquiry'}
                       </td>
                       <td className="py-3 px-2">
-                        <div className="font-medium text-slate-800">{l.source}</div>
-                        <div className="text-[10px] text-slate-500">{l.budget} • {l.unitPreference}</div>
+                        <div className="font-medium text-stone-800">{l.source}</div>
+                        <div className="text-[10px] text-stone-500">{l.budget} • {l.unitPreference}</div>
                       </td>
-                      <td className="py-3 px-2 text-slate-600">
+                      <td className="py-3 px-2 text-stone-600">
                         {l.assignedUserName || 'Unassigned'}
                       </td>
                       <td className="py-3 px-2">
-                        <span className="inline-flex rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-bold text-sky-700">
+                        <span className="inline-flex rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-900 border border-amber-200/70">
                           {l.status}
                         </span>
                       </td>
@@ -352,9 +365,9 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                             e.stopPropagation();
                             openLeadDetails(l.id);
                           }}
-                          className="rounded px-2 py-1 text-[11px] font-semibold text-sky-600 hover:bg-sky-50"
+                          className="font-semibold text-amber-700 hover:text-amber-800"
                         >
-                          View & Log
+                          View Details →
                         </button>
                       </td>
                     </tr>
@@ -365,37 +378,40 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
           </div>
         </div>
       ) : (
-        /* Kanban Board View */
+        /* Kanban Pipeline Board */
         <div className="flex gap-4 overflow-x-auto pb-4">
           {STAGES.map((stage) => {
             const stageLeads = leads.filter((l) => l.status === stage);
             return (
-              <div key={stage} className="w-72 shrink-0 rounded-xl border border-slate-200 bg-slate-50/70 p-3">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-200">
-                  <span className="font-bold text-xs text-slate-800">{stage}</span>
-                  <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-bold text-slate-600 shadow-2xs">
+              <div
+                key={stage}
+                className="w-72 shrink-0 rounded-xl border border-stone-200/90 bg-[#FAF8F5] p-3 shadow-2xs flex flex-col"
+              >
+                <div className="flex items-center justify-between border-b border-stone-200 pb-2">
+                  <span className="font-bold text-xs text-stone-800">{stage}</span>
+                  <span className="rounded-full bg-stone-200 px-2 py-0.5 text-[10px] font-bold text-stone-700">
                     {stageLeads.length}
                   </span>
                 </div>
 
-                <div className="mt-3 space-y-2.5 min-h-[400px]">
+                <div className="mt-3 space-y-2 flex-1">
                   {stageLeads.map((l) => (
                     <div
                       key={l.id}
                       onClick={() => openLeadDetails(l.id)}
-                      className="rounded-lg border border-slate-200 bg-white p-3 shadow-2xs hover:border-sky-300 transition cursor-pointer"
+                      className="rounded-xl border border-stone-200 bg-white p-3 shadow-2xs hover:border-amber-300 transition cursor-pointer"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-xs text-slate-900">{l.name}</span>
-                        <span className="font-mono text-[9px] text-sky-700">{l.leadCode}</span>
+                        <span className="font-bold text-xs text-stone-900">{l.name}</span>
+                        <span className="font-mono text-[9px] text-amber-800 font-bold">{l.leadCode}</span>
                       </div>
-                      <div className="mt-1 text-[11px] text-slate-600">{l.mobile}</div>
-                      <div className="mt-1 text-[10px] text-slate-500">
+                      <div className="mt-1 text-[11px] text-stone-600">{l.mobile}</div>
+                      <div className="mt-1 text-[10px] text-stone-500">
                         {l.projectName || 'All Projects'} • {l.unitPreference}
                       </div>
-                      <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400">
+                      <div className="mt-2 pt-2 border-t border-stone-100 flex items-center justify-between text-[10px] text-stone-400">
                         <span>{l.source}</span>
-                        <span className="font-medium text-slate-700">{l.budget}</span>
+                        <span className="font-medium text-stone-700">{l.budget}</span>
                       </div>
                     </div>
                   ))}
@@ -408,31 +424,31 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
 
       {/* Lead Detail & Activity Drawer Modal */}
       {selectedLeadDetails && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/70 p-4 backdrop-blur-xs">
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base font-bold text-slate-900">{selectedLeadDetails.lead.name}</h3>
-                  <span className="rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-bold text-sky-700">
+                  <h3 className="text-base font-bold text-stone-900">{selectedLeadDetails.lead.name}</h3>
+                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-900 border border-amber-200">
                     {selectedLeadDetails.lead.status}
                   </span>
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-stone-500">
                   {selectedLeadDetails.lead.leadCode} • Mobile: {selectedLeadDetails.lead.mobile}
                 </p>
               </div>
               <button
                 onClick={() => setSelectedLeadDetails(null)}
-                className="rounded p-1 text-slate-400 hover:text-slate-600"
+                className="rounded-lg p-1 text-stone-400 hover:text-stone-600 hover:bg-stone-100"
               >
                 ✕
               </button>
             </div>
 
             {/* Stage Progression Bar */}
-            <div className="mt-4 rounded-lg bg-slate-50 p-3">
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+            <div className="mt-4 rounded-xl bg-[#FAF8F5] border border-stone-200/80 p-3">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-amber-900 mb-1.5">
                 Update Pipeline Stage
               </span>
               <div className="flex flex-wrap gap-1.5">
@@ -440,10 +456,10 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                   <button
                     key={s}
                     onClick={() => handleUpdateStatus(s)}
-                    className={`rounded px-2 py-1 text-xs font-semibold transition ${
+                    className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
                       selectedLeadDetails.lead.status === s
-                        ? 'bg-sky-600 text-white shadow-2xs'
-                        : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                        ? 'bg-amber-700 text-white shadow-2xs'
+                        : 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-100'
                     }`}
                   >
                     {s}
@@ -453,31 +469,31 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
             </div>
 
             {/* Convert to Customer Shortcut */}
-            <div className="mt-3 flex items-center justify-between rounded-lg border border-emerald-200 bg-emerald-50/50 p-3 text-xs">
-              <span className="text-emerald-800 font-medium">Ready to reserve a property unit for this buyer?</span>
+            <div className="mt-3 flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50/70 p-3 text-xs">
+              <span className="text-emerald-900 font-medium">Ready to reserve a property unit for this buyer?</span>
               <button
                 onClick={() => {
                   const lead = selectedLeadDetails.lead;
                   setSelectedLeadDetails(null);
                   onNavigate('bookings', { prefillLead: lead });
                 }}
-                className="rounded bg-emerald-600 px-3 py-1 font-bold text-white shadow-xs hover:bg-emerald-700 transition"
+                className="rounded-lg bg-emerald-700 px-3.5 py-1.5 font-bold text-white shadow-xs hover:bg-emerald-800 transition"
               >
                 Convert to Booking →
               </button>
             </div>
 
             {/* Log New Activity Section */}
-            <div className="mt-5 rounded-lg border border-slate-200 p-4">
-              <h4 className="text-xs font-bold text-slate-900">Log Interaction (Call, WhatsApp, Note)</h4>
+            <div className="mt-5 rounded-xl border border-stone-200 p-4 bg-white">
+              <h4 className="text-xs font-bold text-stone-900">Log Interaction (Call, WhatsApp, Note)</h4>
               <form onSubmit={handleAddActivity} className="mt-3 space-y-3">
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500">Interaction Type</label>
+                    <label className="block text-[10px] font-semibold text-stone-500">Interaction Type</label>
                     <select
                       value={newActivity.activityType}
                       onChange={(e) => setNewActivity({ ...newActivity, activityType: e.target.value })}
-                      className="mt-1 w-full rounded border border-slate-200 p-1.5 text-xs"
+                      className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-1.5 text-xs focus:border-amber-600"
                     >
                       <option value="Call">Phone Call</option>
                       <option value="WhatsApp">WhatsApp Message</option>
@@ -487,23 +503,23 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                     </select>
                   </div>
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500">Subject</label>
+                    <label className="block text-[10px] font-semibold text-stone-500">Subject</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Discussed 3BHK budget"
                       value={newActivity.subject}
                       onChange={(e) => setNewActivity({ ...newActivity, subject: e.target.value })}
-                      className="mt-1 w-full rounded border border-slate-200 p-1.5 text-xs"
+                      className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-1.5 text-xs focus:border-amber-600"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500">Next Follow-Up</label>
+                    <label className="block text-[10px] font-semibold text-stone-500">Next Follow-Up</label>
                     <input
                       type="datetime-local"
                       value={newActivity.nextFollowUpDate}
                       onChange={(e) => setNewActivity({ ...newActivity, nextFollowUpDate: e.target.value })}
-                      className="mt-1 w-full rounded border border-slate-200 p-1.5 text-xs"
+                      className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-1.5 text-xs focus:border-amber-600"
                     />
                   </div>
                 </div>
@@ -515,14 +531,14 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                     placeholder="Enter discussion notes, buyer feedback, unit preferences..."
                     value={newActivity.details}
                     onChange={(e) => setNewActivity({ ...newActivity, details: e.target.value })}
-                    className="w-full rounded border border-slate-200 p-2 text-xs"
+                    className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600"
                   />
                 </div>
 
                 <div className="flex justify-end">
                   <button
                     type="submit"
-                    className="flex items-center gap-1 rounded bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-sky-700"
+                    className="flex items-center gap-1 rounded-lg bg-amber-700 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-amber-800 transition shadow-xs"
                   >
                     <Send className="h-3 w-3" />
                     <span>Post Activity</span>
@@ -533,14 +549,14 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
 
             {/* Activity Timeline */}
             <div className="mt-5">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Interaction Timeline</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400">Interaction Timeline</h4>
               <div className="mt-3 space-y-3">
                 {selectedLeadDetails.activities?.length > 0 ? (
                   selectedLeadDetails.activities.map((a: any) => (
-                    <div key={a.id} className="rounded-lg border border-slate-100 bg-slate-50 p-3 text-xs">
+                    <div key={a.id} className="rounded-xl border border-stone-200/80 bg-[#FAF8F5] p-3 text-xs">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-800">{a.subject}</span>
-                        <span className="text-[10px] text-slate-400">
+                        <span className="font-bold text-stone-800">{a.subject}</span>
+                        <span className="text-[10px] text-stone-400">
                           {new Date(a.createdAt).toLocaleDateString('en-IN', {
                             day: 'numeric',
                             month: 'short',
@@ -549,17 +565,17 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                           })}
                         </span>
                       </div>
-                      <p className="mt-1 text-slate-600">{a.details}</p>
-                      <div className="mt-2 flex items-center justify-between text-[10px] text-slate-400">
+                      <p className="mt-1 text-stone-600">{a.details}</p>
+                      <div className="mt-2 flex items-center justify-between text-[10px] text-stone-400">
                         <span>Logged by: {a.createdByName || 'System'}</span>
-                        <span className="rounded bg-sky-100 px-1.5 py-0.2 text-sky-800 font-medium">
+                        <span className="rounded bg-amber-100/80 px-1.5 py-0.2 text-amber-900 font-bold border border-amber-200">
                           {a.activityType}
                         </span>
                       </div>
                     </div>
                   ))
                 ) : (
-                  <p className="text-xs text-slate-400 py-3">No activity recorded yet.</p>
+                  <p className="text-xs text-stone-400 py-3">No activity recorded yet.</p>
                 )}
               </div>
             </div>
@@ -569,13 +585,13 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
 
       {/* New Lead Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="text-base font-bold text-slate-900">Record Inbound Lead</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/70 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-lg rounded-2xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <h3 className="text-base font-bold text-stone-900">Record Inbound Lead</h3>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="rounded p-1 text-slate-400 hover:text-slate-600"
+                className="rounded-lg p-1 text-stone-400 hover:text-stone-600 hover:bg-stone-100"
               >
                 ✕
               </button>
@@ -584,46 +600,65 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
             <form onSubmit={handleCreateLead} className="mt-4 space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Full Name *</label>
+                  <label className="block text-xs font-semibold text-stone-700">Full Name *</label>
                   <input
                     type="text"
                     required
                     placeholder="Vikramaditya Roy"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Mobile Number *</label>
+                  <label className="block text-xs font-semibold text-stone-700">Mobile Number *</label>
                   <input
                     type="tel"
                     required
                     placeholder="+91 98300 44556"
                     value={formData.mobile}
                     onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
               </div>
 
+              {/* Indian Market Lead Deduplication Shield Banner */}
+              {detectedDuplicateLead && (
+                <div className="rounded-xl border border-amber-300 bg-amber-50 p-3 text-xs text-amber-950 animate-in fade-in">
+                  <div className="flex items-center gap-1.5 font-bold text-amber-900">
+                    <ShieldAlert className="h-4 w-4 text-amber-700 shrink-0" />
+                    <span>Duplicate Lead Detected (Indian Mobile 10-Digit Match)</span>
+                  </div>
+                  <p className="mt-1 text-[11px] leading-relaxed">
+                    <strong>{detectedDuplicateLead.name}</strong> ({detectedDuplicateLead.leadCode}) is already registered via{' '}
+                    <strong>{detectedDuplicateLead.source}</strong>, assigned to{' '}
+                    <strong>{detectedDuplicateLead.assignedUserName || 'Sales Team'}</strong>.
+                  </p>
+                  <div className="mt-2 flex items-center justify-between border-t border-amber-200/60 pt-2 text-[10px]">
+                    <span className="font-semibold text-amber-800">45-Day Broker Attribution Window: ACTIVE</span>
+                    <span className="rounded bg-amber-200/80 px-2 py-0.5 font-bold text-amber-900">Touchpoint Merged</span>
+                  </div>
+                </div>
+              )}
+
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Email</label>
+                  <label className="block text-xs font-semibold text-stone-700">Email</label>
                   <input
                     type="email"
                     placeholder="vikram@domain.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Project Preference</label>
+                  <label className="block text-xs font-semibold text-stone-700">Project Preference</label>
                   <select
                     value={formData.projectId}
                     onChange={(e) => setFormData({ ...formData, projectId: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   >
                     <option value="">Select Project</option>
                     {projects.map((p) => (
@@ -637,11 +672,11 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Source</label>
+                  <label className="block text-xs font-semibold text-stone-700">Source</label>
                   <select
                     value={formData.source}
                     onChange={(e) => setFormData({ ...formData, source: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2 text-xs"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs"
                   >
                     <option value="Website">Website</option>
                     <option value="MagicBricks">MagicBricks</option>
@@ -652,11 +687,11 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Unit Type</label>
+                  <label className="block text-xs font-semibold text-stone-700">Unit Type</label>
                   <select
                     value={formData.unitPreference}
                     onChange={(e) => setFormData({ ...formData, unitPreference: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2 text-xs"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs"
                   >
                     <option value="2 BHK">2 BHK</option>
                     <option value="3 BHK">3 BHK</option>
@@ -665,25 +700,25 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Budget Range</label>
+                  <label className="block text-xs font-semibold text-stone-700">Budget Range</label>
                   <input
                     type="text"
                     placeholder="₹80L - ₹1.2Cr"
                     value={formData.budget}
                     onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2 text-xs"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700">Initial Remarks / Buyer Requirements</label>
+                <label className="block text-xs font-semibold text-stone-700">Initial Remarks / Buyer Requirements</label>
                 <textarea
                   rows={2}
                   placeholder="Looking for higher floor, corner 3 BHK with 2 covered car parkings"
                   value={formData.remarks}
                   onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2 text-xs"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs"
                 />
               </div>
 
@@ -691,14 +726,14 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="rounded-lg border border-slate-200 px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                  className="rounded-lg border border-stone-200 px-4 py-2 text-xs font-semibold text-stone-600 hover:bg-stone-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="rounded-lg bg-sky-600 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-sky-700 disabled:opacity-50"
+                  className="rounded-lg bg-amber-700 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-amber-800 disabled:opacity-50"
                 >
                   {submitting ? 'Saving Lead...' : 'Save Lead'}
                 </button>

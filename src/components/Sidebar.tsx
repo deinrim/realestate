@@ -103,7 +103,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed top-16 bottom-0 left-0 z-40 w-64 border-r border-slate-200 bg-white transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 ${
+        className={`fixed top-16 bottom-0 left-0 z-40 w-64 border-r border-stone-200/90 bg-white transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 ${
           isOpenMobile ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -111,7 +111,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="space-y-6">
             {menuGroups.map((group, idx) => (
               <div key={idx}>
-                <div className="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                <div className="px-3 text-[11px] font-semibold uppercase tracking-wider text-stone-400">
                   {group.title}
                 </div>
                 <nav className="mt-1 space-y-0.5">
@@ -125,11 +125,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         className={`group flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition ${
                           active
                             ? item.highlight
-                              ? 'bg-indigo-600 text-white font-semibold shadow-xs'
-                              : 'bg-sky-50 text-sky-700 font-semibold'
+                              ? 'bg-amber-700 text-white font-semibold shadow-xs'
+                              : 'bg-amber-50 text-amber-900 font-bold border-l-2 border-amber-600'
                             : item.highlight
-                            ? 'text-indigo-600 hover:bg-indigo-50 font-medium'
-                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                            ? 'text-amber-700 hover:bg-amber-50 font-semibold'
+                            : 'text-stone-600 hover:bg-stone-50 hover:text-stone-900'
                         }`}
                       >
                         <div className="flex items-center gap-2.5">
@@ -138,10 +138,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               active
                                 ? item.highlight
                                   ? 'text-white'
-                                  : 'text-sky-600'
+                                  : 'text-amber-700'
                                 : item.highlight
-                                ? 'text-indigo-600'
-                                : 'text-slate-400 group-hover:text-slate-600'
+                                ? 'text-amber-700'
+                                : 'text-stone-400 group-hover:text-stone-600'
                             }`}
                           />
                           <span>{item.label}</span>
@@ -150,8 +150,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                           <span
                             className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${
                               active
-                                ? 'bg-sky-200 text-sky-800'
-                                : 'bg-slate-100 text-slate-600'
+                                ? 'bg-amber-200 text-amber-900'
+                                : 'bg-stone-100 text-stone-600'
                             }`}
                           >
                             {item.badge}
@@ -166,14 +166,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           {/* User profile footer card in sidebar */}
-          <div className="mt-6 rounded-lg border border-slate-100 bg-slate-50 p-3">
+          <div className="mt-6 rounded-xl border border-stone-200/80 bg-[#FAF8F5] p-3">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-100 text-xs font-bold text-sky-700">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 border border-amber-300/60 text-xs font-bold text-amber-900">
                 {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="truncate text-xs font-semibold text-slate-800">{user?.name}</p>
-                <p className="truncate text-[10px] text-slate-500 capitalize">
+                <p className="truncate text-xs font-semibold text-stone-800">{user?.name}</p>
+                <p className="truncate text-[10px] text-stone-500 capitalize">
                   {user?.roleCode.replace('_', ' ')}
                 </p>
               </div>

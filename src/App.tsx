@@ -140,18 +140,18 @@ export default function App() {
 
   if (loading && !currentUser) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100">
+      <div className="flex min-h-screen items-center justify-center bg-[#F8F6F1]">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-900 border-t-transparent" />
-          <h2 className="text-sm font-bold text-slate-800">Connecting to Cloud SQL (asia-southeast1)...</h2>
-          <p className="text-xs text-slate-500">Initializing multi-tenant ERP session...</p>
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-amber-600 border-t-transparent" />
+          <h2 className="text-sm font-bold text-stone-800">Connecting to Cloud SQL (asia-southeast1)...</h2>
+          <p className="text-xs text-stone-500">Initializing multi-tenant ERP session...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900 flex flex-col antialiased">
+    <div className="min-h-screen bg-[#F8F6F1] text-stone-900 flex flex-col antialiased selection:bg-amber-100 selection:text-amber-900">
       {/* Top Header Bar */}
       <Header
         user={currentUser}
@@ -169,7 +169,7 @@ export default function App() {
       {/* Main Body with Sidebar + Content */}
       <div
         className={`flex flex-1 overflow-hidden ${
-          isMobileMode ? 'justify-center bg-slate-900/10 py-2 sm:py-4' : ''
+          isMobileMode ? 'justify-center bg-stone-900/15 py-2 sm:py-4' : ''
         }`}
       >
         {/* Desktop Sidebar (hidden when in simulated mobile view or closed) */}
@@ -187,7 +187,7 @@ export default function App() {
         <main
           className={`flex-1 overflow-y-auto ${
             isMobileMode
-              ? 'max-w-md w-full bg-slate-50 min-h-[800px] rounded-2xl shadow-xl border border-slate-300 pb-24 p-3.5'
+              ? 'max-w-md w-full bg-[#FDFBF7] min-h-[820px] rounded-3xl shadow-2xl border-2 border-stone-300/80 pb-24 p-3.5'
               : 'p-4 sm:p-6 lg:p-8 pb-24 md:pb-8'
           }`}
         >

@@ -86,10 +86,10 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
                 setShowFabDial(false);
                 onNavigate('crm');
               }}
-              className="flex items-center gap-2 rounded-full bg-slate-900 border border-slate-700 px-3.5 py-2 text-xs font-bold text-white shadow-xl active:scale-95 transition"
+              className="flex items-center gap-2 rounded-full bg-stone-900 border border-amber-600/30 px-3.5 py-2 text-xs font-bold text-white shadow-xl active:scale-95 transition"
             >
               <span>+ New Lead</span>
-              <div className="rounded-full bg-purple-500/20 p-1 text-purple-400">
+              <div className="rounded-full bg-amber-500/20 p-1 text-amber-400">
                 <Compass className="h-3.5 w-3.5" />
               </div>
             </button>
@@ -99,7 +99,7 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
                 setShowFabDial(false);
                 onNavigate('bookings');
               }}
-              className="flex items-center gap-2 rounded-full bg-slate-900 border border-slate-700 px-3.5 py-2 text-xs font-bold text-white shadow-xl active:scale-95 transition"
+              className="flex items-center gap-2 rounded-full bg-stone-900 border border-amber-600/30 px-3.5 py-2 text-xs font-bold text-white shadow-xl active:scale-95 transition"
             >
               <span>+ New Booking</span>
               <div className="rounded-full bg-emerald-500/20 p-1 text-emerald-400">
@@ -112,10 +112,10 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
                 setShowFabDial(false);
                 onNavigate('site-visits');
               }}
-              className="flex items-center gap-2 rounded-full bg-slate-900 border border-slate-700 px-3.5 py-2 text-xs font-bold text-white shadow-xl active:scale-95 transition"
+              className="flex items-center gap-2 rounded-full bg-stone-900 border border-amber-600/30 px-3.5 py-2 text-xs font-bold text-white shadow-xl active:scale-95 transition"
             >
               <span>+ Book Site Visit</span>
-              <div className="rounded-full bg-sky-500/20 p-1 text-sky-400">
+              <div className="rounded-full bg-amber-500/20 p-1 text-amber-400">
                 <Calendar className="h-3.5 w-3.5" />
               </div>
             </button>
@@ -124,7 +124,7 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
 
         <button
           onClick={() => setShowFabDial(!showFabDial)}
-          className={`h-13 w-13 rounded-full bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-xl shadow-sky-600/30 transition active:scale-95 ${
+          className={`h-13 w-13 rounded-full bg-gradient-to-tr from-amber-700 via-amber-600 to-stone-900 flex items-center justify-center text-amber-100 shadow-xl shadow-amber-950/40 border border-amber-500/30 transition active:scale-95 ${
             showFabDial ? 'rotate-45' : ''
           }`}
           title="Quick Actions"
@@ -135,8 +135,8 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
 
       {/* Android Bottom Navigation Bar (Footer Menu) */}
       <nav
-        className={`fixed bottom-0 inset-x-0 z-40 bg-slate-900/98 backdrop-blur-xl border-t border-slate-800 text-slate-300 flex items-center justify-around h-16 px-1 select-none shadow-[0_-4px_20px_rgba(0,0,0,0.3)] ${
-          isMobileMode ? 'max-w-md mx-auto sm:rounded-t-2xl sm:border-x' : 'md:hidden'
+        className={`fixed bottom-0 inset-x-0 z-40 bg-[#0E1420]/98 backdrop-blur-xl border-t border-stone-800/90 text-stone-300 flex items-center justify-around h-16 px-1 select-none shadow-[0_-4px_25px_rgba(0,0,0,0.4)] ${
+          isMobileMode ? 'max-w-md mx-auto sm:rounded-t-2xl sm:border-x sm:border-stone-800' : 'md:hidden'
         }`}
         aria-label="Mobile Navigation"
       >
@@ -148,12 +148,12 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
               key={tab.id}
               onClick={() => handleTabClick(tab.id)}
               className={`flex-1 flex flex-col items-center justify-center py-1 relative transition-colors ${
-                isActive ? 'text-sky-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+                isActive ? 'text-amber-400 font-bold' : 'text-stone-400 hover:text-stone-200'
               }`}
             >
               <div
                 className={`flex items-center justify-center w-10 h-6.5 rounded-full transition-all ${
-                  isActive ? 'bg-sky-500/20 text-sky-400 scale-105' : ''
+                  isActive ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30 scale-105' : ''
                 }`}
               >
                 <Icon className="h-5 w-5" />
@@ -167,12 +167,12 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
         <button
           onClick={() => setShowMoreDrawer(!showMoreDrawer)}
           className={`flex-1 flex flex-col items-center justify-center py-1 relative transition-colors ${
-            showMoreDrawer ? 'text-sky-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+            showMoreDrawer ? 'text-amber-400 font-bold' : 'text-stone-400 hover:text-stone-200'
           }`}
         >
           <div
             className={`flex items-center justify-center w-10 h-6.5 rounded-full transition-all ${
-              showMoreDrawer ? 'bg-sky-500/20 text-sky-400 scale-105' : ''
+              showMoreDrawer ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30 scale-105' : ''
             }`}
           >
             {showMoreDrawer ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -184,30 +184,30 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
       {/* Full Android Material Bottom Sheet for "More" Menu */}
       {showMoreDrawer && (
         <div
-          className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex flex-col justify-end ${
+          className={`fixed inset-0 z-50 bg-black/65 backdrop-blur-xs flex flex-col justify-end ${
             isMobileMode ? '' : 'md:hidden'
           }`}
           onClick={() => setShowMoreDrawer(false)}
         >
           <div
-            className={`bg-slate-900 border-t border-slate-800 rounded-t-3xl max-h-[82vh] overflow-y-auto p-4 pb-20 space-y-4 shadow-2xl animate-in slide-in-from-bottom duration-200 ${
+            className={`bg-[#0E1420] border-t border-amber-900/30 rounded-t-3xl max-h-[82vh] overflow-y-auto p-4 pb-20 space-y-4 shadow-2xl animate-in slide-in-from-bottom duration-200 ${
               isMobileMode ? 'max-w-md mx-auto w-full' : ''
             }`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Sheet Handle */}
-            <div className="w-12 h-1 bg-slate-700 rounded-full mx-auto" />
+            <div className="w-12 h-1 bg-stone-700 rounded-full mx-auto" />
 
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="flex items-center justify-between border-b border-stone-800 pb-3">
               <div>
-                <h3 className="text-sm font-bold text-white">All ERP Modules</h3>
-                <p className="text-[11px] text-slate-400">
+                <h3 className="text-sm font-bold text-amber-400">All ERP Modules</h3>
+                <p className="text-[11px] text-stone-400">
                   {organization?.companyName} • {user?.roleCode}
                 </p>
               </div>
               <button
                 onClick={() => setShowMoreDrawer(false)}
-                className="rounded-full bg-slate-800 p-1.5 text-slate-400 hover:text-white"
+                className="rounded-full bg-stone-800 p-1.5 text-stone-400 hover:text-white"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -223,20 +223,20 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
                     onClick={() => handleTabClick(item.id)}
                     className={`flex items-center gap-3 p-3 rounded-2xl border text-left transition ${
                       isActive
-                        ? 'border-sky-500/50 bg-sky-500/10 text-white font-semibold'
-                        : 'border-slate-800/80 bg-slate-950/60 text-slate-300 hover:bg-slate-800'
+                        ? 'border-amber-500/60 bg-amber-500/15 text-white font-semibold'
+                        : 'border-stone-800/80 bg-stone-900/60 text-stone-300 hover:bg-stone-800'
                     }`}
                   >
                     <div
                       className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 ${
-                        isActive ? 'bg-sky-500 text-white' : 'bg-slate-800 text-slate-300'
+                        isActive ? 'bg-amber-600 text-white' : 'bg-stone-800 text-stone-300'
                       }`}
                     >
                       <Icon className="h-5 w-5" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-xs font-bold text-white truncate">{item.label}</div>
-                      <div className="text-[10px] text-slate-400 truncate">{item.desc}</div>
+                      <div className="text-[10px] text-stone-400 truncate">{item.desc}</div>
                     </div>
                   </button>
                 );
