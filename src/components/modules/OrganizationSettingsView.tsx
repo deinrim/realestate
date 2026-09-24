@@ -71,7 +71,7 @@ export const OrganizationSettingsView: React.FC<OrganizationSettingsViewProps> =
   if (loading) {
     return (
       <div className="flex h-64 items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-sky-500 border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-amber-600 border-t-transparent" />
       </div>
     );
   }
@@ -80,33 +80,33 @@ export const OrganizationSettingsView: React.FC<OrganizationSettingsViewProps> =
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div className="flex items-center gap-2">
-          <Settings className="h-5 w-5 text-sky-600" />
-          <h2 className="text-lg font-bold text-slate-900">Organization Settings & Configuration</h2>
+          <Settings className="h-5 w-5 text-amber-700" />
+          <h2 className="text-lg font-bold text-stone-900">Organization Settings & Configuration</h2>
         </div>
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-stone-500">
           Corporate legal identities, GSTIN/PAN credentials, auto-numbering prefixes, and branch registry
         </p>
       </div>
 
       {/* Corporate Profile Card */}
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
-        <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3">
+      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
+        <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-3">
           Corporate Entity Details
         </h3>
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
           <div>
-            <span className="block text-slate-400 text-[10px]">Company Brand Name</span>
-            <span className="font-bold text-slate-800">{org?.companyName}</span>
+            <span className="block text-stone-400 text-[10px]">Company Brand Name</span>
+            <span className="font-bold text-stone-800">{org?.companyName}</span>
           </div>
           <div>
-            <span className="block text-slate-400 text-[10px]">Legal Entity Name</span>
-            <span className="font-bold text-slate-800">{org?.legalName}</span>
+            <span className="block text-stone-400 text-[10px]">Legal Entity Name</span>
+            <span className="font-bold text-stone-800">{org?.legalName}</span>
           </div>
           <div>
-            <span className="block text-slate-400 text-[10px]">Tenant Code</span>
-            <span className="font-mono font-bold text-sky-700">{org?.code}</span>
+            <span className="block text-stone-400 text-[10px]">Tenant Code</span>
+            <span className="font-mono font-bold text-amber-800">{org?.code}</span>
           </div>
           <div>
             <span className="block text-slate-400 text-[10px]">GSTIN Registration</span>
@@ -211,7 +211,7 @@ export const OrganizationSettingsView: React.FC<OrganizationSettingsViewProps> =
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-sky-700 transition"
+            className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-amber-800 transition"
           >
             <Save className="h-4 w-4" />
             <span>{saving ? 'Saving...' : 'Save Settings'}</span>

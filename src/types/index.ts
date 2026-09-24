@@ -232,3 +232,143 @@ export interface ChannelPartner {
   commissionRate: string;
   status: string;
 }
+
+export interface MarketingCampaign {
+  id: number;
+  name: string;
+  platform: 'Meta Ads' | 'Google Ads' | 'WhatsApp' | 'Instagram' | 'YouTube' | 'Website' | 'Hoardings';
+  budget: number;
+  spent: number;
+  startDate: string;
+  endDate: string;
+  status: 'Active' | 'Paused' | 'Completed' | 'Draft';
+  leadsGenerated: number;
+  qualifiedLeads: number;
+  siteVisits: number;
+  bookingsCount: number;
+  revenueGenerated: number;
+  cpl: number;
+  roi: number;
+  projectName: string;
+}
+
+export interface FinanceTransaction {
+  id: number;
+  type: 'Income' | 'Expense';
+  category: string; // 'Customer Booking', 'Installment', 'Vendor Payout', 'Civil Material', 'Architect/Legal', 'Marketing Spend', 'Site Utilities'
+  amount: number;
+  date: string;
+  referenceNumber: string;
+  paymentMode: string;
+  projectName: string;
+  payeeOrPayer: string;
+  status: 'Cleared' | 'Pending' | 'Reconciled';
+  description?: string;
+}
+
+export interface Vendor {
+  id: number;
+  vendorCode: string;
+  name: string;
+  category: 'Steel & Cement' | 'Electrical & Plumbing' | 'RMC & Aggregates' | 'Tiles & Sanitary' | 'Elevators & MEP' | 'Safety & Tools';
+  contactPerson: string;
+  mobile: string;
+  email: string;
+  gstin: string;
+  pan: string;
+  address: string;
+  bankDetails: string;
+  rating: number;
+  status: 'Active' | 'Under Review' | 'Blacklisted';
+}
+
+export interface PurchaseOrder {
+  id: number;
+  poNumber: string;
+  vendorName: string;
+  projectName: string;
+  orderDate: string;
+  deliveryDueDate: string;
+  totalAmount: number;
+  status: 'Draft' | 'Requested' | 'Approved' | 'PO Issued' | 'Goods Received (GRN)' | 'Invoiced' | 'Paid';
+  itemsCount: number;
+  itemsSummary: string;
+}
+
+export interface MaterialInventoryItem {
+  id: number;
+  itemCode: string;
+  name: string;
+  category: 'Cement' | 'Steel' | 'Sand & Aggregates' | 'Bricks & Blocks' | 'Tiles & Marble' | 'Electrical & Conduit' | 'Plumbing & PVC' | 'Paint & Primer';
+  unitOfMeasure: 'Bags' | 'MT' | 'CFT' | 'Nos' | 'Sq.Ft' | 'Meters' | 'Liters';
+  currentStock: number;
+  minimumStock: number;
+  reorderQuantity: number;
+  unitCost: number;
+  totalValuation: number;
+  location: string;
+  projectName: string;
+  status: 'In Stock' | 'Low Stock' | 'Critical Reorder';
+}
+
+export interface Employee {
+  id: number;
+  empCode: string;
+  name: string;
+  department: 'Sales & CRM' | 'Civil Engineering' | 'Accounts & Finance' | 'Legal & Liaison' | 'Architecture' | 'Site Quality' | 'HR & Admin';
+  designation: string;
+  mobile: string;
+  email: string;
+  joiningDate: string;
+  monthlySalary: number;
+  attendanceRate: number;
+  status: 'Active' | 'On Leave' | 'Resigned';
+}
+
+export interface AttendanceRecord {
+  id: number;
+  empCode: string;
+  empName: string;
+  date: string;
+  status: 'Present' | 'Late' | 'Half Day' | 'On Leave' | 'Absent';
+  checkInTime?: string;
+  checkOutTime?: string;
+  siteOrOffice: string;
+}
+
+export interface ConstructionMilestone {
+  id: number;
+  stageName: 'Foundation & Plinth' | 'Basement & Podium' | 'RCC Slab Casting' | 'Brickwork & Plastering' | 'Electrical & Plumbing MEP' | 'Flooring & Tiling' | 'Finishing & Painting' | 'Occupancy Certificate (OC)' | 'Handover & Possession';
+  order: number;
+  projectName: string;
+  towerName: string;
+  plannedCompletionDate: string;
+  actualCompletionDate?: string;
+  progressPercentage: number;
+  status: 'Completed' | 'In Progress' | 'Upcoming' | 'Delayed';
+  architectCertificateNo?: string;
+  photoUrl?: string;
+}
+
+export interface DailySiteReport {
+  id: number;
+  reportDate: string;
+  projectName: string;
+  siteEngineer: string;
+  weather: 'Clear' | 'Rainy' | 'Overcast';
+  workforceCount: number;
+  concretePouredCubicMeters: number;
+  activitiesCompleted: string;
+  safetyIncidents: number;
+  equipmentActive: string;
+  photoCount: number;
+}
+
+export interface WhatsAppTemplate {
+  id: string;
+  title: string;
+  triggerEvent: string;
+  templateText: string;
+  variables: string[];
+}
+

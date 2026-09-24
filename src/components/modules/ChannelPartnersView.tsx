@@ -54,20 +54,20 @@ export const ChannelPartnersView: React.FC<ChannelPartnersViewProps> = ({ user }
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <UserCheck className="h-5 w-5 text-sky-600" />
-            <h2 className="text-lg font-bold text-slate-900">Channel Partners & Real Estate Brokers</h2>
+            <UserCheck className="h-5 w-5 text-amber-700" />
+            <h2 className="text-lg font-bold text-stone-900">Channel Partners & Real Estate Brokers</h2>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Authorized realtors network, RERA certifications, commission slabs, and sourcing payouts
           </p>
         </div>
 
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-sky-700 transition"
+          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
         >
           <Plus className="h-4 w-4" />
           <span>Register Channel Partner</span>
@@ -91,18 +91,18 @@ export const ChannelPartnersView: React.FC<ChannelPartnersViewProps> = ({ user }
               {partners.map((p) => (
                 <tr key={p.id} className="hover:bg-slate-50">
                   <td className="py-3 px-2">
-                    <div className="font-bold text-slate-900">{p.companyName || p.name}</div>
-                    <div className="font-mono text-[10px] text-sky-700">{p.partnerCode}</div>
+                    <div className="font-bold text-stone-900">{p.companyName || p.name}</div>
+                    <div className="font-mono text-[10px] text-amber-800 font-bold">{p.partnerCode}</div>
                   </td>
-                  <td className="py-3 px-2 text-slate-800 font-medium">{p.name}</td>
-                  <td className="py-3 px-2 text-slate-600">
+                  <td className="py-3 px-2 text-stone-800 font-medium">{p.name}</td>
+                  <td className="py-3 px-2 text-stone-600">
                     <div>{p.mobile}</div>
-                    <div className="text-[10px] text-slate-400">{p.email}</div>
+                    <div className="text-[10px] text-stone-400">{p.email}</div>
                   </td>
-                  <td className="py-3 px-2 font-mono text-[11px] text-slate-700">
+                  <td className="py-3 px-2 font-mono text-[11px] text-stone-700">
                     {p.reraNumber || 'Applied / Pending'}
                   </td>
-                  <td className="py-3 px-2 font-bold text-sky-700">{p.commissionRate}%</td>
+                  <td className="py-3 px-2 font-bold text-amber-800">{p.commissionRate}%</td>
                   <td className="py-3 px-2">
                     <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
                       {p.status}
@@ -184,8 +184,8 @@ export const ChannelPartnersView: React.FC<ChannelPartnersViewProps> = ({ user }
               </div>
 
               <div className="flex justify-end gap-2 pt-2">
-                <button type="button" onClick={() => setShowModal(false)} className="rounded border border-slate-200 px-3 py-1.5 text-slate-600">Cancel</button>
-                <button type="submit" className="rounded bg-sky-600 px-3 py-1.5 font-bold text-white shadow-xs hover:bg-sky-700">Save Partner</button>
+                <button type="button" onClick={() => setShowModal(false)} className="rounded border border-stone-200 px-3 py-1.5 text-stone-600 hover:bg-stone-50 font-medium">Cancel</button>
+                <button type="submit" className="rounded bg-amber-700 px-3 py-1.5 font-bold text-white shadow-xs hover:bg-amber-800 transition">Save Partner</button>
               </div>
             </form>
           </div>

@@ -118,18 +118,18 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
         </div>
         <div className="flex items-center gap-3">
           <div className="relative w-64">
-            <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
+            <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-stone-400" />
             <input
               type="text"
               placeholder="Search projects..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pl-8 pr-3 text-xs focus:border-sky-500 focus:bg-white focus:outline-hidden"
+              className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
             />
           </div>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-sky-700 transition"
+            className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
           >
             <Plus className="h-4 w-4" />
             <span>New Project</span>
@@ -142,22 +142,22 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
         {filtered.map((proj) => (
           <div
             key={proj.id}
-            className="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs hover:border-sky-300 transition"
+            className="flex flex-col justify-between rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs hover:border-amber-400 transition"
           >
             <div>
               <div className="flex items-start justify-between gap-2">
-                <span className="rounded bg-sky-50 px-2 py-0.5 font-mono text-[10px] font-bold text-sky-700">
+                <span className="rounded bg-amber-50 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-800 border border-amber-200/60">
                   {proj.code}
                 </span>
-                <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 border border-emerald-200">
                   {proj.status}
                 </span>
               </div>
 
-              <h3 className="mt-2 text-base font-bold text-slate-900 leading-snug">{proj.name}</h3>
+              <h3 className="mt-2 text-base font-bold text-stone-900 leading-snug">{proj.name}</h3>
 
-              <div className="mt-2 flex items-center gap-1.5 text-xs text-slate-500">
-                <MapPin className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+              <div className="mt-2 flex items-center gap-1.5 text-xs text-stone-500">
+                <MapPin className="h-3.5 w-3.5 text-stone-400 shrink-0" />
                 <span className="truncate">{proj.location}, {proj.city}</span>
               </div>
 
@@ -169,39 +169,39 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
               )}
 
               {proj.description && (
-                <p className="mt-2 text-xs text-slate-500 line-clamp-2">{proj.description}</p>
+                <p className="mt-2 text-xs text-stone-500 line-clamp-2">{proj.description}</p>
               )}
 
               {/* Stats pill row */}
-              <div className="mt-4 grid grid-cols-3 gap-2 rounded-lg bg-slate-50 p-2.5 text-center text-xs">
+              <div className="mt-4 grid grid-cols-3 gap-2 rounded-lg bg-[#FAF8F5] p-2.5 text-center text-xs border border-stone-200/70">
                 <div>
-                  <span className="block font-bold text-slate-800">{proj.towersCount || 1}</span>
-                  <span className="text-[10px] text-slate-400">Towers</span>
+                  <span className="block font-bold text-stone-800">{proj.towersCount || 1}</span>
+                  <span className="text-[10px] text-stone-400">Towers</span>
                 </div>
                 <div>
-                  <span className="block font-bold text-slate-800">{proj.totalUnits || 0}</span>
-                  <span className="text-[10px] text-slate-400">Total Units</span>
+                  <span className="block font-bold text-stone-800">{proj.totalUnits || 0}</span>
+                  <span className="text-[10px] text-stone-400">Total Units</span>
                 </div>
                 <div>
-                  <span className="block font-bold text-emerald-600">{proj.availableUnits || 0}</span>
-                  <span className="text-[10px] text-slate-400">Available</span>
+                  <span className="block font-bold text-emerald-700">{proj.availableUnits || 0}</span>
+                  <span className="text-[10px] text-stone-400">Available</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
               <button
                 onClick={() => handleInspectProject(proj.id)}
-                className="text-xs font-semibold text-sky-600 hover:text-sky-700"
+                className="text-xs font-semibold text-amber-800 hover:text-amber-900"
               >
                 Inspect Towers & Units
               </button>
               <button
                 onClick={() => onNavigate('inventory')}
-                className="flex items-center gap-1 text-xs font-medium text-slate-600 hover:text-slate-900"
+                className="flex items-center gap-1 text-xs font-medium text-stone-600 hover:text-amber-800"
               >
                 <span>Visual Matrix</span>
-                <Layers className="h-3.5 w-3.5 text-sky-600" />
+                <Layers className="h-3.5 w-3.5 text-amber-700" />
               </button>
             </div>
           </div>
@@ -253,7 +253,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                     setSelectedProject(null);
                     onNavigate('inventory');
                   }}
-                  className="text-xs font-semibold text-sky-600 hover:text-sky-700"
+                  className="text-xs font-semibold text-amber-800 hover:text-amber-900"
                 >
                   Open in Visual Matrix →
                 </button>
@@ -319,36 +319,36 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
             <form onSubmit={handleCreateProject} className="mt-4 space-y-4">
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Project Name *</label>
+                  <label className="block text-xs font-semibold text-stone-700">Project Name *</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Skyline Signature Heights"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Project Code *</label>
+                  <label className="block text-xs font-semibold text-stone-700">Project Code *</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. SKY-SGN"
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs font-mono uppercase focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs font-mono uppercase focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Type</label>
+                  <label className="block text-xs font-semibold text-stone-700">Type</label>
                   <select
                     value={formData.projectType}
                     onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   >
                     <option value="Residential">Residential</option>
                     <option value="Commercial">Commercial</option>
@@ -357,59 +357,59 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Location / Landmark *</label>
+                  <label className="block text-xs font-semibold text-stone-700">Location / Landmark *</label>
                   <input
                     type="text"
                     required
                     placeholder="New Town Action Area II"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">City *</label>
+                  <label className="block text-xs font-semibold text-stone-700">City *</label>
                   <input
                     type="text"
                     required
                     placeholder="Kolkata"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">RERA Registration Number</label>
+                  <label className="block text-xs font-semibold text-stone-700">RERA Registration Number</label>
                   <input
                     type="text"
                     placeholder="e.g. WBRERA/P/KOL/2024/00099"
                     value={formData.reraNumber}
                     onChange={(e) => setFormData({ ...formData, reraNumber: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Expected Handover Date</label>
+                  <label className="block text-xs font-semibold text-stone-700">Expected Handover Date</label>
                   <input
                     type="date"
                     value={formData.expectedCompletion}
                     onChange={(e) => setFormData({ ...formData, expectedCompletion: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700">Short Overview / Highlights</label>
+                <label className="block text-xs font-semibold text-stone-700">Short Overview / Highlights</label>
                 <textarea
                   rows={2}
                   placeholder="Luxury 3 & 4 BHK apartments with club amenities and panoramic city views"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-sky-500 focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                 />
               </div>
 
@@ -417,14 +417,14 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="rounded-lg border border-slate-200 px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                  className="rounded-lg border border-stone-200 px-4 py-2 text-xs font-medium text-stone-600 hover:bg-stone-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="rounded-lg bg-sky-600 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-sky-700 disabled:opacity-50"
+                  className="rounded-lg bg-amber-700 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-amber-800 disabled:opacity-50 transition"
                 >
                   {submitting ? 'Creating Project...' : 'Register Project'}
                 </button>

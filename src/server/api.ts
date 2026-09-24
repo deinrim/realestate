@@ -2096,3 +2096,952 @@ apiRouter.get('/search', async (req: AuthRequest, res: Response) => {
     res.status(500).json({ error: 'Failed to execute global search' });
   }
 });
+
+// -------------------------------------------------------------
+// 15. MARKETING CAMPAIGNS & AD ANALYTICS
+// -------------------------------------------------------------
+const defaultMarketingCampaigns = [
+  {
+    id: 1,
+    name: 'Srijan Solus Festive Luxury Campaign',
+    platform: 'Meta Ads',
+    budget: 450000,
+    spent: 320000,
+    startDate: '2026-08-01',
+    endDate: '2026-10-31',
+    status: 'Active',
+    leadsGenerated: 218,
+    qualifiedLeads: 86,
+    siteVisits: 44,
+    bookingsCount: 8,
+    revenueGenerated: 114400000,
+    cpl: 1468,
+    roi: 357.5,
+    projectName: 'Srijan Solus',
+  },
+  {
+    id: 2,
+    name: 'Google Search High-Intent 3BHK Kolkata',
+    platform: 'Google Ads',
+    budget: 600000,
+    spent: 490000,
+    startDate: '2026-07-15',
+    endDate: '2026-11-15',
+    status: 'Active',
+    leadsGenerated: 195,
+    qualifiedLeads: 92,
+    siteVisits: 51,
+    bookingsCount: 11,
+    revenueGenerated: 157300000,
+    cpl: 2512,
+    roi: 321.0,
+    projectName: 'Srijan Solus',
+  },
+  {
+    id: 3,
+    name: 'WhatsApp Drip Sourcing - NRI Buyers',
+    platform: 'WhatsApp',
+    budget: 150000,
+    spent: 85000,
+    startDate: '2026-09-01',
+    endDate: '2026-12-31',
+    status: 'Active',
+    leadsGenerated: 112,
+    qualifiedLeads: 48,
+    siteVisits: 22,
+    bookingsCount: 4,
+    revenueGenerated: 57200000,
+    cpl: 759,
+    roi: 672.9,
+    projectName: 'Botanica Green Township',
+  },
+  {
+    id: 4,
+    name: 'Instagram Luxury Architecture Reels',
+    platform: 'Instagram',
+    budget: 200000,
+    spent: 180000,
+    startDate: '2026-06-01',
+    endDate: '2026-09-30',
+    status: 'Completed',
+    leadsGenerated: 140,
+    qualifiedLeads: 42,
+    siteVisits: 18,
+    bookingsCount: 3,
+    revenueGenerated: 42900000,
+    cpl: 1285,
+    roi: 238.3,
+    projectName: 'Srijan Solus',
+  },
+];
+
+let marketingCampaignsStore = [...defaultMarketingCampaigns];
+
+apiRouter.get('/marketing/campaigns', (req: AuthRequest, res: Response) => {
+  res.json(marketingCampaignsStore);
+});
+
+apiRouter.post('/marketing/campaigns', (req: AuthRequest, res: Response) => {
+  const { name, platform, budget, startDate, endDate, projectName } = req.body;
+  const newCamp = {
+    id: marketingCampaignsStore.length + 1,
+    name: name || 'New Property Campaign',
+    platform: platform || 'Meta Ads',
+    budget: Number(budget) || 100000,
+    spent: 0,
+    startDate: startDate || new Date().toISOString().split('T')[0],
+    endDate: endDate || '2026-12-31',
+    status: 'Active',
+    leadsGenerated: 0,
+    qualifiedLeads: 0,
+    siteVisits: 0,
+    bookingsCount: 0,
+    revenueGenerated: 0,
+    cpl: 0,
+    roi: 0,
+    projectName: projectName || 'Srijan Solus',
+  };
+  marketingCampaignsStore.unshift(newCamp);
+  res.status(201).json(newCamp);
+});
+
+// -------------------------------------------------------------
+// 16. FINANCE & ACCOUNTS MODULE
+// -------------------------------------------------------------
+const defaultFinanceTransactions = [
+  {
+    id: 1,
+    type: 'Income',
+    category: 'Installment Collection (70% Escrow)',
+    amount: 1003275,
+    date: '2026-09-20',
+    referenceNumber: 'HDFCR9202609200088',
+    paymentMode: 'RTGS',
+    projectName: 'Srijan Solus',
+    payeeOrPayer: 'Vikramjit Chakraborty (Unit A-102)',
+    status: 'Cleared',
+    description: '3rd Floor Roof Slab Casting Installment remittance to SBI RERA Escrow A/C',
+  },
+  {
+    id: 2,
+    type: 'Income',
+    category: 'Booking Token Token Receipt',
+    amount: 500000,
+    date: '2026-09-18',
+    referenceNumber: 'SBIN002938102',
+    paymentMode: 'NEFT',
+    projectName: 'Srijan Solus',
+    payeeOrPayer: 'Ananya Sen (Unit B-504)',
+    status: 'Cleared',
+    description: 'Booking token advance against Sale Agreement draft',
+  },
+  {
+    id: 3,
+    type: 'Expense',
+    category: 'Civil Material - TMT Steel Procurement',
+    amount: 1850000,
+    date: '2026-09-15',
+    referenceNumber: 'TXN-STEEL-2026-09',
+    paymentMode: 'Bank Transfer',
+    projectName: 'Srijan Solus',
+    payeeOrPayer: 'Tata Tiscon Infra Distributors',
+    status: 'Cleared',
+    description: '50 MT Fe 550D TMT Rebars for Tower A 4th-5th Floor Columns',
+  },
+  {
+    id: 4,
+    type: 'Expense',
+    category: 'Ready Mix Concrete (RMC)',
+    amount: 920000,
+    date: '2026-09-12',
+    referenceNumber: 'TXN-RMC-2026-08',
+    paymentMode: 'RTGS',
+    projectName: 'Srijan Solus',
+    payeeOrPayer: 'UltraTech Concrete Solutions',
+    status: 'Cleared',
+    description: '180 Cu.m M35 Grade Concrete for Slab Pouring',
+  },
+  {
+    id: 5,
+    type: 'Expense',
+    category: 'Architectural & Structural Consultancy',
+    amount: 350000,
+    date: '2026-09-10',
+    referenceNumber: 'ARCH-FEE-2026-Q3',
+    paymentMode: 'NEFT',
+    projectName: 'Srijan Solus',
+    payeeOrPayer: 'Mukherjee & Associates Architects',
+    status: 'Cleared',
+    description: 'Stage 3 structural inspection and statutory compliance sign-off',
+  },
+  {
+    id: 6,
+    type: 'Expense',
+    category: 'Digital Performance Marketing',
+    amount: 250000,
+    date: '2026-09-05',
+    referenceNumber: 'AD-META-2026-09',
+    paymentMode: 'Credit Card',
+    projectName: 'Srijan Solus',
+    payeeOrPayer: 'Meta Platforms Ireland Ltd',
+    status: 'Cleared',
+    description: 'Pre-Puja High Intent Lead Generation Ads',
+  },
+];
+
+let financeTransactionsStore = [...defaultFinanceTransactions];
+
+apiRouter.get('/finance/overview', (req: AuthRequest, res: Response) => {
+  const totalIncome = financeTransactionsStore
+    .filter((t) => t.type === 'Income')
+    .reduce((sum, t) => sum + t.amount, 0);
+  const totalExpense = financeTransactionsStore
+    .filter((t) => t.type === 'Expense')
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  res.json({
+    totalIncome,
+    totalExpense,
+    netOperatingCash: totalIncome - totalExpense,
+    totalReceivables: 42800000, // Upcoming milestone CLP demand dues
+    totalPayables: 6100000, // Pending vendor PO bills
+    escrowLockedBalance: 18450000, // 70% statutory escrow account balance
+    gstInputTaxCredit: 485000,
+  });
+});
+
+apiRouter.get('/finance/transactions', (req: AuthRequest, res: Response) => {
+  res.json(financeTransactionsStore);
+});
+
+apiRouter.post('/finance/transactions', (req: AuthRequest, res: Response) => {
+  const { type, category, amount, referenceNumber, paymentMode, projectName, payeeOrPayer, description } = req.body;
+  const newTx = {
+    id: financeTransactionsStore.length + 1,
+    type: type || 'Expense',
+    category: category || 'Miscellaneous Site Expense',
+    amount: Number(amount) || 0,
+    date: new Date().toISOString().split('T')[0],
+    referenceNumber: referenceNumber || `TXN-${Date.now().toString().slice(-6)}`,
+    paymentMode: paymentMode || 'Bank Transfer',
+    projectName: projectName || 'Srijan Solus',
+    payeeOrPayer: payeeOrPayer || 'Vendor / Contractor',
+    status: 'Cleared',
+    description: description || '',
+  };
+  financeTransactionsStore.unshift(newTx);
+  res.status(201).json(newTx);
+});
+
+// -------------------------------------------------------------
+// 17. VENDORS & PROCUREMENT / PURCHASE ORDERS
+// -------------------------------------------------------------
+const defaultVendors = [
+  {
+    id: 1,
+    vendorCode: 'VND-STL-001',
+    name: 'Tata Tiscon Infra Distributors',
+    category: 'Steel & Cement',
+    contactPerson: 'Arun K. Singhania',
+    mobile: '+91 98300 12890',
+    email: 'infra.sales@tatatisconkol.com',
+    gstin: '19AAACT1928B1Z2',
+    pan: 'AAACT1928B',
+    address: '14 Strand Road, Burrabazar, Kolkata - 700001',
+    bankDetails: 'State Bank of India A/C #3091823901 (IFSC: SBIN0000001)',
+    rating: 4.8,
+    status: 'Active',
+  },
+  {
+    id: 2,
+    vendorCode: 'VND-RMC-002',
+    name: 'UltraTech Concrete Solutions (Aditya Birla)',
+    category: 'RMC & Aggregates',
+    contactPerson: 'Sandeep Ghosh',
+    mobile: '+91 98311 94821',
+    email: 'kolkata.rmc@ultratechcement.com',
+    gstin: '19AAACU0928A1Z5',
+    pan: 'AAACU0928A',
+    address: 'Plot II-E, New Town Action Area II, Kolkata - 700156',
+    bankDetails: 'HDFC Bank A/C #5020001928301 (IFSC: HDFC0000014)',
+    rating: 4.9,
+    status: 'Active',
+  },
+  {
+    id: 3,
+    vendorCode: 'VND-ELC-003',
+    name: 'Havells & Schneider Commercial Electricals',
+    category: 'Electrical & Plumbing',
+    contactPerson: 'P. C. Banerjee',
+    mobile: '+91 98302 44332',
+    email: 'projects@banerjee-electricals.com',
+    gstin: '19AAAPB8472M1ZQ',
+    pan: 'AAPB8472M',
+    address: '8 Brabourne Road, Central Kolkata - 700001',
+    bankDetails: 'ICICI Bank A/C #000605001298 (IFSC: ICIC0000006)',
+    rating: 4.6,
+    status: 'Active',
+  },
+  {
+    id: 4,
+    vendorCode: 'VND-SAN-004',
+    name: 'Kohler & Jaquar Luxury Sanitaryware Emporium',
+    category: 'Tiles & Sanitary',
+    contactPerson: 'Raman Aggarwal',
+    mobile: '+91 98305 11299',
+    email: 'projects@aggarwalsanitary.com',
+    gstin: '19AAAPA4928C1Z8',
+    pan: 'AAPA4928C',
+    address: '68 Chowringhee Road, Kolkata - 700020',
+    bankDetails: 'Axis Bank A/C #9140200192847 (IFSC: UTIB0000005)',
+    rating: 4.7,
+    status: 'Active',
+  },
+];
+
+const defaultPurchaseOrders = [
+  {
+    id: 1,
+    poNumber: 'PO-SRJ-2026-0048',
+    vendorName: 'Tata Tiscon Infra Distributors',
+    projectName: 'Srijan Solus',
+    orderDate: '2026-09-14',
+    deliveryDueDate: '2026-09-22',
+    totalAmount: 1850000,
+    status: 'Goods Received (GRN)',
+    itemsCount: 3,
+    itemsSummary: '50 MT Fe 550D TMT (12mm, 16mm, 20mm)',
+  },
+  {
+    id: 2,
+    poNumber: 'PO-SRJ-2026-0049',
+    vendorName: 'UltraTech Concrete Solutions (Aditya Birla)',
+    projectName: 'Srijan Solus',
+    orderDate: '2026-09-10',
+    deliveryDueDate: '2026-09-13',
+    totalAmount: 920000,
+    status: 'Paid',
+    itemsCount: 1,
+    itemsSummary: '180 Cu.M M35 Ready Mix Concrete with Retarder',
+  },
+  {
+    id: 3,
+    poNumber: 'PO-SRJ-2026-0050',
+    vendorName: 'Havells & Schneider Commercial Electricals',
+    projectName: 'Srijan Solus',
+    orderDate: '2026-09-18',
+    deliveryDueDate: '2026-09-28',
+    totalAmount: 640000,
+    status: 'PO Issued',
+    itemsCount: 5,
+    itemsSummary: 'FRLS Copper Armoured Cable 4-core & Modular DB Boxes',
+  },
+];
+
+let vendorsStore = [...defaultVendors];
+let purchaseOrdersStore = [...defaultPurchaseOrders];
+
+apiRouter.get('/vendors', (req: AuthRequest, res: Response) => {
+  res.json(vendorsStore);
+});
+
+apiRouter.post('/vendors', (req: AuthRequest, res: Response) => {
+  const { name, category, contactPerson, mobile, email, gstin, pan, address, bankDetails } = req.body;
+  const newV = {
+    id: vendorsStore.length + 1,
+    vendorCode: `VND-${String(vendorsStore.length + 1).padStart(3, '0')}`,
+    name: name || 'New Construction Vendor',
+    category: category || 'Steel & Cement',
+    contactPerson: contactPerson || 'Authorized Representative',
+    mobile: mobile || '+91 98000 00000',
+    email: email || 'vendor@example.com',
+    gstin: gstin || '19AAAAA0000A1Z5',
+    pan: pan || 'AAAAA0000A',
+    address: address || 'Kolkata, WB',
+    bankDetails: bankDetails || 'HDFC Bank Escrow',
+    rating: 5.0,
+    status: 'Active',
+  };
+  vendorsStore.unshift(newV);
+  res.status(201).json(newV);
+});
+
+apiRouter.get('/purchase/orders', (req: AuthRequest, res: Response) => {
+  res.json(purchaseOrdersStore);
+});
+
+apiRouter.post('/purchase/orders', (req: AuthRequest, res: Response) => {
+  const { vendorName, projectName, totalAmount, itemsSummary, deliveryDueDate } = req.body;
+  const newPo = {
+    id: purchaseOrdersStore.length + 1,
+    poNumber: `PO-SRJ-2026-${String(purchaseOrdersStore.length + 50).padStart(4, '0')}`,
+    vendorName: vendorName || 'Tata Tiscon Infra Distributors',
+    projectName: projectName || 'Srijan Solus',
+    orderDate: new Date().toISOString().split('T')[0],
+    deliveryDueDate: deliveryDueDate || '2026-10-15',
+    totalAmount: Number(totalAmount) || 250000,
+    status: 'Requested',
+    itemsCount: 2,
+    itemsSummary: itemsSummary || 'Standard Civil Construction Procurement',
+  };
+  purchaseOrdersStore.unshift(newPo);
+  res.status(201).json(newPo);
+});
+
+apiRouter.patch('/purchase/orders/:id/status', (req: AuthRequest, res: Response) => {
+  const poId = Number(req.params.id);
+  const { status } = req.body;
+  const po = purchaseOrdersStore.find((p) => p.id === poId);
+  if (po && status) {
+    po.status = status;
+    return res.json(po);
+  }
+  res.status(404).json({ error: 'Purchase order not found' });
+});
+
+// -------------------------------------------------------------
+// 18. MATERIAL & CONSTRUCTION INVENTORY
+// -------------------------------------------------------------
+const defaultMaterials = [
+  {
+    id: 1,
+    itemCode: 'MAT-CMT-001',
+    name: 'OPC 53 Grade Cement (UltraTech / Ambuja)',
+    category: 'Cement',
+    unitOfMeasure: 'Bags',
+    currentStock: 1420,
+    minimumStock: 400,
+    reorderQuantity: 600,
+    unitCost: 395,
+    totalValuation: 560900,
+    location: 'Site Godown #1 (Moisture Controlled)',
+    projectName: 'Srijan Solus',
+    status: 'In Stock',
+  },
+  {
+    id: 2,
+    itemCode: 'MAT-STL-002',
+    name: '16mm Fe 550D High Ductility TMT Rebars',
+    category: 'Steel',
+    unitOfMeasure: 'MT',
+    currentStock: 32,
+    minimumStock: 15,
+    reorderQuantity: 25,
+    unitCost: 59000,
+    totalValuation: 1888000,
+    location: 'Yard A Fabrication Area',
+    projectName: 'Srijan Solus',
+    status: 'In Stock',
+  },
+  {
+    id: 3,
+    itemCode: 'MAT-SND-003',
+    name: 'Coarse River Sand (Zone II Silt Verified)',
+    category: 'Sand & Aggregates',
+    unitOfMeasure: 'CFT',
+    currentStock: 1850,
+    minimumStock: 2500,
+    reorderQuantity: 3000,
+    unitCost: 58,
+    totalValuation: 107300,
+    location: 'Open Aggregate Bay #3',
+    projectName: 'Srijan Solus',
+    status: 'Low Stock',
+  },
+  {
+    id: 4,
+    itemCode: 'MAT-BRK-004',
+    name: 'AAC Lightweight Autoclaved Blocks (600x200x150mm)',
+    category: 'Bricks & Blocks',
+    unitOfMeasure: 'Nos',
+    currentStock: 4200,
+    minimumStock: 1000,
+    reorderQuantity: 2000,
+    unitCost: 62,
+    totalValuation: 260400,
+    location: 'Tower A Ground Stacking Area',
+    projectName: 'Srijan Solus',
+    status: 'In Stock',
+  },
+  {
+    id: 5,
+    itemCode: 'MAT-PVC-005',
+    name: '110mm SWR Drainage Pipes (Supreme / Astral)',
+    category: 'Plumbing & PVC',
+    unitOfMeasure: 'Meters',
+    currentStock: 80,
+    minimumStock: 200,
+    reorderQuantity: 300,
+    unitCost: 480,
+    totalValuation: 38400,
+    location: 'MEP Stores B-Level',
+    projectName: 'Srijan Solus',
+    status: 'Critical Reorder',
+  },
+];
+
+let materialsStore = [...defaultMaterials];
+
+apiRouter.get('/materials/inventory', (req: AuthRequest, res: Response) => {
+  res.json(materialsStore);
+});
+
+apiRouter.post('/materials/inventory', (req: AuthRequest, res: Response) => {
+  const { name, category, unitOfMeasure, currentStock, minimumStock, unitCost, location, projectName } = req.body;
+  const newMat = {
+    id: materialsStore.length + 1,
+    itemCode: `MAT-${String(materialsStore.length + 1).padStart(3, '0')}`,
+    name: name || 'Construction Material',
+    category: category || 'Cement',
+    unitOfMeasure: unitOfMeasure || 'Bags',
+    currentStock: Number(currentStock) || 100,
+    minimumStock: Number(minimumStock) || 50,
+    reorderQuantity: 100,
+    unitCost: Number(unitCost) || 500,
+    totalValuation: (Number(currentStock) || 100) * (Number(unitCost) || 500),
+    location: location || 'Site Store',
+    projectName: projectName || 'Srijan Solus',
+    status: Number(currentStock) <= Number(minimumStock) ? 'Low Stock' : 'In Stock',
+  };
+  materialsStore.unshift(newMat);
+  res.status(201).json(newMat);
+});
+
+// -------------------------------------------------------------
+// 19. HR & ATTENDANCE MANAGEMENT
+// -------------------------------------------------------------
+const defaultEmployees = [
+  {
+    id: 1,
+    empCode: 'EMP-SRJ-010',
+    name: 'Debapriya Chatterjee',
+    department: 'Sales & CRM',
+    designation: 'Senior Sales Executive & CRM Lead',
+    mobile: '+91 98301 22891',
+    email: 'debapriya.c@srijanrealty.com',
+    joiningDate: '2022-03-15',
+    monthlySalary: 75000,
+    attendanceRate: 98,
+    status: 'Active',
+  },
+  {
+    id: 2,
+    empCode: 'EMP-SRJ-014',
+    name: 'Somnath Mukherjee',
+    department: 'Civil Engineering',
+    designation: 'Chief Project Engineer',
+    mobile: '+91 98310 99421',
+    email: 'somnath.m@srijanrealty.com',
+    joiningDate: '2021-08-01',
+    monthlySalary: 110000,
+    attendanceRate: 96,
+    status: 'Active',
+  },
+  {
+    id: 3,
+    empCode: 'EMP-SRJ-018',
+    name: 'Anirban Mitra',
+    department: 'Accounts & Finance',
+    designation: 'Senior Accounts Officer (RERA Escrow)',
+    mobile: '+91 98305 77610',
+    email: 'anirban.m@srijanrealty.com',
+    joiningDate: '2023-01-10',
+    monthlySalary: 68000,
+    attendanceRate: 100,
+    status: 'Active',
+  },
+  {
+    id: 4,
+    empCode: 'EMP-SRJ-022',
+    name: 'Riya Sengupta',
+    department: 'Legal & Liaison',
+    designation: 'Legal Officer & Conveyance Executive',
+    mobile: '+91 98308 33112',
+    email: 'riya.s@srijanrealty.com',
+    joiningDate: '2023-07-20',
+    monthlySalary: 55000,
+    attendanceRate: 94,
+    status: 'Active',
+  },
+];
+
+const defaultAttendance = [
+  {
+    id: 1,
+    empCode: 'EMP-SRJ-010',
+    empName: 'Debapriya Chatterjee',
+    date: new Date().toISOString().split('T')[0],
+    status: 'Present',
+    checkInTime: '09:28 AM',
+    checkOutTime: '06:45 PM',
+    siteOrOffice: 'Solus Marketing Site Office',
+  },
+  {
+    id: 2,
+    empCode: 'EMP-SRJ-014',
+    empName: 'Somnath Mukherjee',
+    date: new Date().toISOString().split('T')[0],
+    status: 'Present',
+    checkInTime: '08:45 AM',
+    checkOutTime: '06:30 PM',
+    siteOrOffice: 'Tower A Site Engineering Cabin',
+  },
+  {
+    id: 3,
+    empCode: 'EMP-SRJ-018',
+    empName: 'Anirban Mitra',
+    date: new Date().toISOString().split('T')[0],
+    status: 'Present',
+    checkInTime: '09:40 AM',
+    checkOutTime: '06:15 PM',
+    siteOrOffice: 'Corporate Head Office (Wood Street)',
+  },
+  {
+    id: 4,
+    empCode: 'EMP-SRJ-022',
+    empName: 'Riya Sengupta',
+    date: new Date().toISOString().split('T')[0],
+    status: 'On Leave',
+    siteOrOffice: 'Corporate Head Office',
+  },
+];
+
+let employeesStore = [...defaultEmployees];
+let attendanceStore = [...defaultAttendance];
+
+apiRouter.get('/hr/employees', (req: AuthRequest, res: Response) => {
+  res.json(employeesStore);
+});
+
+apiRouter.post('/hr/employees', (req: AuthRequest, res: Response) => {
+  const { name, department, designation, mobile, email, monthlySalary } = req.body;
+  const newEmp = {
+    id: employeesStore.length + 1,
+    empCode: `EMP-SRJ-${String(employeesStore.length + 25).padStart(3, '0')}`,
+    name: name || 'New Real Estate Staff',
+    department: department || 'Sales & CRM',
+    designation: designation || 'Executive',
+    mobile: mobile || '+91 98000 00000',
+    email: email || 'staff@srijanrealty.com',
+    joiningDate: new Date().toISOString().split('T')[0],
+    monthlySalary: Number(monthlySalary) || 45000,
+    attendanceRate: 100,
+    status: 'Active',
+  };
+  employeesStore.unshift(newEmp);
+  res.status(201).json(newEmp);
+});
+
+apiRouter.get('/hr/attendance', (req: AuthRequest, res: Response) => {
+  res.json(attendanceStore);
+});
+
+apiRouter.post('/hr/attendance', (req: AuthRequest, res: Response) => {
+  const { empName, status, siteOrOffice } = req.body;
+  const newAtt = {
+    id: attendanceStore.length + 1,
+    empCode: `EMP-${Date.now().toString().slice(-4)}`,
+    empName: empName || 'Employee',
+    date: new Date().toISOString().split('T')[0],
+    status: status || 'Present',
+    checkInTime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    checkOutTime: 'Pending',
+    siteOrOffice: siteOrOffice || 'Solus Site Office',
+  };
+  attendanceStore.unshift(newAtt);
+  res.status(201).json(newAtt);
+});
+
+// -------------------------------------------------------------
+// 20. PROJECT OPERATIONS & CONSTRUCTION MILESTONES
+// -------------------------------------------------------------
+const defaultMilestones = [
+  {
+    id: 1,
+    stageName: 'Foundation & Plinth',
+    order: 1,
+    projectName: 'Srijan Solus',
+    towerName: 'Tower A',
+    plannedCompletionDate: '2025-10-31',
+    actualCompletionDate: '2025-10-24',
+    progressPercentage: 100,
+    status: 'Completed',
+    architectCertificateNo: 'ARC/SOL/PLINTH-01 (Ar. S. Mukherjee)',
+    photoUrl: 'https://images.unsplash.com/photo-1541888946425-d0fbb1861593?w=800&auto=format&fit=crop',
+  },
+  {
+    id: 2,
+    stageName: 'Basement & Podium',
+    order: 2,
+    projectName: 'Srijan Solus',
+    towerName: 'Tower A',
+    plannedCompletionDate: '2026-02-28',
+    actualCompletionDate: '2026-02-18',
+    progressPercentage: 100,
+    status: 'Completed',
+    architectCertificateNo: 'ARC/SOL/PODIUM-02 (Ar. S. Mukherjee)',
+    photoUrl: 'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?w=800&auto=format&fit=crop',
+  },
+  {
+    id: 3,
+    stageName: 'RCC Slab Casting',
+    order: 3,
+    projectName: 'Srijan Solus',
+    towerName: 'Tower A',
+    plannedCompletionDate: '2026-10-30',
+    progressPercentage: 80,
+    status: 'In Progress',
+    architectCertificateNo: 'ARC/SOL/SLAB-03 (Ar. S. Mukherjee)',
+    photoUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&auto=format&fit=crop',
+  },
+  {
+    id: 4,
+    stageName: 'Brickwork & Plastering',
+    order: 4,
+    projectName: 'Srijan Solus',
+    towerName: 'Tower A',
+    plannedCompletionDate: '2027-04-30',
+    progressPercentage: 25,
+    status: 'In Progress',
+    architectCertificateNo: 'Under Verification',
+    photoUrl: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&auto=format&fit=crop',
+  },
+  {
+    id: 5,
+    stageName: 'Electrical & Plumbing MEP',
+    order: 5,
+    projectName: 'Srijan Solus',
+    towerName: 'Tower A',
+    plannedCompletionDate: '2027-09-30',
+    progressPercentage: 10,
+    status: 'Upcoming',
+    architectCertificateNo: 'Pending Stage',
+    photoUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&auto=format&fit=crop',
+  },
+  {
+    id: 6,
+    stageName: 'Handover & Possession',
+    order: 6,
+    projectName: 'Srijan Solus',
+    towerName: 'Tower A',
+    plannedCompletionDate: '2028-06-30',
+    progressPercentage: 0,
+    status: 'Upcoming',
+    architectCertificateNo: 'RERA Declared Date: June 2028',
+    photoUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop',
+  },
+];
+
+const defaultDailyReports = [
+  {
+    id: 1,
+    reportDate: '2026-09-23',
+    projectName: 'Srijan Solus',
+    siteEngineer: 'Er. Somnath Mukherjee',
+    weather: 'Clear',
+    workforceCount: 142,
+    concretePouredCubicMeters: 64,
+    activitiesCompleted: 'Cast 4th floor west wing beam-slab junction; AAC block masonry on 2nd floor units 201-204; MEP conduit laying.',
+    safetyIncidents: 0,
+    equipmentActive: 'Tower Crane #1, Concrete Transit Mixers (4), Concrete Pump, Bar Bending Machine',
+    photoCount: 8,
+  },
+];
+
+let milestonesStore = [...defaultMilestones];
+let dailyReportsStore = [...defaultDailyReports];
+
+apiRouter.get('/operations/milestones', (req: AuthRequest, res: Response) => {
+  res.json(milestonesStore);
+});
+
+apiRouter.patch('/operations/milestones/:id', (req: AuthRequest, res: Response) => {
+  const id = Number(req.params.id);
+  const { progressPercentage, status } = req.body;
+  const m = milestonesStore.find((x) => x.id === id);
+  if (m) {
+    if (progressPercentage !== undefined) m.progressPercentage = Number(progressPercentage);
+    if (status) m.status = status;
+    return res.json(m);
+  }
+  res.status(404).json({ error: 'Milestone not found' });
+});
+
+apiRouter.get('/operations/reports', (req: AuthRequest, res: Response) => {
+  res.json(dailyReportsStore);
+});
+
+apiRouter.post('/operations/reports', (req: AuthRequest, res: Response) => {
+  const { projectName, workforceCount, concretePouredCubicMeters, activitiesCompleted } = req.body;
+  const newRep = {
+    id: dailyReportsStore.length + 1,
+    reportDate: new Date().toISOString().split('T')[0],
+    projectName: projectName || 'Srijan Solus',
+    siteEngineer: 'Er. Site Supervisor',
+    weather: 'Clear',
+    workforceCount: Number(workforceCount) || 120,
+    concretePouredCubicMeters: Number(concretePouredCubicMeters) || 0,
+    activitiesCompleted: activitiesCompleted || 'Daily civil construction works completed as per schedule.',
+    safetyIncidents: 0,
+    equipmentActive: 'Active Site Machinery',
+    photoCount: 4,
+  };
+  dailyReportsStore.unshift(newRep);
+  res.status(201).json(newRep);
+});
+
+// -------------------------------------------------------------
+// 21. WHATSAPP BUSINESS INTEGRATION & TEMPLATES
+// -------------------------------------------------------------
+const defaultWhatsAppTemplates = [
+  {
+    id: 'tpl_lead_ack',
+    title: 'Lead Acknowledgement & Brochure Dispatch',
+    triggerEvent: 'New Lead Generated / Website Form',
+    templateText: 'Namaste {{customerName}}, thank you for showing interest in {{projectName}} by AuraEstate. Download our official RERA brochure & floor plans here: {{brochureLink}}. Our sales advisor will connect shortly.',
+    variables: ['customerName', 'projectName', 'brochureLink'],
+  },
+  {
+    id: 'tpl_site_visit',
+    title: 'Site Visit Confirmation & Driver Pickup',
+    triggerEvent: 'Site Visit Booked',
+    templateText: 'Dear {{customerName}}, your site visit for {{projectName}} is confirmed for {{date}} at {{time}}. Your designated sample flat executive is {{executiveName}} (Phone: {{mobile}}). Direction map: {{mapLink}}.',
+    variables: ['customerName', 'projectName', 'date', 'time', 'executiveName', 'mobile', 'mapLink'],
+  },
+  {
+    id: 'tpl_demand_notice',
+    title: 'RERA Milestone Demand Letter Notice',
+    triggerEvent: 'Construction Stage Milestone Achieved',
+    templateText: 'Important: Milestone Notice {{demandNumber}} has been issued for Unit {{unitNumber}} at {{projectName}} upon reaching {{milestoneTitle}}. Due amount: ₹{{amount}} by {{dueDate}}. Remit to RERA Designated Escrow A/C. View letter: {{letterUrl}}.',
+    variables: ['demandNumber', 'unitNumber', 'projectName', 'milestoneTitle', 'amount', 'dueDate', 'letterUrl'],
+  },
+  {
+    id: 'tpl_payment_receipt',
+    title: 'Payment Receipt Confirmation',
+    triggerEvent: 'Payment Cleared & Verified',
+    templateText: 'Payment Acknowledgement: We have received ₹{{amount}} towards Unit {{unitNumber}} at {{projectName}}. Official Money Receipt #{{receiptNumber}} has been generated and added to your Homeowner Vault. Download: {{receiptLink}}.',
+    variables: ['amount', 'unitNumber', 'projectName', 'receiptNumber', 'receiptLink'],
+  },
+  {
+    id: 'tpl_handover',
+    title: 'Handover & Key Possession Invitation',
+    triggerEvent: 'Occupancy Certificate Received',
+    templateText: 'Heartiest Congratulations {{customerName}}! Occupancy Certificate (OC) has been granted for {{projectName}}. You are cordially invited for key handover and joint snag-free possession on {{date}}.',
+    variables: ['customerName', 'projectName', 'date'],
+  },
+];
+
+apiRouter.get('/whatsapp/templates', (req: AuthRequest, res: Response) => {
+  res.json(defaultWhatsAppTemplates);
+});
+
+apiRouter.post('/whatsapp/send', (req: AuthRequest, res: Response) => {
+  const { templateId, recipientMobile, variables } = req.body;
+  res.json({
+    success: true,
+    messageId: `wa_msg_${Date.now()}`,
+    status: 'Delivered',
+    timestamp: new Date().toISOString(),
+    recipientMobile,
+    templateId,
+  });
+});
+
+// -------------------------------------------------------------
+// 22. CUSTOMER HOMEOWNER PORTAL API
+// -------------------------------------------------------------
+apiRouter.get('/customer-portal/me', (req: AuthRequest, res: Response) => {
+  res.json({
+    homeowner: {
+      name: 'Vikramjit Chakraborty',
+      customerCode: 'SRJ-CUS-0042',
+      email: 'vikramjit.chakraborty@example.com',
+      mobile: '+91 98310 44291',
+      pan: 'ABCDE1234F',
+    },
+    property: {
+      projectName: 'Srijan Solus',
+      unitNumber: 'A-102',
+      unitType: '3 BHK Luxury Deluxe',
+      floor: 10,
+      tower: 'Tower A',
+      superBuiltUpArea: '1,540 sq.ft.',
+      carpetArea: '1,120 sq.ft.',
+      coveredParking: '1 Basement Bay (Slot B-14)',
+      reraRegistration: 'WBRERA/P/KOL/2023/000214',
+      totalConsideration: 14300000,
+      totalPaid: 4290000,
+      balanceOutstanding: 10010000,
+      possessionCommitmentDate: 'June 2028',
+    },
+    paymentMilestones: [
+      {
+        stageName: 'Booking Token & Allotment Agreement',
+        percentage: 10,
+        amount: 1430000,
+        status: 'Paid',
+        receiptNumber: 'RCT-2026-0042',
+      },
+      {
+        stageName: 'Completion of Foundation & Plinth',
+        percentage: 10,
+        amount: 1430000,
+        status: 'Paid',
+        receiptNumber: 'RCT-2026-0068',
+      },
+      {
+        stageName: 'Completion of 3rd Floor Roof Slab',
+        percentage: 10,
+        amount: 1433250,
+        status: 'Due Soon',
+        dueDate: '2026-10-15',
+        demandNumber: 'SRJ-DEM-2026-0012',
+      },
+      {
+        stageName: 'Completion of 6th Floor Roof Slab',
+        percentage: 10,
+        amount: 1430000,
+        status: 'Upcoming',
+      },
+      {
+        stageName: 'Brickwork & External Plastering',
+        percentage: 15,
+        amount: 2145000,
+        status: 'Upcoming',
+      },
+      {
+        stageName: 'Flooring, Tiling & Sanitary Installation',
+        percentage: 15,
+        amount: 2145000,
+        status: 'Upcoming',
+      },
+      {
+        stageName: 'Notice of Possession & Registration',
+        percentage: 30,
+        amount: 4290000,
+        status: 'Upcoming',
+      },
+    ],
+    documents: [
+      { id: 1, title: 'Registered Agreement for Sale (ATS)', date: '2026-04-12', size: '2.4 MB' },
+      { id: 2, title: 'WBRERA Approved Sanction Plan', date: '2026-01-10', size: '4.8 MB' },
+      { id: 3, title: 'Money Receipt - Foundation Stage (₹14.3 Lakhs)', date: '2026-08-20', size: '320 KB' },
+      { id: 4, title: 'Form 16B - Section 194-IA TDS Credit Certificate', date: '2026-08-25', size: '180 KB' },
+    ],
+    constructionUpdates: [
+      {
+        title: '3rd Floor Slab Casting Completed Successfully',
+        date: '2026-09-18',
+        description: 'Structural inspection sign-off completed by Site Engineer and Consulting Structural Architect. High-grade M35 concrete poured.',
+        photo: 'https://images.unsplash.com/photo-1541888946425-d0fbb1861593?w=800&auto=format&fit=crop',
+      },
+      {
+        title: 'Podium Car Parking Waterproofing',
+        date: '2026-08-05',
+        description: 'Dual layer APP membrane waterproofing completed with 10-year warranty certificate.',
+        photo: 'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?w=800&auto=format&fit=crop',
+      },
+    ],
+  });
+});
+

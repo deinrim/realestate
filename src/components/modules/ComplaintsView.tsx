@@ -73,20 +73,20 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <Headphones className="h-5 w-5 text-sky-600" />
-            <h2 className="text-lg font-bold text-slate-900">Customer Support & Snag Management</h2>
+            <Headphones className="h-5 w-5 text-amber-700" />
+            <h2 className="text-lg font-bold text-stone-900">Customer Support & Snag Management</h2>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Post-sales handover tickets, snag checklist rectifications, and SLA countdowns
           </p>
         </div>
 
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-sky-700 transition"
+          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
         >
           <Plus className="h-4 w-4" />
           <span>Log Service Ticket</span>
@@ -144,7 +144,7 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
                     {c.status !== 'Resolved' && (
                       <button
                         onClick={() => setSelectedTicket(c)}
-                        className="rounded px-2 py-1 text-[11px] font-semibold text-sky-600 hover:bg-sky-50"
+                        className="rounded px-2.5 py-1 text-[11px] font-semibold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/70"
                       >
                         Resolve →
                       </button>
@@ -249,8 +249,8 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
               </div>
 
               <div className="flex justify-end gap-2 pt-2">
-                <button type="button" onClick={() => setShowModal(false)} className="rounded border border-slate-200 px-3 py-1.5 text-slate-600">Cancel</button>
-                <button type="submit" className="rounded bg-sky-600 px-3 py-1.5 font-bold text-white shadow-xs hover:bg-sky-700">Submit Ticket</button>
+                <button type="button" onClick={() => setShowModal(false)} className="rounded border border-stone-200 px-3 py-1.5 text-stone-600 hover:bg-stone-50 font-medium">Cancel</button>
+                <button type="submit" className="rounded bg-amber-700 px-3 py-1.5 font-bold text-white shadow-xs hover:bg-amber-800 transition">Submit Ticket</button>
               </div>
             </form>
           </div>

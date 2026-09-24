@@ -46,20 +46,20 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ user }) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <BarChart3 className="h-5 w-5 text-sky-600" />
-            <h2 className="text-lg font-bold text-slate-900">Analytics & Enterprise Reports</h2>
+            <BarChart3 className="h-5 w-5 text-amber-700" />
+            <h2 className="text-lg font-bold text-stone-900">Analytics & Enterprise Reports</h2>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Real-time financial audits, booking velocity, inventory aging, and CSV data exports
           </p>
         </div>
 
         <button
           onClick={handleExport}
-          className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-emerald-700 transition"
+          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
         >
           <Download className="h-4 w-4" />
           <span>Export {activeTab.toUpperCase()} to CSV</span>
@@ -67,43 +67,43 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ user }) => {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200 gap-6 text-xs font-semibold text-slate-500">
+      <div className="flex border-b border-stone-200 gap-6 text-xs font-semibold text-stone-500">
         <button
           onClick={() => setActiveTab('sales')}
-          className={`pb-3 border-b-2 transition ${activeTab === 'sales' ? 'border-sky-600 text-sky-600' : 'border-transparent hover:text-slate-800'}`}
+          className={`pb-3 border-b-2 transition ${activeTab === 'sales' ? 'border-amber-700 text-amber-800 font-bold' : 'border-transparent hover:text-stone-800'}`}
         >
           Sales & Bookings Ledger
         </button>
         <button
           onClick={() => setActiveTab('collections')}
-          className={`pb-3 border-b-2 transition ${activeTab === 'collections' ? 'border-sky-600 text-sky-600' : 'border-transparent hover:text-slate-800'}`}
+          className={`pb-3 border-b-2 transition ${activeTab === 'collections' ? 'border-amber-700 text-amber-800 font-bold' : 'border-transparent hover:text-stone-800'}`}
         >
           Collections & Receipts
         </button>
         <button
           onClick={() => setActiveTab('inventory')}
-          className={`pb-3 border-b-2 transition ${activeTab === 'inventory' ? 'border-sky-600 text-sky-600' : 'border-transparent hover:text-slate-800'}`}
+          className={`pb-3 border-b-2 transition ${activeTab === 'inventory' ? 'border-amber-700 text-amber-800 font-bold' : 'border-transparent hover:text-stone-800'}`}
         >
           Inventory Status & Pricing
         </button>
         <button
           onClick={() => setActiveTab('leads')}
-          className={`pb-3 border-b-2 transition ${activeTab === 'leads' ? 'border-sky-600 text-sky-600' : 'border-transparent hover:text-slate-800'}`}
+          className={`pb-3 border-b-2 transition ${activeTab === 'leads' ? 'border-amber-700 text-amber-800 font-bold' : 'border-transparent hover:text-stone-800'}`}
         >
           Lead Acquisition & Sources
         </button>
       </div>
 
       {/* Report Table */}
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         {loading ? (
           <div className="flex h-48 items-center justify-center">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-sky-500 border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-amber-600 border-t-transparent" />
           </div>
         ) : (
           <div className="overflow-x-auto max-h-[500px]">
             <table className="w-full text-left text-xs">
-              <thead className="sticky top-0 bg-slate-50 border-b border-slate-200 text-[10px] font-bold uppercase text-slate-500">
+              <thead className="sticky top-0 bg-[#FAF8F5] border-b border-stone-200 text-[10px] font-bold uppercase text-stone-500">
                 <tr>
                   {data.length > 0 &&
                     Object.keys(data[0])

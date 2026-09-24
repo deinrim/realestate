@@ -141,20 +141,20 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <FileCheck2 className="h-5 w-5 text-sky-600" />
-            <h2 className="text-lg font-bold text-slate-900">Bookings & Commercial Contracts</h2>
+            <FileCheck2 className="h-5 w-5 text-amber-700" />
+            <h2 className="text-lg font-bold text-stone-900">Bookings & Commercial Contracts</h2>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Atomic reservation engine with double-booking prevention and multi-stage workflow approvals
           </p>
         </div>
 
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-sky-700 transition"
+          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
         >
           <Plus className="h-4 w-4" />
           <span>+ New Property Booking</span>
@@ -173,11 +173,11 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="font-mono text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded">
+                  <span className="font-mono text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
                     {b.bookingNumber}
                   </span>
-                  <div className="font-bold text-sm text-slate-900 mt-1">{b.customerName}</div>
-                  <div className="text-[11px] text-slate-500">{b.customerMobile}</div>
+                  <div className="font-bold text-sm text-stone-900 mt-1">{b.customerName}</div>
+                  <div className="text-[11px] text-stone-500">{b.customerMobile}</div>
                 </div>
                 <span
                   className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
@@ -223,7 +223,7 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                 {b.status !== 'Confirmed' && (
                   <button
                     onClick={() => setApprovalModalBooking(b)}
-                    className="rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-sky-700 transition"
+                    className="rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-amber-800 transition"
                   >
                     Review Step →
                   </button>
@@ -258,8 +258,8 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                       <div className="text-[10px] text-slate-400">{b.customerMobile}</div>
                     </td>
                     <td className="py-3 px-2">
-                      <div className="text-slate-800 font-medium">{b.projectName}</div>
-                      <div className="text-sky-700 font-semibold text-[11px]">Unit {b.unitNumber} ({b.unitType})</div>
+                      <div className="text-stone-800 font-medium">{b.projectName}</div>
+                      <div className="text-amber-800 font-semibold text-[11px]">Unit {b.unitNumber} ({b.unitType})</div>
                     </td>
                     <td className="py-3 px-2 font-bold text-slate-900">{formatCurrency(b.totalConsideration)}</td>
                     <td className="py-3 px-2 font-semibold text-emerald-600">{formatCurrency(b.bookingAmount)}</td>
@@ -289,7 +289,7 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                       {b.status !== 'Confirmed' && (
                         <button
                           onClick={() => setApprovalModalBooking(b)}
-                          className="rounded bg-sky-50 px-2.5 py-1 text-[11px] font-bold text-sky-700 hover:bg-sky-100 transition"
+                          className="rounded bg-amber-50 px-2.5 py-1 text-[11px] font-bold text-amber-800 hover:bg-amber-100 border border-amber-200/80 transition"
                         >
                           Review Step →
                         </button>
@@ -316,13 +316,13 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
             </div>
 
             <div className="mt-4 space-y-3 text-xs">
-              <div className="rounded-lg bg-slate-50 p-3">
-                <span className="text-[10px] font-bold text-slate-400 block uppercase">Current Step</span>
-                <span className="font-bold text-sky-700 text-sm">{getStepName(approvalModalBooking.currentApprovalStep)}</span>
-                <p className="mt-1 text-slate-500 text-[11px]">
+              <div className="rounded-lg bg-[#FAF8F5] p-3 border border-stone-200/80">
+                <span className="text-[10px] font-bold text-stone-400 block uppercase">Current Step</span>
+                <span className="font-bold text-amber-800 text-sm">{getStepName(approvalModalBooking.currentApprovalStep)}</span>
+                <p className="mt-1 text-stone-500 text-[11px]">
                   Property: {approvalModalBooking.projectName} • Unit {approvalModalBooking.unitNumber}
                 </p>
-                <p className="text-slate-700 font-semibold mt-1">
+                <p className="text-stone-800 font-semibold mt-1">
                   Consideration: {formatCurrency(approvalModalBooking.totalConsideration)}
                 </p>
               </div>
@@ -463,7 +463,7 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                 </div>
               </div>
 
-              <div className="rounded-lg bg-sky-50/70 p-3 text-sky-800 text-[11px] leading-relaxed">
+              <div className="rounded-lg bg-amber-50/70 p-3 text-amber-900 border border-amber-200/80 text-[11px] leading-relaxed">
                 ℹ️ <strong>Atomic Double-Booking Lock:</strong> Confirming this booking instantly reserves the selected unit in PostgreSQL, generates the 6-stage construction payment milestone schedule, and automatically issues an official payment receipt for the initial booking token.
               </div>
 
@@ -471,14 +471,14 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="rounded border border-slate-200 px-3 py-1.5 text-slate-600"
+                  className="rounded border border-stone-200 px-3 py-1.5 text-stone-600 hover:bg-stone-50 font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="rounded bg-sky-600 px-4 py-1.5 font-bold text-white shadow-xs hover:bg-sky-700 disabled:opacity-50"
+                  className="rounded bg-amber-700 px-4 py-1.5 font-bold text-white shadow-xs hover:bg-amber-800 disabled:opacity-50 transition"
                 >
                   {submitting ? 'Creating Booking...' : 'Create Booking & Lock Unit'}
                 </button>

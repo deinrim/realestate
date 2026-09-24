@@ -70,20 +70,20 @@ export const TasksView: React.FC<TasksViewProps> = ({ user }) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <CheckSquare className="h-5 w-5 text-sky-600" />
-            <h2 className="text-lg font-bold text-slate-900">Department Tasks & Follow-ups</h2>
+            <CheckSquare className="h-5 w-5 text-amber-700" />
+            <h2 className="text-lg font-bold text-stone-900">Department Tasks & Follow-ups</h2>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Internal action items across Sales, Legal, Accounts, and Project Handover teams
           </p>
         </div>
 
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-sky-700 transition"
+          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
         >
           <Plus className="h-4 w-4" />
           <span>New Task</span>
@@ -98,7 +98,7 @@ export const TasksView: React.FC<TasksViewProps> = ({ user }) => {
               <div
                 key={t.id}
                 className={`flex items-start justify-between rounded-lg border p-3.5 transition text-xs ${
-                  isDone ? 'border-slate-100 bg-slate-50/50 opacity-60' : 'border-slate-200 bg-white hover:border-sky-200'
+                  isDone ? 'border-stone-100 bg-stone-50/50 opacity-60' : 'border-stone-200 bg-white hover:border-amber-300'
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -106,7 +106,7 @@ export const TasksView: React.FC<TasksViewProps> = ({ user }) => {
                     type="checkbox"
                     checked={isDone}
                     onChange={() => handleToggleStatus(t.id, t.status)}
-                    className="mt-0.5 h-4 w-4 rounded text-sky-600 cursor-pointer"
+                    className="mt-0.5 h-4 w-4 rounded text-amber-700 focus:ring-amber-500 cursor-pointer"
                   />
                   <div>
                     <span className={`font-bold text-slate-900 ${isDone ? 'line-through text-slate-400' : ''}`}>
@@ -190,8 +190,8 @@ export const TasksView: React.FC<TasksViewProps> = ({ user }) => {
                 />
               </div>
               <div className="flex justify-end gap-2 pt-2">
-                <button type="button" onClick={() => setShowModal(false)} className="rounded border border-slate-200 px-3 py-1.5 text-slate-600">Cancel</button>
-                <button type="submit" className="rounded bg-sky-600 px-3 py-1.5 font-bold text-white hover:bg-sky-700">Save Task</button>
+                <button type="button" onClick={() => setShowModal(false)} className="rounded border border-stone-200 px-3 py-1.5 text-stone-600 hover:bg-stone-50 font-medium">Cancel</button>
+                <button type="submit" className="rounded bg-amber-700 px-3 py-1.5 font-bold text-white shadow-xs hover:bg-amber-800 transition">Save Task</button>
               </div>
             </form>
           </div>

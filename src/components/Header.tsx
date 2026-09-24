@@ -208,7 +208,7 @@ export const Header: React.FC<HeaderProps> = ({
                         className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm hover:bg-slate-50"
                       >
                         <span className="font-medium text-slate-800">Unit {lPad(u.title)}</span>
-                        <span className="rounded bg-sky-50 px-1.5 py-0.5 text-xs text-sky-700">
+                        <span className="rounded bg-amber-50 px-1.5 py-0.5 text-xs text-amber-800 font-semibold border border-amber-200/60">
                           {u.subtitle}
                         </span>
                       </button>

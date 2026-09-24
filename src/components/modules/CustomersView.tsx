@@ -82,31 +82,31 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <Users className="h-5 w-5 text-sky-600" />
-            <h2 className="text-lg font-bold text-slate-900">Customer 360° Repository</h2>
+            <Users className="h-5 w-5 text-amber-700" />
+            <h2 className="text-lg font-bold text-stone-900">Customer 360° Repository</h2>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Unified homeowner profiles, KYC verification, purchase history, and service interactions
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="relative w-64">
-            <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
+            <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-stone-400" />
             <input
               type="text"
               placeholder="Search customer name, code..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pl-8 pr-3 text-xs focus:border-sky-500 focus:bg-white focus:outline-hidden"
+              className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
             />
           </div>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-sky-700 transition"
+            className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
           >
             <Plus className="h-4 w-4" />
             <span>Add Customer</span>
@@ -137,21 +137,21 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
                   className="hover:bg-slate-50 transition cursor-pointer"
                 >
                   <td className="py-3 px-2">
-                    <div className="font-bold text-slate-800">{c.name}</div>
-                    <div className="font-mono text-[10px] text-sky-700">{c.customerCode}</div>
+                    <div className="font-bold text-stone-800">{c.name}</div>
+                    <div className="font-mono text-[10px] text-amber-800 font-bold">{c.customerCode}</div>
                   </td>
-                  <td className="py-3 px-2 text-slate-700">
+                  <td className="py-3 px-2 text-stone-700">
                     <div className="font-medium">{c.mobile}</div>
-                    <div className="text-[10px] text-slate-400">{c.email}</div>
+                    <div className="text-[10px] text-stone-400">{c.email}</div>
                   </td>
-                  <td className="py-3 px-2 text-slate-600">{c.city || 'Kolkata'}, {c.state || 'WB'}</td>
-                  <td className="py-3 px-2 font-mono text-[11px] text-slate-700">{c.pan || 'Pending KYC'}</td>
+                  <td className="py-3 px-2 text-stone-600">{c.city || 'Kolkata'}, {c.state || 'WB'}</td>
+                  <td className="py-3 px-2 font-mono text-[11px] text-stone-700">{c.pan || 'Pending KYC'}</td>
                   <td className="py-3 px-2">
-                    <span className="rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-bold text-sky-700">
+                    <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-800 border border-amber-200/60">
                       {c.bookingsCount || 0} Units
                     </span>
                   </td>
-                  <td className="py-3 px-2 font-semibold text-emerald-600">
+                  <td className="py-3 px-2 font-semibold text-emerald-700">
                     {formatCurrency(c.totalPaid)}
                   </td>
                   <td className="py-3 px-2 text-right">
@@ -160,7 +160,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
                         e.stopPropagation();
                         openCustomer360(c.id);
                       }}
-                      className="rounded px-2 py-1 text-[11px] font-semibold text-sky-600 hover:bg-sky-50"
+                      className="rounded px-2.5 py-1 text-[11px] font-semibold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/60 transition"
                     >
                       360° Profile →
                     </button>
@@ -179,8 +179,8 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base font-bold text-slate-900">{selectedCustomer.customer.name}</h3>
-                  <span className="font-mono text-xs rounded bg-sky-50 px-1.5 py-0.5 text-sky-700">
+                  <h3 className="text-base font-bold text-stone-900">{selectedCustomer.customer.name}</h3>
+                  <span className="font-mono text-xs rounded bg-amber-50 px-1.5 py-0.5 text-amber-800 font-bold border border-amber-200/60">
                     {selectedCustomer.customer.customerCode}
                   </span>
                 </div>
@@ -211,8 +211,8 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
                 <span className="font-medium text-slate-800">{selectedCustomer.customer.occupation || 'Business'}</span>
               </div>
               <div>
-                <span className="block text-[10px] text-slate-400">Pref. Channel</span>
-                <span className="font-medium text-sky-700">{selectedCustomer.customer.communicationPreference}</span>
+                <span className="block text-[10px] text-stone-400">Pref. Channel</span>
+                <span className="font-medium text-amber-800 font-semibold">{selectedCustomer.customer.communicationPreference}</span>
               </div>
             </div>
 
@@ -268,11 +268,11 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
                     {selectedCustomer.payments?.length > 0 ? (
                       selectedCustomer.payments.map((p: any) => (
                         <tr key={p.id}>
-                          <td className="py-2 px-3 font-mono font-bold text-sky-700">{p.receiptNumber}</td>
-                          <td className="py-2 px-3 text-slate-600">{p.paymentDate}</td>
-                          <td className="py-2 px-3 text-slate-600">{p.paymentMode}</td>
-                          <td className="py-2 px-3 font-bold text-slate-900">{formatCurrency(p.amount)}</td>
-                          <td className="py-2 px-3 text-emerald-600 font-semibold">{p.status}</td>
+                          <td className="py-2 px-3 font-mono font-bold text-amber-800">{p.receiptNumber}</td>
+                          <td className="py-2 px-3 text-stone-600">{p.paymentDate}</td>
+                          <td className="py-2 px-3 text-stone-600">{p.paymentMode}</td>
+                          <td className="py-2 px-3 font-bold text-stone-900">{formatCurrency(p.amount)}</td>
+                          <td className="py-2 px-3 text-emerald-700 font-semibold">{p.status}</td>
                         </tr>
                       ))
                     ) : (
@@ -362,13 +362,13 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="rounded border border-slate-200 px-3 py-1.5 text-slate-600"
+                  className="rounded border border-stone-200 px-3 py-1.5 text-stone-600 hover:bg-stone-50 font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded bg-sky-600 px-3 py-1.5 font-bold text-white shadow-xs hover:bg-sky-700"
+                  className="rounded bg-amber-700 px-3 py-1.5 font-bold text-white shadow-xs hover:bg-amber-800 transition"
                 >
                   Save Customer
                 </button>

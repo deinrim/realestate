@@ -64,20 +64,20 @@ export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-sky-600" />
-            <h2 className="text-lg font-bold text-slate-900">Site Visits & Property Tours</h2>
+            <Calendar className="h-5 w-5 text-amber-700" />
+            <h2 className="text-lg font-bold text-stone-900">Site Visits & Property Tours</h2>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Coordinate sample flat walkthroughs, site pick-ups, and prospective buyer tours
           </p>
         </div>
 
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-sky-700 transition"
+          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
         >
           <Plus className="h-4 w-4" />
           <span>Schedule Site Visit</span>
@@ -201,9 +201,9 @@ export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
                   id="transportReq"
                   checked={formData.transportRequired}
                   onChange={(e) => setFormData({ ...formData, transportRequired: e.target.checked })}
-                  className="h-4 w-4 rounded text-sky-600"
+                  className="h-4 w-4 rounded text-amber-600 focus:ring-amber-500"
                 />
-                <label htmlFor="transportReq" className="text-slate-700 font-medium">
+                <label htmlFor="transportReq" className="text-stone-700 font-medium">
                   Provide Developer Cab Pickup & Drop
                 </label>
               </div>
@@ -212,13 +212,13 @@ export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="rounded border border-slate-200 px-3 py-1.5 text-slate-600"
+                  className="rounded border border-stone-200 px-3 py-1.5 text-stone-600 hover:bg-stone-50 font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded bg-sky-600 px-3 py-1.5 font-bold text-white shadow-xs hover:bg-sky-700"
+                  className="rounded bg-amber-700 px-3 py-1.5 font-bold text-white shadow-xs hover:bg-amber-800 transition"
                 >
                   Confirm Schedule
                 </button>

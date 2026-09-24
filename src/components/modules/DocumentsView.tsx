@@ -52,20 +52,20 @@ export const DocumentsView: React.FC<DocumentsViewProps> = ({ user }) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <FolderOpen className="h-5 w-5 text-sky-600" />
-            <h2 className="text-lg font-bold text-slate-900">Document Repository</h2>
+            <FolderOpen className="h-5 w-5 text-amber-700" />
+            <h2 className="text-lg font-bold text-stone-900">Document Repository</h2>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Centralized digital vault for RERA certificates, customer KYC, signed sale agreements, and NOCs
           </p>
         </div>
 
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-sky-700 transition"
+          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
         >
           <Plus className="h-4 w-4" />
           <span>Upload Document</span>
@@ -75,22 +75,22 @@ export const DocumentsView: React.FC<DocumentsViewProps> = ({ user }) => {
       <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {docs.map((d) => (
-            <div key={d.id} className="rounded-lg border border-slate-200 p-4 hover:border-sky-300 transition text-xs">
+            <div key={d.id} className="rounded-lg border border-stone-200 p-4 hover:border-amber-400 bg-white transition text-xs">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded bg-sky-50 text-sky-600">
+                  <div className="flex h-8 w-8 items-center justify-center rounded bg-amber-50 text-amber-700 border border-amber-200/60">
                     <FileText className="h-4 w-4" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-slate-800 line-clamp-1">{d.title}</h4>
-                    <span className="text-[10px] text-slate-400">{d.category}</span>
+                    <h4 className="font-bold text-stone-800 line-clamp-1">{d.title}</h4>
+                    <span className="text-[10px] text-stone-400">{d.category}</span>
                   </div>
                 </div>
                 <a
                   href={d.fileUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded p-1 text-slate-400 hover:text-sky-600"
+                  className="rounded p-1 text-stone-400 hover:text-amber-800"
                 >
                   <ExternalLink className="h-4 w-4" />
                 </a>
@@ -152,8 +152,8 @@ export const DocumentsView: React.FC<DocumentsViewProps> = ({ user }) => {
               </div>
 
               <div className="flex justify-end gap-2 pt-2">
-                <button type="button" onClick={() => setShowModal(false)} className="rounded border border-slate-200 px-3 py-1.5 text-slate-600">Cancel</button>
-                <button type="submit" className="rounded bg-sky-600 px-3 py-1.5 font-bold text-white hover:bg-sky-700">Save Document</button>
+                <button type="button" onClick={() => setShowModal(false)} className="rounded border border-stone-200 px-3 py-1.5 text-stone-600 hover:bg-stone-50 font-medium">Cancel</button>
+                <button type="submit" className="rounded bg-amber-700 px-3 py-1.5 font-bold text-white shadow-xs hover:bg-amber-800 transition">Save Document</button>
               </div>
             </form>
           </div>
