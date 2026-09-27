@@ -2,6 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Suppress Vite HMR WebSocket connection errors in AI Studio preview iframe where HMR is disabled
+      (function() {
+        const origError = console.error;
+        console.error = function(...args) {
+          if (args.length > 0 && typeof args[0] === 'string' && (args[0].includes('[vite] failed to connect to websocket') || args[0].includes('[vite] connecting...'))) {
+            return;
+          }
+          origError.apply(console, args);
+        };
+        const origWarn = console.warn;
+        console.warn = function(...args) {
+          if (args.length > 0 && typeof args[0] === 'string' && args[0].includes('[vite]')) {
+            return;
+          }
+          origWarn.apply(console, args);
+        };
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>AuraEstate - Multi-Tenant Real Estate ERP & Management Platform</title>
     <meta name="description" content="Enterprise Multi-Tenant Real Estate Developer Office Management & ERP Platform with Projects, CRM, Inventory, Sales, Bookings, Collections, Handover, and Workflows." />
@@ -10,9 +29,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="AuraEstate" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
+    <!-- Architectural & Luxury Real Estate Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
     <meta property="og:title" content="AuraEstate - Multi-Tenant Real Estate ERP & Management Platform" />
     <meta property="og:description" content="Enterprise Multi-Tenant Real Estate Developer Office Management & ERP Platform with Projects, CRM, Inventory, Sales, Bookings, Collections, Handover, and Workflows." />
     <meta property="og:type" content="website" />

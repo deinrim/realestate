@@ -58,7 +58,7 @@ export const ChannelPartnersView: React.FC<ChannelPartnersViewProps> = ({ user }
         <div>
           <div className="flex items-center gap-2">
             <UserCheck className="h-5 w-5 text-amber-700" />
-            <h2 className="text-lg font-bold text-stone-900">Channel Partners & Real Estate Brokers</h2>
+            <h2 className="font-display text-lg font-bold text-stone-900 tracking-wide">Channel Partners & Real Estate Brokers</h2>
           </div>
           <p className="text-xs text-stone-500">
             Authorized realtors network, RERA certifications, commission slabs, and sourcing payouts
@@ -74,37 +74,37 @@ export const ChannelPartnersView: React.FC<ChannelPartnersViewProps> = ({ user }
         </button>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                <th className="py-3 px-2">Partner Code & Firm</th>
-                <th className="py-3 px-2">Contact Person</th>
-                <th className="py-3 px-2">Contact Details</th>
-                <th className="py-3 px-2">RERA Certificate</th>
-                <th className="py-3 px-2">Default Commission</th>
-                <th className="py-3 px-2">Status</th>
+              <tr className="border-b border-stone-200 text-[10px] font-bold uppercase tracking-wider text-stone-500 bg-[#FAF8F5]">
+                <th className="py-3 px-3">Partner Code & Firm</th>
+                <th className="py-3 px-3">Contact Person</th>
+                <th className="py-3 px-3">Contact Details</th>
+                <th className="py-3 px-3">RERA Certificate</th>
+                <th className="py-3 px-3">Default Commission</th>
+                <th className="py-3 px-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100">
               {partners.map((p) => (
-                <tr key={p.id} className="hover:bg-slate-50">
-                  <td className="py-3 px-2">
+                <tr key={p.id} className="hover:bg-[#FAF8F5]">
+                  <td className="py-3 px-3">
                     <div className="font-bold text-stone-900">{p.companyName || p.name}</div>
-                    <div className="font-mono text-[10px] text-amber-800 font-bold">{p.partnerCode}</div>
+                    <div className="font-num text-[10px] text-amber-800 font-bold">{p.partnerCode}</div>
                   </td>
-                  <td className="py-3 px-2 text-stone-800 font-medium">{p.name}</td>
-                  <td className="py-3 px-2 text-stone-600">
-                    <div>{p.mobile}</div>
+                  <td className="py-3 px-3 text-stone-800 font-medium">{p.name}</td>
+                  <td className="py-3 px-3 text-stone-600">
+                    <div className="font-num">{p.mobile}</div>
                     <div className="text-[10px] text-stone-400">{p.email}</div>
                   </td>
-                  <td className="py-3 px-2 font-mono text-[11px] text-stone-700">
+                  <td className="py-3 px-3 font-num text-[11px] text-stone-700">
                     {p.reraNumber || 'Applied / Pending'}
                   </td>
-                  <td className="py-3 px-2 font-bold text-amber-800">{p.commissionRate}%</td>
-                  <td className="py-3 px-2">
-                    <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
+                  <td className="py-3 px-3 font-bold font-num text-amber-800">{p.commissionRate}%</td>
+                  <td className="py-3 px-3">
+                    <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-emerald-800 border border-emerald-200/60">
                       {p.status}
                     </span>
                   </td>
@@ -116,69 +116,69 @@ export const ChannelPartnersView: React.FC<ChannelPartnersViewProps> = ({ user }
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="text-base font-bold text-slate-900">Register Channel Partner</h3>
-              <button onClick={() => setShowModal(false)} className="rounded p-1 text-slate-400">✕</button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/60 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-md rounded-xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <h3 className="font-display text-base font-bold text-stone-900">Register Channel Partner</h3>
+              <button onClick={() => setShowModal(false)} className="rounded p-1 text-stone-400 hover:text-stone-600">✕</button>
             </div>
             <form onSubmit={handleCreate} className="mt-4 space-y-3 text-xs">
               <div>
-                <label className="font-semibold text-slate-700 block">Agency / Brokerage Name *</label>
+                <label className="font-semibold text-stone-700 block">Agency / Brokerage Name *</label>
                 <input
                   type="text"
                   required
                   placeholder="Prime Bengal Properties"
                   value={formData.companyName}
                   onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="font-semibold text-slate-700 block">Contact Person *</label>
+                  <label className="font-semibold text-stone-700 block">Contact Person *</label>
                   <input
                     type="text"
                     required
                     placeholder="Sanjay Roy"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="font-semibold text-slate-700 block">Mobile Number *</label>
+                  <label className="font-semibold text-stone-700 block">Mobile Number *</label>
                   <input
                     type="tel"
                     required
                     placeholder="+91 98300 11223"
                     value={formData.mobile}
                     onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="font-semibold text-slate-700 block">RERA Number</label>
+                  <label className="font-semibold text-stone-700 block">RERA Number</label>
                   <input
                     type="text"
                     placeholder="WBRERA/A/KOL/2024/0012"
                     value={formData.reraNumber}
                     onChange={(e) => setFormData({ ...formData, reraNumber: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2 font-mono"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 font-num focus:border-amber-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="font-semibold text-slate-700 block">Commission Rate (%)</label>
+                  <label className="font-semibold text-stone-700 block">Commission Rate (%)</label>
                   <input
                     type="number"
                     step="0.25"
                     value={formData.commissionRate}
                     onChange={(e) => setFormData({ ...formData, commissionRate: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                   />
                 </div>
               </div>

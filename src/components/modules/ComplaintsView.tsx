@@ -77,7 +77,7 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
         <div>
           <div className="flex items-center gap-2">
             <Headphones className="h-5 w-5 text-amber-700" />
-            <h2 className="text-lg font-bold text-stone-900">Customer Support & Snag Management</h2>
+            <h2 className="font-display text-lg font-bold text-stone-900 tracking-wide">Customer Support & Snag Management</h2>
           </div>
           <p className="text-xs text-stone-500">
             Post-sales handover tickets, snag checklist rectifications, and SLA countdowns
@@ -86,18 +86,18 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
 
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
+          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-amber-800 transition"
         >
           <Plus className="h-4 w-4" />
           <span>Log Service Ticket</span>
         </button>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+              <tr className="border-b border-stone-100 text-[11px] font-semibold uppercase tracking-wider text-stone-400">
                 <th className="py-3 px-2">Ticket #</th>
                 <th className="py-3 px-2">Customer / Allottee</th>
                 <th className="py-3 px-2">Category</th>
@@ -108,33 +108,33 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
                 <th className="py-3 px-2 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100">
               {complaints.map((c) => (
-                <tr key={c.id} className="hover:bg-slate-50">
-                  <td className="py-3 px-2 font-mono font-bold text-slate-900">{c.ticketNumber}</td>
-                  <td className="py-3 px-2 font-medium text-slate-800">{c.customerName}</td>
-                  <td className="py-3 px-2 text-slate-600">{c.category}</td>
-                  <td className="py-3 px-2 text-slate-700 max-w-xs truncate">{c.description}</td>
+                <tr key={c.id} className="hover:bg-amber-50/40 transition">
+                  <td className="py-3 px-2 font-num font-bold text-stone-900">{c.ticketNumber}</td>
+                  <td className="py-3 px-2 font-medium text-stone-800">{c.customerName}</td>
+                  <td className="py-3 px-2 text-stone-600">{c.category}</td>
+                  <td className="py-3 px-2 text-stone-700 max-w-xs truncate">{c.description}</td>
                   <td className="py-3 px-2">
                     <span
                       className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${
                         c.priority === 'Urgent'
-                          ? 'bg-rose-50 text-rose-700'
+                          ? 'bg-rose-50 text-rose-800 border border-rose-200'
                           : c.priority === 'High'
-                          ? 'bg-amber-50 text-amber-700'
-                          : 'bg-slate-100 text-slate-700'
+                          ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                          : 'bg-stone-100 text-stone-700 border border-stone-200'
                       }`}
                     >
                       {c.priority}
                     </span>
                   </td>
-                  <td className="py-3 px-2 text-slate-500 font-semibold">{c.slaDays} Days</td>
+                  <td className="py-3 px-2 text-stone-500 font-semibold font-num">{c.slaDays} Days</td>
                   <td className="py-3 px-2">
                     <span
                       className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
                         c.status === 'Resolved'
-                          ? 'bg-emerald-50 text-emerald-700'
-                          : 'bg-amber-50 text-amber-700'
+                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                          : 'bg-amber-50 text-amber-800 border border-amber-200'
                       }`}
                     >
                       {c.status}
@@ -144,7 +144,7 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
                     {c.status !== 'Resolved' && (
                       <button
                         onClick={() => setSelectedTicket(c)}
-                        className="rounded px-2.5 py-1 text-[11px] font-semibold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/70"
+                        className="rounded px-2.5 py-1 text-[11px] font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 transition"
                       >
                         Resolve →
                       </button>
@@ -159,24 +159,24 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
 
       {/* Resolve Modal */}
       {selectedTicket && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <h3 className="text-base font-bold text-slate-900">Resolve Ticket: {selectedTicket.ticketNumber}</h3>
-            <p className="mt-1 text-xs text-slate-500">{selectedTicket.description}</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/60 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-md rounded-xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <h3 className="font-display text-base font-bold text-stone-900">Resolve Ticket: {selectedTicket.ticketNumber}</h3>
+            <p className="mt-1 text-xs text-stone-500">{selectedTicket.description}</p>
             <div className="mt-4">
-              <label className="text-xs font-semibold text-slate-700 block">Resolution Remarks</label>
+              <label className="text-xs font-semibold text-stone-700 block">Resolution Remarks</label>
               <textarea
                 rows={3}
                 required
                 placeholder="Engineer attended on site. Replaced plumbing valve and verified with customer."
                 value={resolutionText}
                 onChange={(e) => setResolutionText(e.target.value)}
-                className="mt-1 w-full rounded border border-slate-200 p-2 text-xs"
+                className="mt-1 w-full rounded border border-stone-200 p-2 text-xs focus:border-amber-500 focus:outline-none"
               />
             </div>
             <div className="flex justify-end gap-2 pt-3">
-              <button onClick={() => setSelectedTicket(null)} className="rounded border border-slate-200 px-3 py-1.5 text-xs text-slate-600">Cancel</button>
-              <button onClick={handleResolve} className="rounded bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700">Mark Resolved</button>
+              <button onClick={() => setSelectedTicket(null)} className="rounded border border-stone-200 px-3 py-1.5 text-xs text-stone-600 hover:bg-stone-50 font-medium">Cancel</button>
+              <button onClick={handleResolve} className="rounded bg-emerald-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-800 shadow-xs transition">Mark Resolved</button>
             </div>
           </div>
         </div>
@@ -184,20 +184,20 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
 
       {/* Create Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="text-base font-bold text-slate-900">Log Customer Complaint</h3>
-              <button onClick={() => setShowModal(false)} className="rounded p-1 text-slate-400">✕</button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/60 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-md rounded-xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <h3 className="font-display text-base font-bold text-stone-900">Log Customer Complaint</h3>
+              <button onClick={() => setShowModal(false)} className="rounded p-1 text-stone-400 hover:text-stone-600">✕</button>
             </div>
             <form onSubmit={handleCreate} className="mt-4 space-y-3 text-xs">
               <div>
-                <label className="font-semibold text-slate-700 block">Customer Allottee *</label>
+                <label className="font-semibold text-stone-700 block">Customer Allottee *</label>
                 <select
                   required
                   value={formData.customerId}
                   onChange={(e) => setFormData({ ...formData, customerId: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                 >
                   <option value="">Select Customer</option>
                   {customers.map((c) => (
@@ -208,11 +208,11 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="font-semibold text-slate-700 block">Category</label>
+                  <label className="font-semibold text-stone-700 block">Category</label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                   >
                     <option value="Snag List & Civil">Snag List & Civil</option>
                     <option value="Plumbing & Sanitary">Plumbing & Sanitary</option>
@@ -222,11 +222,11 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
                   </select>
                 </div>
                 <div>
-                  <label className="font-semibold text-slate-700 block">Priority</label>
+                  <label className="font-semibold text-stone-700 block">Priority</label>
                   <select
                     value={formData.priority}
                     onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                   >
                     <option value="Low">Low (7 days SLA)</option>
                     <option value="Medium">Medium (3 days SLA)</option>
@@ -237,14 +237,14 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
               </div>
 
               <div>
-                <label className="font-semibold text-slate-700 block">Description of Issue *</label>
+                <label className="font-semibold text-stone-700 block">Description of Issue *</label>
                 <textarea
                   rows={3}
                   required
                   placeholder="Seepage observed in master bathroom wall post handover inspection..."
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                 />
               </div>
 

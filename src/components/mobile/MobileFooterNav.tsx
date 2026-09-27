@@ -200,7 +200,7 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
 
             <div className="flex items-center justify-between border-b border-stone-800 pb-3">
               <div>
-                <h3 className="text-sm font-bold text-amber-400">All ERP Modules</h3>
+                <h3 className="font-display text-sm font-bold text-amber-400 tracking-wide">All ERP Modules</h3>
                 <p className="text-[11px] text-stone-400">
                   {organization?.companyName} • {user?.roleCode}
                 </p>

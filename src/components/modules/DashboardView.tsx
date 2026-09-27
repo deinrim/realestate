@@ -68,7 +68,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold text-stone-900">
+              <h2 className="font-display text-xl font-bold text-stone-900 tracking-wide">
                 Welcome back, {user?.name}
               </h2>
               <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-800 border border-emerald-200">
@@ -83,7 +83,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => onNavigate('crm')}
-              className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
+              className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3.5 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-amber-800 transition"
             >
               <Compass className="h-3.5 w-3.5" />
               <span>+ Add Lead</span>
@@ -115,11 +115,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <TrendingUp className="h-4 w-4" />
             </div>
           </div>
-          <div className="mt-2 text-2xl font-bold text-stone-900">
+          <div className="mt-2 font-num text-2xl font-bold text-stone-900">
             {formatCurrency(m.totalSalesValue)}
           </div>
           <div className="mt-2 flex items-center gap-1 text-xs text-stone-500">
-            <span className="font-semibold text-stone-800">{m.totalBookings}</span> bookings recorded
+            <span className="font-semibold text-stone-800 font-num">{m.totalBookings}</span> bookings recorded
           </div>
         </div>
 
@@ -131,12 +131,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <DollarSign className="h-4 w-4" />
             </div>
           </div>
-          <div className="mt-2 text-2xl font-bold text-emerald-700">
+          <div className="mt-2 font-num text-2xl font-bold text-emerald-800">
             {formatCurrency(m.totalCollected)}
           </div>
           <div className="mt-2 flex items-center justify-between text-xs text-stone-500">
             <span>Outstanding:</span>
-            <span className="font-semibold text-rose-700">{formatCurrency(m.outstanding)}</span>
+            <span className="font-semibold text-rose-700 font-num">{formatCurrency(m.outstanding)}</span>
           </div>
         </div>
 
@@ -149,14 +149,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-stone-900">{m.availableUnits}</span>
-            <span className="text-xs text-stone-500">Available of {m.totalUnits}</span>
+            <span className="font-num text-2xl font-bold text-stone-900">{m.availableUnits}</span>
+            <span className="text-xs text-stone-500 font-num">Available of {m.totalUnits}</span>
           </div>
           <div className="mt-2 flex items-center gap-2 text-xs">
-            <span className="inline-flex items-center rounded bg-emerald-50 px-1.5 py-0.5 text-[11px] font-semibold text-emerald-800 border border-emerald-200/60">
+            <span className="inline-flex items-center rounded bg-emerald-50 px-1.5 py-0.5 text-[11px] font-semibold text-emerald-800 border border-emerald-200/60 font-num">
               {m.availableUnits} Ready for Sale
             </span>
-            <span className="inline-flex items-center rounded bg-stone-100 px-1.5 py-0.5 text-[11px] font-medium text-stone-600">
+            <span className="inline-flex items-center rounded bg-stone-100 px-1.5 py-0.5 text-[11px] font-medium text-stone-600 font-num">
               {m.bookedUnits} Booked / Sold
             </span>
           </div>
@@ -171,13 +171,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-stone-900">{m.totalLeads}</span>
+            <span className="font-num text-2xl font-bold text-stone-900">{m.totalLeads}</span>
             <span className="text-xs text-stone-500">Total Pipeline</span>
           </div>
           <div className="mt-2 flex items-center justify-between text-xs text-stone-500">
-            <span>{m.newLeads} New Inbound</span>
+            <span className="font-num">{m.newLeads} New Inbound</span>
             <span>•</span>
-            <span className="text-amber-800 font-semibold">{m.siteVisits} Site Visits</span>
+            <span className="text-amber-800 font-semibold font-num">{m.siteVisits} Site Visits</span>
           </div>
         </div>
       </div>
@@ -190,7 +190,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-2xs">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <div>
-                <h3 className="text-sm font-bold text-stone-900">Recent Bookings & Contracts</h3>
+                <h3 className="font-display text-sm font-bold text-stone-900 tracking-wide">Recent Bookings & Contracts</h3>
                 <p className="text-xs text-stone-500">Latest reservations across active projects</p>
               </div>
               <button

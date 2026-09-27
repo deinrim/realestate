@@ -56,7 +56,7 @@ export const DocumentsView: React.FC<DocumentsViewProps> = ({ user }) => {
         <div>
           <div className="flex items-center gap-2">
             <FolderOpen className="h-5 w-5 text-amber-700" />
-            <h2 className="text-lg font-bold text-stone-900">Document Repository</h2>
+            <h2 className="font-display text-lg font-bold text-stone-900 tracking-wide">Document Repository</h2>
           </div>
           <p className="text-xs text-stone-500">
             Centralized digital vault for RERA certificates, customer KYC, signed sale agreements, and NOCs
@@ -72,10 +72,10 @@ export const DocumentsView: React.FC<DocumentsViewProps> = ({ user }) => {
         </button>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {docs.map((d) => (
-            <div key={d.id} className="rounded-lg border border-stone-200 p-4 hover:border-amber-400 bg-white transition text-xs">
+            <div key={d.id} className="rounded-lg border border-stone-200 p-4 hover:border-amber-400 bg-white transition text-xs shadow-2xs">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded bg-amber-50 text-amber-700 border border-amber-200/60">
@@ -96,9 +96,9 @@ export const DocumentsView: React.FC<DocumentsViewProps> = ({ user }) => {
                 </a>
               </div>
 
-              <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span>{d.fileName}</span>
-                <span className="text-[10px] text-slate-400">
+              <div className="mt-3 pt-2 border-t border-stone-100 flex items-center justify-between text-[11px] text-stone-500">
+                <span className="font-num text-[11px]">{d.fileName}</span>
+                <span className="text-[10px] text-stone-400 font-num">
                   {new Date(d.createdAt).toLocaleDateString('en-IN')}
                 </span>
               </div>
@@ -108,28 +108,28 @@ export const DocumentsView: React.FC<DocumentsViewProps> = ({ user }) => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <h3 className="text-base font-bold text-slate-900">Upload Digital Document</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/60 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-md rounded-xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <h3 className="font-display text-base font-bold text-stone-900">Upload Digital Document</h3>
             <form onSubmit={handleCreate} className="mt-4 space-y-3 text-xs">
               <div>
-                <label className="font-semibold text-slate-700 block">Document Title *</label>
+                <label className="font-semibold text-stone-700 block">Document Title *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Srijan Solus RERA Sanctioned Master Plan"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="font-semibold text-slate-700 block">Category</label>
+                <label className="font-semibold text-stone-700 block">Category</label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                 >
                   <option value="Agreement of Sale">Agreement of Sale</option>
                   <option value="Customer KYC">Customer KYC</option>
@@ -140,14 +140,14 @@ export const DocumentsView: React.FC<DocumentsViewProps> = ({ user }) => {
               </div>
 
               <div>
-                <label className="font-semibold text-slate-700 block">File Name *</label>
+                <label className="font-semibold text-stone-700 block">File Name *</label>
                 <input
                   type="text"
                   required
                   placeholder="solus_rera_approval_signed.pdf"
                   value={formData.fileName}
                   onChange={(e) => setFormData({ ...formData, fileName: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2 font-mono"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 font-num focus:border-amber-500 focus:outline-none"
                 />
               </div>
 

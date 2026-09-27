@@ -145,7 +145,7 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
         <div>
           <div className="flex items-center gap-2">
             <FileCheck2 className="h-5 w-5 text-amber-700" />
-            <h2 className="text-lg font-bold text-stone-900">Bookings & Commercial Contracts</h2>
+            <h2 className="font-display text-lg font-bold text-stone-900 tracking-wide">Bookings & Commercial Contracts</h2>
           </div>
           <p className="text-xs text-stone-500">
             Atomic reservation engine with double-booking prevention and multi-stage workflow approvals
@@ -154,7 +154,7 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
 
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition"
+          className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-amber-800 transition"
         >
           <Plus className="h-4 w-4" />
           <span>+ New Property Booking</span>
@@ -169,52 +169,52 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
           {bookings.map((b) => (
             <div
               key={`mob-${b.id}`}
-              className="rounded-xl border border-slate-200 bg-white p-3.5 shadow-xs space-y-2.5"
+              className="rounded-xl border border-stone-200/90 bg-white p-3.5 shadow-xs space-y-2.5"
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="font-mono text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
+                  <span className="font-num text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
                     {b.bookingNumber}
                   </span>
                   <div className="font-bold text-sm text-stone-900 mt-1">{b.customerName}</div>
-                  <div className="text-[11px] text-stone-500">{b.customerMobile}</div>
+                  <div className="text-[11px] text-stone-500 font-num">{b.customerMobile}</div>
                 </div>
                 <span
                   className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
                     b.status === 'Confirmed'
-                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                      : 'bg-amber-50 text-amber-700 border border-amber-200'
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                      : 'bg-amber-50 text-amber-800 border border-amber-200'
                   }`}
                 >
                   {b.status}
                 </span>
               </div>
 
-              <div className="rounded-lg bg-slate-50 p-2.5 space-y-1.5 text-xs">
-                <div className="flex justify-between items-center text-slate-600">
+              <div className="rounded-lg bg-[#FAF8F5] p-2.5 space-y-1.5 text-xs border border-stone-200/70">
+                <div className="flex justify-between items-center text-stone-600">
                   <span>Project & Unit:</span>
-                  <span className="font-semibold text-slate-800">
+                  <span className="font-semibold text-stone-800">
                     {b.projectName} • Unit {b.unitNumber}
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-slate-600">
+                <div className="flex justify-between items-center text-stone-600">
                   <span>Consideration:</span>
-                  <span className="font-bold text-slate-900">{formatCurrency(b.totalConsideration)}</span>
+                  <span className="font-bold text-stone-900 font-num">{formatCurrency(b.totalConsideration)}</span>
                 </div>
-                <div className="flex justify-between items-center text-slate-600">
+                <div className="flex justify-between items-center text-stone-600">
                   <span>Token Received:</span>
-                  <span className="font-semibold text-emerald-600">{formatCurrency(b.bookingAmount)}</span>
+                  <span className="font-semibold text-emerald-700 font-num">{formatCurrency(b.bookingAmount)}</span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-1 border-t border-slate-100 text-xs">
+              <div className="flex items-center justify-between pt-1 border-t border-stone-100 text-xs">
                 <div>
                   {b.status === 'Confirmed' ? (
-                    <span className="inline-flex items-center gap-1 font-semibold text-emerald-700 text-[11px]">
+                    <span className="inline-flex items-center gap-1 font-semibold text-emerald-800 text-[11px]">
                       <CheckCircle2 className="h-3 w-3" /> Fully Approved
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 font-medium text-amber-700 text-[11px]">
+                    <span className="inline-flex items-center gap-1 font-medium text-amber-800 text-[11px]">
                       <Clock className="h-3 w-3" /> {getStepName(b.currentApprovalStep)}
                     </span>
                   )}
@@ -234,11 +234,11 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
         </div>
 
         {/* Desktop Table View (Hidden on mobile) */}
-        <div className="hidden md:block rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+        <div className="hidden md:block rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                <tr className="border-b border-stone-100 text-[11px] font-semibold uppercase tracking-wider text-stone-400">
                   <th className="py-3 px-2">Booking #</th>
                   <th className="py-3 px-2">Customer Name</th>
                   <th className="py-3 px-2">Project & Unit</th>
@@ -249,27 +249,27 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                   <th className="py-3 px-2 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-stone-100">
                 {bookings.map((b) => (
-                  <tr key={b.id} className="hover:bg-slate-50 transition">
-                    <td className="py-3 px-2 font-mono font-bold text-slate-900">{b.bookingNumber}</td>
+                  <tr key={b.id} className="hover:bg-amber-50/40 transition">
+                    <td className="py-3 px-2 font-num font-bold text-stone-900">{b.bookingNumber}</td>
                     <td className="py-3 px-2">
-                      <div className="font-semibold text-slate-800">{b.customerName}</div>
-                      <div className="text-[10px] text-slate-400">{b.customerMobile}</div>
+                      <div className="font-semibold text-stone-800">{b.customerName}</div>
+                      <div className="text-[10px] text-stone-400 font-num">{b.customerMobile}</div>
                     </td>
                     <td className="py-3 px-2">
                       <div className="text-stone-800 font-medium">{b.projectName}</div>
                       <div className="text-amber-800 font-semibold text-[11px]">Unit {b.unitNumber} ({b.unitType})</div>
                     </td>
-                    <td className="py-3 px-2 font-bold text-slate-900">{formatCurrency(b.totalConsideration)}</td>
-                    <td className="py-3 px-2 font-semibold text-emerald-600">{formatCurrency(b.bookingAmount)}</td>
+                    <td className="py-3 px-2 font-bold text-stone-900 font-num">{formatCurrency(b.totalConsideration)}</td>
+                    <td className="py-3 px-2 font-semibold text-emerald-700 font-num">{formatCurrency(b.bookingAmount)}</td>
                     <td className="py-3 px-2">
                       {b.status === 'Confirmed' ? (
-                        <span className="inline-flex items-center gap-1 font-semibold text-emerald-700 text-[11px]">
+                        <span className="inline-flex items-center gap-1 font-semibold text-emerald-800 text-[11px]">
                           <CheckCircle2 className="h-3 w-3" /> Fully Approved
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 font-medium text-amber-700 text-[11px]">
+                        <span className="inline-flex items-center gap-1 font-medium text-amber-800 text-[11px]">
                           <Clock className="h-3 w-3" /> {getStepName(b.currentApprovalStep)}
                         </span>
                       )}
@@ -278,8 +278,8 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                       <span
                         className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-bold ${
                           b.status === 'Confirmed'
-                            ? 'bg-emerald-50 text-emerald-700'
-                            : 'bg-amber-50 text-amber-700'
+                            ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                            : 'bg-amber-50 text-amber-800 border border-amber-200'
                         }`}
                       >
                         {b.status}
@@ -305,14 +305,14 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
 
       {/* Workflow Approval Modal */}
       {approvalModalBooking && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/60 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-md rounded-xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <div>
-                <h3 className="text-base font-bold text-slate-900">Workflow Approval Review</h3>
-                <p className="text-xs text-slate-500">{approvalModalBooking.bookingNumber} • {approvalModalBooking.customerName}</p>
+                <h3 className="font-display text-base font-bold text-stone-900 tracking-wide">Workflow Approval Review</h3>
+                <p className="text-xs text-stone-500 font-num">{approvalModalBooking.bookingNumber} • {approvalModalBooking.customerName}</p>
               </div>
-              <button onClick={() => setApprovalModalBooking(null)} className="rounded p-1 text-slate-400">✕</button>
+              <button onClick={() => setApprovalModalBooking(null)} className="rounded p-1 text-stone-400">✕</button>
             </div>
 
             <div className="mt-4 space-y-3 text-xs">
@@ -322,20 +322,20 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                 <p className="mt-1 text-stone-500 text-[11px]">
                   Property: {approvalModalBooking.projectName} • Unit {approvalModalBooking.unitNumber}
                 </p>
-                <p className="text-stone-800 font-semibold mt-1">
+                <p className="text-stone-800 font-semibold mt-1 font-num">
                   Consideration: {formatCurrency(approvalModalBooking.totalConsideration)}
                 </p>
               </div>
 
               <div>
-                <label className="font-semibold text-slate-700 block">Approval Remarks / Verification Notes</label>
+                <label className="font-semibold text-stone-700 block">Approval Remarks / Verification Notes</label>
                 <textarea
                   rows={3}
                   required
                   placeholder="Verified KYC, payment token clearance, and allotment terms."
                   value={approvalComments}
                   onChange={(e) => setApprovalComments(e.target.value)}
-                  className="mt-1 w-full rounded border border-slate-200 p-2"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-600 focus:outline-hidden"
                 />
               </div>
 
@@ -343,7 +343,7 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                 <button
                   type="button"
                   onClick={() => setApprovalModalBooking(null)}
-                  className="rounded border border-slate-200 px-3 py-1.5 text-slate-600"
+                  className="rounded border border-stone-200 px-3 py-1.5 text-stone-600 hover:bg-stone-50"
                 >
                   Cancel
                 </button>
@@ -351,7 +351,7 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                   type="button"
                   disabled={submitting}
                   onClick={handleApproveStep}
-                  className="rounded bg-emerald-600 px-4 py-1.5 font-bold text-white shadow-xs hover:bg-emerald-700 disabled:opacity-50"
+                  className="rounded bg-emerald-700 px-4 py-1.5 font-bold text-white shadow-xs hover:bg-emerald-800 disabled:opacity-50"
                 >
                   {submitting ? 'Approving...' : 'Approve & Advance'}
                 </button>
@@ -363,22 +363,22 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
 
       {/* Create Booking Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="text-base font-bold text-slate-900">New Commercial Booking Entry</h3>
-              <button onClick={() => setShowCreateModal(false)} className="rounded p-1 text-slate-400">✕</button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/60 p-4 backdrop-blur-xs">
+          <div className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <h3 className="font-display text-base font-bold text-stone-900 tracking-wide">New Commercial Booking Entry</h3>
+              <button onClick={() => setShowCreateModal(false)} className="rounded p-1 text-stone-400">✕</button>
             </div>
 
             <form onSubmit={handleCreateBooking} className="mt-4 space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-semibold text-slate-700 block">Customer Allottee *</label>
+                  <label className="font-semibold text-stone-700 block">Customer Allottee *</label>
                   <select
                     required
                     value={formData.customerId}
                     onChange={(e) => setFormData({ ...formData, customerId: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-600 focus:outline-hidden"
                   >
                     <option value="">Select Customer</option>
                     {customers.map((c) => (
@@ -390,12 +390,12 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                 </div>
 
                 <div>
-                  <label className="font-semibold text-slate-700 block">Project *</label>
+                  <label className="font-semibold text-stone-700 block">Project *</label>
                   <select
                     required
                     value={formData.projectId}
                     onChange={(e) => setFormData({ ...formData, projectId: e.target.value, unitId: '' })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-600 focus:outline-hidden"
                   >
                     <option value="">Select Project</option>
                     {projects.map((p) => (
@@ -407,12 +407,12 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-semibold text-slate-700 block">Available Inventory Unit *</label>
+                  <label className="font-semibold text-stone-700 block">Available Inventory Unit *</label>
                   <select
                     required
                     value={formData.unitId}
                     onChange={(e) => handleUnitSelect(e.target.value)}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-600 focus:outline-hidden"
                   >
                     <option value="">Select Available Unit</option>
                     {availableUnits.map((u) => (
@@ -424,11 +424,11 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                 </div>
 
                 <div>
-                  <label className="font-semibold text-slate-700 block">Payment Plan</label>
+                  <label className="font-semibold text-stone-700 block">Payment Plan</label>
                   <select
                     value={formData.paymentPlan}
                     onChange={(e) => setFormData({ ...formData, paymentPlan: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-600 focus:outline-hidden"
                   >
                     <option value="Construction Linked Plan">Construction Linked Plan (CLP)</option>
                     <option value="Down Payment Plan">Down Payment Plan (10:90)</option>
@@ -439,31 +439,31 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-semibold text-slate-700 block">Total Agreed Consideration (₹) *</label>
+                  <label className="font-semibold text-stone-700 block">Total Agreed Consideration (₹) *</label>
                   <input
                     type="number"
                     required
                     placeholder="9500000"
                     value={formData.totalConsideration}
                     onChange={(e) => setFormData({ ...formData, totalConsideration: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2 font-bold"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 font-bold font-num focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
 
                 <div>
-                  <label className="font-semibold text-slate-700 block">Booking Token Amount Received (₹) *</label>
+                  <label className="font-semibold text-stone-700 block">Booking Token Amount Received (₹) *</label>
                   <input
                     type="number"
                     required
                     placeholder="500000"
                     value={formData.bookingAmount}
                     onChange={(e) => setFormData({ ...formData, bookingAmount: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2 font-bold text-emerald-700"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 font-bold text-emerald-700 font-num focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
               </div>
 
-              <div className="rounded-lg bg-amber-50/70 p-3 text-amber-900 border border-amber-200/80 text-[11px] leading-relaxed">
+              <div className="rounded-lg bg-amber-50/70 p-3 text-amber-950 border border-amber-200/80 text-[11px] leading-relaxed">
                 ℹ️ <strong>Atomic Double-Booking Lock:</strong> Confirming this booking instantly reserves the selected unit in PostgreSQL, generates the 6-stage construction payment milestone schedule, and automatically issues an official payment receipt for the initial booking token.
               </div>
 

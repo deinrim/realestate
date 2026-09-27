@@ -83,7 +83,7 @@ export const OrganizationSettingsView: React.FC<OrganizationSettingsViewProps> =
       <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div className="flex items-center gap-2">
           <Settings className="h-5 w-5 text-amber-700" />
-          <h2 className="text-lg font-bold text-stone-900">Organization Settings & Configuration</h2>
+          <h2 className="font-display text-lg font-bold text-stone-900 tracking-wide">Organization Settings & Configuration</h2>
         </div>
         <p className="text-xs text-stone-500">
           Corporate legal identities, GSTIN/PAN credentials, auto-numbering prefixes, and branch registry
@@ -92,7 +92,7 @@ export const OrganizationSettingsView: React.FC<OrganizationSettingsViewProps> =
 
       {/* Corporate Profile Card */}
       <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
-        <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-3">
+        <h3 className="font-display text-sm font-bold text-stone-900 border-b border-stone-100 pb-3">
           Corporate Entity Details
         </h3>
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
@@ -106,103 +106,103 @@ export const OrganizationSettingsView: React.FC<OrganizationSettingsViewProps> =
           </div>
           <div>
             <span className="block text-stone-400 text-[10px]">Tenant Code</span>
-            <span className="font-mono font-bold text-amber-800">{org?.code}</span>
+            <span className="font-num font-bold text-amber-800">{org?.code}</span>
           </div>
           <div>
-            <span className="block text-slate-400 text-[10px]">GSTIN Registration</span>
-            <span className="font-mono font-bold text-slate-800">{org?.gstin || 'N/A'}</span>
+            <span className="block text-stone-400 text-[10px]">GSTIN Registration</span>
+            <span className="font-num font-bold text-stone-800">{org?.gstin || 'N/A'}</span>
           </div>
           <div>
-            <span className="block text-slate-400 text-[10px]">PAN Number</span>
-            <span className="font-mono font-bold text-slate-800">{org?.pan || 'N/A'}</span>
+            <span className="block text-stone-400 text-[10px]">PAN Number</span>
+            <span className="font-num font-bold text-stone-800">{org?.pan || 'N/A'}</span>
           </div>
           <div>
-            <span className="block text-slate-400 text-[10px]">Subscription Plan</span>
-            <span className="font-bold text-indigo-700">{org?.subscriptionPlan}</span>
+            <span className="block text-stone-400 text-[10px]">Subscription Plan</span>
+            <span className="font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60 inline-block">{org?.subscriptionPlan}</span>
           </div>
         </div>
       </div>
 
       {/* Settings Form */}
-      <form onSubmit={handleSaveSettings} className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs space-y-5">
-        <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3">
+      <form onSubmit={handleSaveSettings} className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs space-y-5">
+        <h3 className="font-display text-sm font-bold text-stone-900 border-b border-stone-100 pb-3">
           Auto-Numbering Prefixes & Regional Formats
         </h3>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 text-xs">
           <div>
-            <label className="font-semibold text-slate-700 block">Lead Prefix</label>
+            <label className="font-semibold text-stone-700 block">Lead Prefix</label>
             <input
               type="text"
               value={settingsData.leadPrefix}
               onChange={(e) => setSettingsData({ ...settingsData, leadPrefix: e.target.value })}
-              className="mt-1 w-full rounded border border-slate-200 p-2 font-mono"
+              className="mt-1 w-full rounded border border-stone-200 p-2 font-num focus:border-amber-500 focus:outline-none"
             />
           </div>
           <div>
-            <label className="font-semibold text-slate-700 block">Booking Prefix</label>
+            <label className="font-semibold text-stone-700 block">Booking Prefix</label>
             <input
               type="text"
               value={settingsData.bookingPrefix}
               onChange={(e) => setSettingsData({ ...settingsData, bookingPrefix: e.target.value })}
-              className="mt-1 w-full rounded border border-slate-200 p-2 font-mono"
+              className="mt-1 w-full rounded border border-stone-200 p-2 font-num focus:border-amber-500 focus:outline-none"
             />
           </div>
           <div>
-            <label className="font-semibold text-slate-700 block">Receipt Prefix</label>
+            <label className="font-semibold text-stone-700 block">Receipt Prefix</label>
             <input
               type="text"
               value={settingsData.receiptPrefix}
               onChange={(e) => setSettingsData({ ...settingsData, receiptPrefix: e.target.value })}
-              className="mt-1 w-full rounded border border-slate-200 p-2 font-mono"
+              className="mt-1 w-full rounded border border-stone-200 p-2 font-num focus:border-amber-500 focus:outline-none"
             />
           </div>
           <div>
-            <label className="font-semibold text-slate-700 block">Customer Prefix</label>
+            <label className="font-semibold text-stone-700 block">Customer Prefix</label>
             <input
               type="text"
               value={settingsData.customerPrefix}
               onChange={(e) => setSettingsData({ ...settingsData, customerPrefix: e.target.value })}
-              className="mt-1 w-full rounded border border-slate-200 p-2 font-mono"
+              className="mt-1 w-full rounded border border-stone-200 p-2 font-num focus:border-amber-500 focus:outline-none"
             />
           </div>
           <div>
-            <label className="font-semibold text-slate-700 block">Project Prefix</label>
+            <label className="font-semibold text-stone-700 block">Project Prefix</label>
             <input
               type="text"
               value={settingsData.projectPrefix}
               onChange={(e) => setSettingsData({ ...settingsData, projectPrefix: e.target.value })}
-              className="mt-1 w-full rounded border border-slate-200 p-2 font-mono"
+              className="mt-1 w-full rounded border border-stone-200 p-2 font-num focus:border-amber-500 focus:outline-none"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
           <div>
-            <label className="font-semibold text-slate-700 block">Currency Symbol</label>
+            <label className="font-semibold text-stone-700 block">Currency Symbol</label>
             <input
               type="text"
               value={settingsData.currencySymbol}
               onChange={(e) => setSettingsData({ ...settingsData, currencySymbol: e.target.value })}
-              className="mt-1 w-full rounded border border-slate-200 p-2"
+              className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none font-bold"
             />
           </div>
           <div>
-            <label className="font-semibold text-slate-700 block">Applicable GST Rate (%)</label>
+            <label className="font-semibold text-stone-700 block">Applicable GST Rate (%)</label>
             <input
               type="text"
               value={settingsData.taxRateGst || '5.00'}
               onChange={(e) => setSettingsData({ ...settingsData, taxRateGst: e.target.value })}
-              className="mt-1 w-full rounded border border-slate-200 p-2"
+              className="mt-1 w-full rounded border border-stone-200 p-2 font-num focus:border-amber-500 focus:outline-none"
             />
           </div>
           <div>
-            <label className="font-semibold text-slate-700 block">System Timezone</label>
+            <label className="font-semibold text-stone-700 block">System Timezone</label>
             <input
               type="text"
               value={settingsData.timezone}
               onChange={(e) => setSettingsData({ ...settingsData, timezone: e.target.value })}
-              className="mt-1 w-full rounded border border-slate-200 p-2"
+              className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
             />
           </div>
         </div>

@@ -101,11 +101,11 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
       case 'Blocked':
         return 'bg-stone-100 text-stone-700 border-stone-300 hover:bg-stone-200';
       case 'Negotiation':
-        return 'bg-purple-50 text-purple-800 border-purple-300 hover:bg-purple-100';
+        return 'bg-amber-100/70 text-amber-950 border-amber-300 hover:bg-amber-200/60';
       case 'Booked':
       case 'Agreement':
       case 'Sold':
-        return 'bg-rose-50 text-rose-800 border-rose-300 hover:bg-rose-100';
+        return 'bg-rose-50 text-rose-900 border-rose-300 hover:bg-rose-100';
       default:
         return 'bg-stone-50 text-stone-700 border-stone-200';
     }
@@ -122,7 +122,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
       case 'Blocked':
         return 'bg-stone-400';
       case 'Negotiation':
-        return 'bg-purple-600';
+        return 'bg-amber-700';
       case 'Booked':
       case 'Agreement':
       case 'Sold':
@@ -147,7 +147,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
           <div>
             <div className="flex items-center gap-2">
               <Layers className="h-5 w-5 text-amber-700" />
-              <h2 className="text-lg font-bold text-stone-900">Visual Inventory Matrix</h2>
+              <h2 className="font-display text-lg font-bold text-stone-900 tracking-wide">Visual Inventory Matrix</h2>
             </div>
             <p className="mt-1 text-xs text-stone-500">
               Interactive architectural layout across towers, floors and configurations
@@ -268,14 +268,14 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
                             )}`}
                           >
                             <div className="flex items-center justify-between">
-                              <span className="font-bold text-xs">Unit {unit.unitNumber}</span>
+                              <span className="font-bold text-xs font-num">Unit {unit.unitNumber}</span>
                               <span className={`h-2 w-2 rounded-full ${getStatusDot(unit.status)}`} />
                             </div>
                             <div className="mt-1 text-[11px] opacity-85">
-                              {unit.bedrooms} BHK • {unit.carpetArea} sqft
+                              {unit.bedrooms} BHK • <span className="font-num">{unit.carpetArea}</span> sqft
                             </div>
                             <div className="mt-1.5 flex items-center justify-between text-[11px] font-semibold">
-                              <span>{formatCurrency(unit.totalPrice)}</span>
+                              <span className="font-num">{formatCurrency(unit.totalPrice)}</span>
                               <span className="text-[10px] font-normal uppercase opacity-75">{unit.status}</span>
                             </div>
                           </button>
@@ -297,7 +297,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base font-bold text-stone-900">Unit {selectedUnit.unitNumber}</h3>
+                  <h3 className="font-display text-base font-bold text-stone-900 tracking-wide">Unit {selectedUnit.unitNumber}</h3>
                   <span
                     className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${getStatusColor(
                       selectedUnit.status

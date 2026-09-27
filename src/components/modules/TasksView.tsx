@@ -74,7 +74,7 @@ export const TasksView: React.FC<TasksViewProps> = ({ user }) => {
         <div>
           <div className="flex items-center gap-2">
             <CheckSquare className="h-5 w-5 text-amber-700" />
-            <h2 className="text-lg font-bold text-stone-900">Department Tasks & Follow-ups</h2>
+            <h2 className="font-display text-lg font-bold text-stone-900 tracking-wide">Department Tasks & Follow-ups</h2>
           </div>
           <p className="text-xs text-stone-500">
             Internal action items across Sales, Legal, Accounts, and Project Handover teams
@@ -90,7 +90,7 @@ export const TasksView: React.FC<TasksViewProps> = ({ user }) => {
         </button>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div className="space-y-2.5">
           {tasks.map((t) => {
             const isDone = t.status === 'Completed';
@@ -109,13 +109,13 @@ export const TasksView: React.FC<TasksViewProps> = ({ user }) => {
                     className="mt-0.5 h-4 w-4 rounded text-amber-700 focus:ring-amber-500 cursor-pointer"
                   />
                   <div>
-                    <span className={`font-bold text-slate-900 ${isDone ? 'line-through text-slate-400' : ''}`}>
+                    <span className={`font-bold text-stone-900 ${isDone ? 'line-through text-stone-400' : ''}`}>
                       {t.title}
                     </span>
                     {t.description && (
-                      <p className="mt-0.5 text-slate-500 text-[11px]">{t.description}</p>
+                      <p className="mt-0.5 text-stone-500 text-[11px]">{t.description}</p>
                     )}
-                    <div className="mt-2 flex items-center gap-3 text-[10px] text-slate-400">
+                    <div className="mt-2 flex items-center gap-3 text-[10px] text-stone-400">
                       <span>Due: {t.dueDate || 'No deadline'}</span>
                       <span>•</span>
                       <span>Assigned to: {t.assignedUserName || 'Me'}</span>
@@ -129,7 +129,7 @@ export const TasksView: React.FC<TasksViewProps> = ({ user }) => {
                       ? 'bg-rose-50 text-rose-700'
                       : t.priority === 'Medium'
                       ? 'bg-amber-50 text-amber-700'
-                      : 'bg-slate-100 text-slate-700'
+                      : 'bg-stone-100 text-stone-700'
                   }`}
                 >
                   {t.priority}
@@ -141,37 +141,37 @@ export const TasksView: React.FC<TasksViewProps> = ({ user }) => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <h3 className="text-base font-bold text-slate-900">Create Task</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/60 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-md rounded-xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <h3 className="font-display text-base font-bold text-stone-900">Create Task</h3>
             <form onSubmit={handleCreate} className="mt-4 space-y-3 text-xs">
               <div>
-                <label className="font-semibold text-slate-700 block">Task Title *</label>
+                <label className="font-semibold text-stone-700 block">Task Title *</label>
                 <input
                   type="text"
                   required
                   placeholder="Review revised draft for Solus Tower A"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                 />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="font-semibold text-slate-700 block">Due Date</label>
+                  <label className="font-semibold text-stone-700 block">Due Date</label>
                   <input
                     type="date"
                     value={formData.dueDate}
                     onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="font-semibold text-slate-700 block">Priority</label>
+                  <label className="font-semibold text-stone-700 block">Priority</label>
                   <select
                     value={formData.priority}
                     onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                   >
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -181,12 +181,12 @@ export const TasksView: React.FC<TasksViewProps> = ({ user }) => {
                 </div>
               </div>
               <div>
-                <label className="font-semibold text-slate-700 block">Details / Context</label>
+                <label className="font-semibold text-stone-700 block">Details / Context</label>
                 <textarea
                   rows={2}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                 />
               </div>
               <div className="flex justify-end gap-2 pt-2">

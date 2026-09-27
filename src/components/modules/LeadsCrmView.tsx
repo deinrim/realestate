@@ -188,7 +188,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
         <div>
           <div className="flex items-center gap-2">
             <Compass className="h-5 w-5 text-amber-700" />
-            <h2 className="text-lg font-bold text-stone-900">Lead Management & CRM Pipeline</h2>
+            <h2 className="font-display text-lg font-bold text-stone-900 tracking-wide">Lead Management & CRM Pipeline</h2>
           </div>
           <p className="text-xs text-stone-500">
             Track prospective homebuyers through acquisition, follow-up calls, and site visits

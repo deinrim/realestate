@@ -143,7 +143,7 @@ export default function App() {
       <div className="flex min-h-screen items-center justify-center bg-[#F8F6F1]">
         <div className="flex flex-col items-center gap-3">
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-amber-600 border-t-transparent" />
-          <h2 className="text-sm font-bold text-stone-800">Connecting to Cloud SQL (asia-southeast1)...</h2>
+          <h2 className="font-display text-sm font-bold text-stone-800 tracking-wide">Connecting to Cloud SQL (asia-southeast1)...</h2>
           <p className="text-xs text-stone-500">Initializing multi-tenant ERP session...</p>
         </div>
       </div>

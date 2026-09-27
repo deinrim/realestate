@@ -50,7 +50,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ user }) => {
         <div>
           <div className="flex items-center gap-2">
             <BarChart3 className="h-5 w-5 text-amber-700" />
-            <h2 className="text-lg font-bold text-stone-900">Analytics & Enterprise Reports</h2>
+            <h2 className="font-display text-lg font-bold text-stone-900 tracking-wide">Analytics & Enterprise Reports</h2>
           </div>
           <p className="text-xs text-stone-500">
             Real-time financial audits, booking velocity, inventory aging, and CSV data exports
@@ -115,13 +115,13 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ user }) => {
                       ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-stone-100">
                 {data.map((row, i) => (
-                  <tr key={i} className="hover:bg-slate-50">
+                   <tr key={i} className="hover:bg-[#FAF8F5]">
                     {Object.keys(row)
                       .slice(0, 8)
                       .map((k) => (
-                        <td key={k} className="py-2.5 px-3 text-slate-700 max-w-[200px] truncate">
+                        <td key={k} className="py-2.5 px-3 text-stone-700 max-w-[200px] truncate">
                           {typeof row[k] === 'object' ? JSON.stringify(row[k]) : String(row[k] ?? '')}
                         </td>
                       ))}

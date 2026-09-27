@@ -68,7 +68,7 @@ export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
         <div>
           <div className="flex items-center gap-2">
             <Calendar className="h-5 w-5 text-amber-700" />
-            <h2 className="text-lg font-bold text-stone-900">Site Visits & Property Tours</h2>
+            <h2 className="font-display text-lg font-bold text-stone-900 tracking-wide">Site Visits & Property Tours</h2>
           </div>
           <p className="text-xs text-stone-500">
             Coordinate sample flat walkthroughs, site pick-ups, and prospective buyer tours
@@ -84,45 +84,45 @@ export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
         </button>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                <th className="py-3 px-2">Visitor / Lead</th>
-                <th className="py-3 px-2">Project</th>
-                <th className="py-3 px-2">Date & Slot</th>
-                <th className="py-3 px-2">Visitors</th>
-                <th className="py-3 px-2">Transport</th>
-                <th className="py-3 px-2">Sales Officer</th>
-                <th className="py-3 px-2">Status</th>
+              <tr className="border-b border-stone-200 text-[10px] font-bold uppercase tracking-wider text-stone-500 bg-[#FAF8F5]">
+                <th className="py-3 px-3">Visitor / Lead</th>
+                <th className="py-3 px-3">Project</th>
+                <th className="py-3 px-3">Date & Slot</th>
+                <th className="py-3 px-3">Visitors</th>
+                <th className="py-3 px-3">Transport</th>
+                <th className="py-3 px-3">Sales Officer</th>
+                <th className="py-3 px-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100">
               {visits.map((v) => (
-                <tr key={v.id} className="hover:bg-slate-50">
-                  <td className="py-3 px-2">
-                    <div className="font-bold text-slate-900">{v.leadName || 'Direct Walk-in'}</div>
-                    <div className="text-[11px] text-slate-500">{v.leadMobile}</div>
+                <tr key={v.id} className="hover:bg-[#FAF8F5]">
+                  <td className="py-3 px-3">
+                    <div className="font-bold text-stone-900">{v.leadName || 'Direct Walk-in'}</div>
+                    <div className="text-[11px] text-stone-500 font-num">{v.leadMobile}</div>
                   </td>
-                  <td className="py-3 px-2 font-medium text-slate-800">{v.projectName}</td>
-                  <td className="py-3 px-2 text-slate-700">
+                  <td className="py-3 px-3 font-medium text-stone-800">{v.projectName}</td>
+                  <td className="py-3 px-3 text-stone-700">
                     <div className="font-semibold">{v.visitDate}</div>
-                    <div className="text-[11px] text-slate-400">{v.visitTime}</div>
+                    <div className="text-[11px] text-stone-400 font-num">{v.visitTime}</div>
                   </td>
-                  <td className="py-3 px-2 text-slate-700">{v.numberOfVisitors} Persons</td>
-                  <td className="py-3 px-2">
+                  <td className="py-3 px-3 text-stone-700 font-num">{v.numberOfVisitors} Persons</td>
+                  <td className="py-3 px-3">
                     {v.transportRequired ? (
-                      <span className="inline-flex items-center gap-1 rounded bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-700">
-                        <Car className="h-3 w-3" /> Cab Required
+                      <span className="inline-flex items-center gap-1 rounded bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-800 border border-amber-200/60">
+                        <Car className="h-3 w-3 text-amber-700" /> Cab Required
                       </span>
                     ) : (
-                      <span className="text-slate-400 text-[11px]">Own Transport</span>
+                      <span className="text-stone-400 text-[11px]">Own Transport</span>
                     )}
                   </td>
-                  <td className="py-3 px-2 text-slate-600">{v.executiveName || 'Assigned on Site'}</td>
-                  <td className="py-3 px-2">
-                    <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
+                  <td className="py-3 px-3 text-stone-600">{v.executiveName || 'Assigned on Site'}</td>
+                  <td className="py-3 px-3">
+                    <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-emerald-800 border border-emerald-200/60">
                       {v.status}
                     </span>
                   </td>
@@ -135,19 +135,19 @@ export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="text-base font-bold text-slate-900">Schedule Site Visit Tour</h3>
-              <button onClick={() => setShowModal(false)} className="rounded p-1 text-slate-400 hover:text-slate-600">✕</button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/60 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-md rounded-xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <h3 className="font-display text-base font-bold text-stone-900">Schedule Site Visit Tour</h3>
+              <button onClick={() => setShowModal(false)} className="rounded p-1 text-stone-400 hover:text-stone-600">✕</button>
             </div>
             <form onSubmit={handleCreate} className="mt-4 space-y-3 text-xs">
               <div>
-                <label className="font-semibold text-slate-700 block">Lead / Buyer Contact</label>
+                <label className="font-semibold text-stone-700 block">Lead / Buyer Contact</label>
                 <select
                   value={formData.leadId}
                   onChange={(e) => setFormData({ ...formData, leadId: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                 >
                   <option value="">Select Existing Lead</option>
                   {leads.map((l) => (
@@ -159,12 +159,12 @@ export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
               </div>
 
               <div>
-                <label className="font-semibold text-slate-700 block">Destination Project *</label>
+                <label className="font-semibold text-stone-700 block">Destination Project *</label>
                 <select
                   required
                   value={formData.projectId}
                   onChange={(e) => setFormData({ ...formData, projectId: e.target.value })}
-                  className="mt-1 w-full rounded border border-slate-200 p-2"
+                  className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                 >
                   {projects.map((p) => (
                     <option key={p.id} value={p.id}>{p.name}</option>
@@ -174,23 +174,23 @@ export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="font-semibold text-slate-700 block">Date *</label>
+                  <label className="font-semibold text-stone-700 block">Date *</label>
                   <input
                     type="date"
                     required
                     value={formData.visitDate}
                     onChange={(e) => setFormData({ ...formData, visitDate: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="font-semibold text-slate-700 block">Time Slot *</label>
+                  <label className="font-semibold text-stone-700 block">Time Slot *</label>
                   <input
                     type="text"
                     required
                     value={formData.visitTime}
                     onChange={(e) => setFormData({ ...formData, visitTime: e.target.value })}
-                    className="mt-1 w-full rounded border border-slate-200 p-2"
+                    className="mt-1 w-full rounded border border-stone-200 p-2 focus:border-amber-500 focus:outline-none"
                   />
                 </div>
               </div>

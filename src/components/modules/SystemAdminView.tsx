@@ -126,69 +126,69 @@ export const SystemAdminView: React.FC<SystemAdminViewProps> = ({ user, onSelect
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-indigo-100 bg-gradient-to-r from-indigo-900 to-slate-900 p-6 text-white shadow-xs">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-amber-500/20 bg-gradient-to-r from-stone-950 via-stone-900 to-amber-950/80 p-6 text-white shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-indigo-400" />
-            <h2 className="text-xl font-bold">System Administration Panel</h2>
+            <Shield className="h-5 w-5 text-amber-400" />
+            <h2 className="font-display text-xl font-bold tracking-wide">System Administration Panel</h2>
           </div>
-          <p className="mt-1 text-xs text-indigo-200">
-            Multi-Tenant SaaS Control Center • Manage organizations, data tenancy, and subscription tiers
+          <p className="mt-1 text-xs text-amber-200/80">
+            Multi-Tenant SaaS Control Center • Manage developer organizations, data tenancy, and subscription tiers
           </p>
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 rounded-lg bg-indigo-500 px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-indigo-600 transition"
+          className="flex items-center gap-2 rounded-lg bg-amber-700 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-amber-800 transition"
         >
           <Plus className="h-4 w-4" />
-          <span>Provision New Developer Organization</span>
+          <span>Provision Developer Organization</span>
         </button>
       </div>
 
       {/* Global SaaS Metrics */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-          <span className="text-xs text-slate-500">Total Organizations</span>
-          <div className="mt-1 text-2xl font-bold text-slate-900">{m.totalOrganizations || 0}</div>
-          <div className="mt-1 text-[11px] text-emerald-600 font-medium">
+        <div className="rounded-xl border border-stone-200/90 bg-white p-4 shadow-xs">
+          <span className="text-xs text-stone-500">Total Organizations</span>
+          <div className="mt-1 font-num text-2xl font-bold text-stone-900">{m.totalOrganizations || 0}</div>
+          <div className="mt-1 text-[11px] text-emerald-700 font-semibold">
             {m.activeOrganizations || 0} Active • {m.suspendedOrganizations || 0} Suspended
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-          <span className="text-xs text-slate-500">Total System Users</span>
-          <div className="mt-1 text-2xl font-bold text-slate-900">{m.totalUsers || 0}</div>
-          <div className="mt-1 text-[11px] text-slate-400">Across all developer tenants</div>
+        <div className="rounded-xl border border-stone-200/90 bg-white p-4 shadow-xs">
+          <span className="text-xs text-stone-500">Total System Users</span>
+          <div className="mt-1 font-num text-2xl font-bold text-stone-900">{m.totalUsers || 0}</div>
+          <div className="mt-1 text-[11px] text-stone-400">Across all developer tenants</div>
         </div>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-          <span className="text-xs text-slate-500">Total Projects Managed</span>
-          <div className="mt-1 text-2xl font-bold text-indigo-600">{m.totalProjects || 0}</div>
-          <div className="mt-1 text-[11px] text-slate-400">{m.totalUnits || 0} Total Units Listed</div>
+        <div className="rounded-xl border border-stone-200/90 bg-white p-4 shadow-xs">
+          <span className="text-xs text-stone-500">Total Projects Managed</span>
+          <div className="mt-1 font-num text-2xl font-bold text-amber-800">{m.totalProjects || 0}</div>
+          <div className="mt-1 text-[11px] text-stone-500 font-num">{m.totalUnits || 0} Total Units Listed</div>
         </div>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-          <span className="text-xs text-slate-500">Total Global Bookings</span>
-          <div className="mt-1 text-2xl font-bold text-emerald-600">{m.totalBookings || 0}</div>
-          <div className="mt-1 text-[11px] text-slate-400">{m.totalCustomers || 0} Registered Buyers</div>
+        <div className="rounded-xl border border-stone-200/90 bg-white p-4 shadow-xs">
+          <span className="text-xs text-stone-500">Total Global Bookings</span>
+          <div className="mt-1 font-num text-2xl font-bold text-emerald-800">{m.totalBookings || 0}</div>
+          <div className="mt-1 text-[11px] text-stone-500 font-num">{m.totalCustomers || 0} Registered Buyers</div>
         </div>
       </div>
 
       {/* Organization Management Table */}
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4">
+      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-stone-100 pb-4">
           <div>
-            <h3 className="text-sm font-bold text-slate-900">Developer Organizations</h3>
-            <p className="text-xs text-slate-500">Independent isolated enterprise clients</p>
+            <h3 className="font-display text-sm font-bold text-stone-900 tracking-wide">Developer Organizations</h3>
+            <p className="text-xs text-stone-500">Independent isolated enterprise real estate clients</p>
           </div>
           <div className="relative w-full sm:w-64">
-            <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
+            <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-stone-400" />
             <input
               type="text"
               placeholder="Filter by company, code or city..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pl-8 pr-3 text-xs focus:border-indigo-500 focus:bg-white focus:outline-hidden"
+              className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-8 pr-3 text-xs text-stone-800 placeholder-stone-400 focus:border-amber-600 focus:bg-white focus:outline-hidden"
             />
           </div>
         </div>
@@ -196,7 +196,7 @@ export const SystemAdminView: React.FC<SystemAdminViewProps> = ({ user, onSelect
         <div className="mt-4 overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+              <tr className="border-b border-stone-100 text-[11px] font-semibold uppercase tracking-wider text-stone-400">
                 <th className="py-3 px-2">Organization</th>
                 <th className="py-3 px-2">Tenant Code</th>
                 <th className="py-3 px-2">Location</th>
@@ -206,42 +206,42 @@ export const SystemAdminView: React.FC<SystemAdminViewProps> = ({ user, onSelect
                 <th className="py-3 px-2 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100">
               {filteredOrgs.map((org) => (
-                <tr key={org.id} className="hover:bg-slate-50 transition">
+                <tr key={org.id} className="hover:bg-amber-50/40 transition">
                   <td className="py-3 px-2">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700 font-bold">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 border border-amber-200/80 text-amber-900 font-bold">
                         {org.code.substring(0, 2)}
                       </div>
                       <div>
-                        <div className="font-bold text-slate-900">{org.companyName}</div>
-                        <div className="text-[11px] text-slate-400">{org.legalName}</div>
+                        <div className="font-bold text-stone-900">{org.companyName}</div>
+                        <div className="text-[11px] text-stone-500">{org.legalName}</div>
                       </div>
                     </div>
                   </td>
                   <td className="py-3 px-2">
-                    <span className="rounded bg-slate-100 px-2 py-0.5 font-mono text-[11px] font-bold text-slate-700">
+                    <span className="rounded bg-stone-100 px-2 py-0.5 font-num text-[11px] font-bold text-stone-800">
                       {org.code}
                     </span>
                   </td>
-                  <td className="py-3 px-2 text-slate-600">
+                  <td className="py-3 px-2 text-stone-600">
                     {org.city}, {org.state}
                   </td>
                   <td className="py-3 px-2">
-                    <span className="rounded bg-indigo-50 px-2 py-0.5 text-[11px] font-semibold text-indigo-700">
+                    <span className="rounded bg-amber-50 border border-amber-200/80 px-2 py-0.5 text-[11px] font-semibold text-amber-900">
                       {org.subscriptionPlan}
                     </span>
                   </td>
-                  <td className="py-3 px-2 text-slate-700">
-                    <span className="font-semibold">{org.stats?.projects || 0}</span> projects • <span className="font-semibold">{org.stats?.units || 0}</span> units
+                  <td className="py-3 px-2 text-stone-700">
+                    <span className="font-semibold font-num">{org.stats?.projects || 0}</span> projects • <span className="font-semibold font-num">{org.stats?.units || 0}</span> units
                   </td>
                   <td className="py-3 px-2">
                     <span
                       className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold ${
                         org.status === 'active'
-                          ? 'bg-emerald-50 text-emerald-700'
-                          : 'bg-rose-50 text-rose-700'
+                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                          : 'bg-rose-50 text-rose-800 border border-rose-200'
                       }`}
                     >
                       {org.status === 'active' ? (
@@ -256,10 +256,10 @@ export const SystemAdminView: React.FC<SystemAdminViewProps> = ({ user, onSelect
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => handleStatusToggle(org.id, org.status)}
-                        className={`rounded px-2.5 py-1 text-[11px] font-medium border transition ${
+                        className={`rounded px-2.5 py-1 text-[11px] font-semibold border transition ${
                           org.status === 'active'
-                            ? 'border-amber-200 text-amber-700 hover:bg-amber-50'
-                            : 'border-emerald-200 text-emerald-700 hover:bg-emerald-50'
+                            ? 'border-amber-300 text-amber-800 hover:bg-amber-50'
+                            : 'border-emerald-300 text-emerald-800 hover:bg-emerald-50'
                         }`}
                       >
                         {org.status === 'active' ? 'Suspend' : 'Activate'}
@@ -275,13 +275,13 @@ export const SystemAdminView: React.FC<SystemAdminViewProps> = ({ user, onSelect
 
       {/* New Organization Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="text-base font-bold text-slate-900">Provision New Developer Organization</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/60 p-4 backdrop-blur-xs">
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <h3 className="font-display text-base font-bold text-stone-900 tracking-wide">Provision New Developer Organization</h3>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="rounded p-1 text-slate-400 hover:text-slate-600"
+                className="rounded p-1 text-stone-400 hover:text-stone-600"
               >
                 ✕
               </button>
@@ -290,128 +290,128 @@ export const SystemAdminView: React.FC<SystemAdminViewProps> = ({ user, onSelect
             <form onSubmit={handleCreateOrg} className="mt-4 space-y-4">
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Company Brand Name *</label>
+                  <label className="block text-xs font-semibold text-stone-700">Company Brand Name *</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Acme Developers"
+                    placeholder="e.g. Prestige Developers"
                     value={formData.companyName}
                     onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-indigo-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Tenant Code (Unique) *</label>
+                  <label className="block text-xs font-semibold text-stone-700">Tenant Code (Unique) *</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. ACME"
+                    placeholder="e.g. PRSTG"
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs uppercase font-mono focus:border-indigo-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs uppercase font-num focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700">Full Legal Registered Name *</label>
+                <label className="block text-xs font-semibold text-stone-700">Full Legal Registered Name *</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Acme Developers Private Limited"
+                  placeholder="e.g. Prestige Estates Projects Limited"
                   value={formData.legalName}
                   onChange={(e) => setFormData({ ...formData, legalName: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-indigo-500 focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                 />
               </div>
 
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Primary Email *</label>
+                  <label className="block text-xs font-semibold text-stone-700">Primary Email *</label>
                   <input
                     type="email"
                     required
-                    placeholder="corp@acme.demo"
+                    placeholder="corp@prestige.demo"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-indigo-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Official Phone *</label>
+                  <label className="block text-xs font-semibold text-stone-700">Official Phone *</label>
                   <input
                     type="tel"
                     required
-                    placeholder="+91 98000 12345"
+                    placeholder="+91 80 2559 1080"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-indigo-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Contact Person *</label>
+                  <label className="block text-xs font-semibold text-stone-700">Contact Person *</label>
                   <input
                     type="text"
                     required
                     placeholder="Managing Director Name"
                     value={formData.contactPerson}
                     onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-indigo-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700">Head Office Address *</label>
+                <label className="block text-xs font-semibold text-stone-700">Head Office Address *</label>
                 <input
                   type="text"
                   required
-                  placeholder="Plot 10, Commercial Tower"
+                  placeholder="The Falcon Tower, No. 19, Brunton Road"
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-indigo-500 focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                 />
               </div>
 
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">City *</label>
+                  <label className="block text-xs font-semibold text-stone-700">City *</label>
                   <input
                     type="text"
                     required
-                    placeholder="Mumbai"
+                    placeholder="Bengaluru"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-indigo-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">State *</label>
+                  <label className="block text-xs font-semibold text-stone-700">State *</label>
                   <input
                     type="text"
                     required
-                    placeholder="Maharashtra"
+                    placeholder="Karnataka"
                     value={formData.state}
                     onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-indigo-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">GSTIN</label>
+                  <label className="block text-xs font-semibold text-stone-700">GSTIN</label>
                   <input
                     type="text"
-                    placeholder="27AAECS1234F1Z5"
+                    placeholder="29AAECP1234F1Z8"
                     value={formData.gstin}
                     onChange={(e) => setFormData({ ...formData, gstin: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs uppercase focus:border-indigo-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs uppercase font-num focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700">Subscription Tier</label>
+                  <label className="block text-xs font-semibold text-stone-700">Subscription Tier</label>
                   <select
                     value={formData.subscriptionPlan}
                     onChange={(e) => setFormData({ ...formData, subscriptionPlan: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-slate-200 p-2 text-xs focus:border-indigo-500 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   >
                     <option value="Starter Tier">Starter Tier</option>
                     <option value="Growth Tier">Growth Tier</option>
@@ -421,27 +421,27 @@ export const SystemAdminView: React.FC<SystemAdminViewProps> = ({ user, onSelect
               </div>
 
               {/* Initial Admin User */}
-              <div className="rounded-lg border border-indigo-100 bg-indigo-50/50 p-3">
-                <h4 className="text-xs font-bold text-indigo-900">Provision Initial Organization Administrator</h4>
+              <div className="rounded-lg border border-amber-200 bg-amber-50/60 p-3">
+                <h4 className="text-xs font-bold text-amber-950">Provision Initial Organization Administrator</h4>
                 <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-600">Admin Email</label>
+                    <label className="block text-[11px] font-semibold text-stone-700">Admin Email</label>
                     <input
                       type="email"
-                      placeholder="admin@acme.demo"
+                      placeholder="admin@prestige.demo"
                       value={formData.adminEmail}
                       onChange={(e) => setFormData({ ...formData, adminEmail: e.target.value })}
-                      className="mt-1 w-full rounded border border-slate-200 bg-white p-1.5 text-xs focus:outline-hidden"
+                      className="mt-1 w-full rounded border border-stone-200 bg-white p-1.5 text-xs focus:outline-hidden"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-600">Admin Name</label>
+                    <label className="block text-[11px] font-semibold text-stone-700">Admin Name</label>
                     <input
                       type="text"
                       placeholder="Admin Name"
                       value={formData.adminName}
                       onChange={(e) => setFormData({ ...formData, adminName: e.target.value })}
-                      className="mt-1 w-full rounded border border-slate-200 bg-white p-1.5 text-xs focus:outline-hidden"
+                      className="mt-1 w-full rounded border border-stone-200 bg-white p-1.5 text-xs focus:outline-hidden"
                     />
                   </div>
                 </div>
@@ -451,14 +451,14 @@ export const SystemAdminView: React.FC<SystemAdminViewProps> = ({ user, onSelect
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="rounded-lg border border-slate-200 px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                  className="rounded-lg border border-stone-200 px-4 py-2 text-xs font-medium text-stone-600 hover:bg-stone-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="rounded-lg bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-indigo-700 disabled:opacity-50"
+                  className="rounded-lg bg-amber-700 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-amber-800 disabled:opacity-50"
                 >
                   {submitting ? 'Provisioning Tenant...' : 'Provision Tenant'}
                 </button>

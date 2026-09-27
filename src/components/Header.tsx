@@ -125,24 +125,24 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         )}
 
-        <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br from-stone-950 via-stone-900 to-stone-800 text-amber-400 border border-amber-500/30 shadow-xs shrink-0">
+        <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950/80 text-amber-400 border border-amber-500/30 shadow-xs shrink-0">
           <Building2 className="h-5 w-5 sm:h-6 sm:w-6 text-amber-400" />
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-sm font-bold text-stone-900 sm:text-lg leading-tight truncate max-w-[140px] sm:max-w-none">
+            <h1 className="font-display text-sm font-bold text-stone-900 sm:text-lg leading-tight tracking-wide truncate max-w-[140px] sm:max-w-none">
               {organization ? organization.companyName : 'AuraEstate'}
             </h1>
             {user?.isSystemAdmin && (
-              <span className="hidden sm:inline rounded bg-amber-100/80 px-2 py-0.5 text-xs font-semibold text-amber-900 border border-amber-200">
+              <span className="hidden sm:inline rounded bg-amber-100/90 px-2 py-0.5 text-xs font-semibold text-amber-900 border border-amber-300/70">
                 System Admin
               </span>
             )}
           </div>
           <div className="flex items-center gap-1.5 text-[11px] text-stone-500">
-            <span>Code: <strong className="text-stone-700">{organization?.code || 'SYSTEM'}</strong></span>
+            <span>Code: <strong className="text-stone-700 font-num">{organization?.code || 'SYSTEM'}</strong></span>
             <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline text-emerald-700 font-medium flex items-center gap-1">
+            <span className="hidden sm:inline text-emerald-800 font-semibold flex items-center gap-1">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 inline-block"></span>
               RERA Compliant ERP
             </span>
@@ -165,14 +165,14 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Search Results Popover */}
         {searchResults && (
-          <div className="absolute top-11 left-0 right-0 z-50 max-h-96 overflow-y-auto rounded-lg border border-slate-200 bg-white p-2 shadow-xl">
+          <div className="absolute top-11 left-0 right-0 z-50 max-h-96 overflow-y-auto rounded-lg border border-stone-200 bg-white p-2 shadow-xl">
             {isSearching ? (
-              <div className="p-4 text-center text-xs text-slate-500">Searching...</div>
+              <div className="p-4 text-center text-xs text-stone-500">Searching...</div>
             ) : (
               <div className="space-y-3">
                 {searchResults.leads.length > 0 && (
                   <div>
-                    <div className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <div className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-stone-400">
                       Leads
                     </div>
                     {searchResults.leads.map((l) => (
@@ -183,10 +183,10 @@ export const Header: React.FC<HeaderProps> = ({
                           setSearchQuery('');
                           onNavigate('crm');
                         }}
-                        className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm hover:bg-slate-50"
+                        className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm hover:bg-amber-50/60"
                       >
-                        <span className="font-medium text-slate-800">{l.title}</span>
-                        <span className="text-xs text-slate-500">{l.subtitle}</span>
+                        <span className="font-medium text-stone-800">{l.title}</span>
+                        <span className="text-xs text-stone-500">{l.subtitle}</span>
                       </button>
                     ))}
                   </div>
@@ -194,7 +194,7 @@ export const Header: React.FC<HeaderProps> = ({
 
                 {searchResults.units.length > 0 && (
                   <div>
-                    <div className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <div className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-stone-400">
                       Inventory Units
                     </div>
                     {searchResults.units.map((u) => (
@@ -205,9 +205,9 @@ export const Header: React.FC<HeaderProps> = ({
                           setSearchQuery('');
                           onNavigate('inventory');
                         }}
-                        className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm hover:bg-slate-50"
+                        className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm hover:bg-amber-50/60"
                       >
-                        <span className="font-medium text-slate-800">Unit {lPad(u.title)}</span>
+                        <span className="font-medium text-stone-800 font-num">Unit {lPad(u.title)}</span>
                         <span className="rounded bg-amber-50 px-1.5 py-0.5 text-xs text-amber-800 font-semibold border border-amber-200/60">
                           {u.subtitle}
                         </span>
@@ -218,7 +218,7 @@ export const Header: React.FC<HeaderProps> = ({
 
                 {searchResults.bookings.length > 0 && (
                   <div>
-                    <div className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <div className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-stone-400">
                       Bookings
                     </div>
                     {searchResults.bookings.map((b) => (
@@ -229,10 +229,10 @@ export const Header: React.FC<HeaderProps> = ({
                           setSearchQuery('');
                           onNavigate('bookings');
                         }}
-                        className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm hover:bg-slate-50"
+                        className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm hover:bg-amber-50/60"
                       >
-                        <span className="font-medium text-slate-800">{b.title}</span>
-                        <span className="text-xs text-slate-500">{b.subtitle}</span>
+                        <span className="font-medium text-stone-800">{b.title}</span>
+                        <span className="text-xs text-stone-500 font-num">{b.subtitle}</span>
                       </button>
                     ))}
                   </div>
@@ -240,7 +240,7 @@ export const Header: React.FC<HeaderProps> = ({
 
                 {searchResults.customers.length > 0 && (
                   <div>
-                    <div className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <div className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-stone-400">
                       Customers
                     </div>
                     {searchResults.customers.map((c) => (
@@ -251,10 +251,10 @@ export const Header: React.FC<HeaderProps> = ({
                           setSearchQuery('');
                           onNavigate('customers');
                         }}
-                        className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm hover:bg-slate-50"
+                        className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm hover:bg-amber-50/60"
                       >
-                        <span className="font-medium text-slate-800">{c.title}</span>
-                        <span className="text-xs text-slate-500">{c.subtitle}</span>
+                        <span className="font-medium text-stone-800">{c.title}</span>
+                        <span className="text-xs text-stone-500">{c.subtitle}</span>
                       </button>
                     ))}
                   </div>
@@ -264,7 +264,7 @@ export const Header: React.FC<HeaderProps> = ({
                   searchResults.units.length === 0 &&
                   searchResults.bookings.length === 0 &&
                   searchResults.customers.length === 0 && (
-                    <div className="p-4 text-center text-xs text-slate-500">
+                    <div className="p-4 text-center text-xs text-stone-500">
                       No matching records found in this organization.
                     </div>
                   )}
