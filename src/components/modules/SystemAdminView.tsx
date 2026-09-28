@@ -188,7 +188,7 @@ export const SystemAdminView: React.FC<SystemAdminViewProps> = ({ user, onSelect
               placeholder="Filter by company, code or city..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-8 pr-3 text-xs text-stone-800 placeholder-stone-400 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+              className="w-full rounded-lg border border-stone-200 bg-[#F8FAFC] py-1.5 pl-8 pr-3 text-xs text-stone-800 placeholder-stone-400 focus:border-amber-600 focus:bg-white focus:outline-hidden"
             />
           </div>
         </div>

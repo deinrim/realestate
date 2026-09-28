@@ -19,8 +19,10 @@ import { OrganizationSettingsView } from './components/modules/OrganizationSetti
 import { MobileFooterNav } from './components/mobile/MobileFooterNav.tsx';
 import { apiFetch } from './services/apiClient.ts';
 import { CurrentUser, Organization, OrganizationSettings } from './types/index.ts';
+import { useMobile } from './context/MobileContext.tsx';
 
 export default function App() {
+  const { isMobile, isSimulatedMobile, toggleSimulatedMobile } = useMobile();
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [currentOrg, setCurrentOrg] = useState<Organization | null>(null);
   const [currentSettings, setCurrentSettings] = useState<OrganizationSettings | null>(null);
@@ -28,7 +30,6 @@ export default function App() {
   const [currentModule, setCurrentModule] = useState<string>('dashboard');
   const [navParams, setNavParams] = useState<any>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobileMode, setIsMobileMode] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const fetchSession = async () => {
@@ -140,7 +141,7 @@ export default function App() {
 
   if (loading && !currentUser) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#F8F6F1]">
+      <div className="flex min-h-screen items-center justify-center bg-[#F1F5F9]">
         <div className="flex flex-col items-center gap-3">
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-amber-600 border-t-transparent" />
           <h2 className="font-display text-sm font-bold text-stone-800 tracking-wide">Connecting to Cloud SQL (asia-southeast1)...</h2>
@@ -151,7 +152,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F6F1] text-stone-900 flex flex-col antialiased selection:bg-amber-100 selection:text-amber-900">
+    <div className="min-h-screen bg-[#F1F5F9] text-stone-900 flex flex-col antialiased selection:bg-amber-100 selection:text-amber-900">
       {/* Top Header Bar */}
       <Header
         user={currentUser}
@@ -161,19 +162,19 @@ export default function App() {
         onSelectPersona={handleSelectPersona}
         onNavigate={handleNavigate}
         onRefreshUser={fetchSession}
-        isMobileMode={isMobileMode}
-        onToggleMobileMode={() => setIsMobileMode(!isMobileMode)}
+        isMobileMode={isSimulatedMobile}
+        onToggleMobileMode={toggleSimulatedMobile}
         onToggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       />
 
       {/* Main Body with Sidebar + Content */}
       <div
         className={`flex flex-1 overflow-hidden ${
-          isMobileMode ? 'justify-center bg-stone-900/15 py-2 sm:py-4' : ''
+          isSimulatedMobile ? 'justify-center bg-stone-950/20 py-2 sm:py-4' : ''
         }`}
       >
-        {/* Desktop Sidebar (hidden when in simulated mobile view or closed) */}
-        {!isMobileMode && (
+        {/* Sidebar: static on desktop (lg), slide-out drawer on mobile */}
+        {(!isSimulatedMobile || isMobileMenuOpen) && (
           <Sidebar
             currentModule={currentModule}
             onSelectModule={handleNavigate}
@@ -186,12 +187,12 @@ export default function App() {
         {/* Dynamic Content View Area */}
         <main
           className={`flex-1 overflow-y-auto ${
-            isMobileMode
-              ? 'max-w-md w-full bg-[#FDFBF7] min-h-[820px] rounded-3xl shadow-2xl border-2 border-stone-300/80 pb-24 p-3.5'
-              : 'p-4 sm:p-6 lg:p-8 pb-24 md:pb-8'
+            isSimulatedMobile
+              ? 'max-w-md w-full bg-white min-h-[820px] rounded-3xl shadow-2xl border-2 border-slate-300/80 pb-28 p-3.5'
+              : 'w-full p-3 sm:p-5 lg:p-7 pb-28 md:pb-8'
           }`}
         >
-          <div className={isMobileMode ? 'w-full' : 'mx-auto max-w-7xl'}>
+          <div className={isSimulatedMobile ? 'w-full' : 'mx-auto max-w-7xl'}>
             {renderModuleContent()}
           </div>
         </main>
@@ -203,7 +204,7 @@ export default function App() {
         onNavigate={handleNavigate}
         user={currentUser}
         organization={currentOrg}
-        isMobileMode={isMobileMode}
+        isMobileMode={isMobile}
       />
     </div>
   );

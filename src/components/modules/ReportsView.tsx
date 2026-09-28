@@ -103,7 +103,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ user }) => {
         ) : (
           <div className="overflow-x-auto max-h-[500px]">
             <table className="w-full text-left text-xs">
-              <thead className="sticky top-0 bg-[#FAF8F5] border-b border-stone-200 text-[10px] font-bold uppercase text-stone-500">
+              <thead className="sticky top-0 bg-[#F8FAFC] border-b border-stone-200 text-[10px] font-bold uppercase text-stone-500">
                 <tr>
                   {data.length > 0 &&
                     Object.keys(data[0])
@@ -117,7 +117,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ user }) => {
               </thead>
               <tbody className="divide-y divide-stone-100">
                 {data.map((row, i) => (
-                   <tr key={i} className="hover:bg-[#FAF8F5]">
+                   <tr key={i} className="hover:bg-[#F8FAFC]">
                     {Object.keys(row)
                       .slice(0, 8)
                       .map((k) => (

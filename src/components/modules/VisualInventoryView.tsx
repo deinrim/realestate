@@ -155,11 +155,11 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
           </div>
 
           {/* Filter Bar */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full lg:w-auto">
             <select
               value={selectedProjectId}
               onChange={(e) => setSelectedProjectId(e.target.value)}
-              className="rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 px-3 text-xs font-semibold text-stone-800 focus:border-amber-600 focus:outline-hidden"
+              className="rounded-lg border border-stone-200 bg-[#F8FAFC] py-1.5 px-3 text-xs font-semibold text-stone-800 focus:border-amber-600 focus:outline-hidden"
             >
               {projects.map((p) => (
                 <option key={p.id} value={p.id}>
@@ -171,7 +171,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
             <select
               value={selectedBedrooms}
               onChange={(e) => setSelectedBedrooms(e.target.value)}
-              className="rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 px-3 text-xs text-stone-700 focus:border-amber-600 focus:outline-hidden"
+              className="rounded-lg border border-stone-200 bg-[#F8FAFC] py-1.5 px-3 text-xs text-stone-700 focus:border-amber-600 focus:outline-hidden"
             >
               <option value="">All BHK</option>
               <option value="2">2 BHK</option>
@@ -182,7 +182,7 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 px-3 text-xs text-stone-700 focus:border-amber-600 focus:outline-hidden"
+              className="rounded-lg border border-stone-200 bg-[#F8FAFC] py-1.5 px-3 text-xs text-stone-700 focus:border-amber-600 focus:outline-hidden"
             >
               <option value="">All Statuses</option>
               <option value="Available">Available</option>
@@ -320,26 +320,26 @@ export const VisualInventoryView: React.FC<VisualInventoryViewProps> = ({ user, 
 
             {/* Specifications Grid */}
             <div className="mt-4 grid grid-cols-2 gap-3 text-xs sm:grid-cols-4">
-              <div className="rounded-xl bg-[#FAF8F5] border border-stone-200/80 p-2.5 text-center">
+              <div className="rounded-xl bg-[#F8FAFC] border border-stone-200/80 p-2.5 text-center">
                 <span className="text-stone-400 block text-[10px] uppercase font-semibold">Bedrooms</span>
                 <span className="font-bold text-stone-800">{selectedUnit.bedrooms} BHK</span>
               </div>
-              <div className="rounded-xl bg-[#FAF8F5] border border-stone-200/80 p-2.5 text-center">
+              <div className="rounded-xl bg-[#F8FAFC] border border-stone-200/80 p-2.5 text-center">
                 <span className="text-stone-400 block text-[10px] uppercase font-semibold">Bathrooms</span>
                 <span className="font-bold text-stone-800">{selectedUnit.bathrooms}</span>
               </div>
-              <div className="rounded-xl bg-[#FAF8F5] border border-stone-200/80 p-2.5 text-center">
+              <div className="rounded-xl bg-[#F8FAFC] border border-stone-200/80 p-2.5 text-center">
                 <span className="text-stone-400 block text-[10px] uppercase font-semibold">Carpet Area</span>
                 <span className="font-bold text-stone-800">{selectedUnit.carpetArea} sq.ft.</span>
               </div>
-              <div className="rounded-xl bg-[#FAF8F5] border border-stone-200/80 p-2.5 text-center">
+              <div className="rounded-xl bg-[#F8FAFC] border border-stone-200/80 p-2.5 text-center">
                 <span className="text-stone-400 block text-[10px] uppercase font-semibold">Facing</span>
                 <span className="font-bold text-stone-800">{selectedUnit.facing || 'East'}</span>
               </div>
             </div>
 
             {/* Financial Breakdown */}
-            <div className="mt-4 rounded-xl border border-stone-200 bg-[#FAF8F5] p-4">
+            <div className="mt-4 rounded-xl border border-stone-200 bg-[#F8FAFC] p-4">
               <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900">Financial Consideration</h4>
               <div className="mt-2 space-y-1.5 text-xs">
                 <div className="flex justify-between text-stone-600">

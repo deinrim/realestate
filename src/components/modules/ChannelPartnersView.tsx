@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { UserCheck, Plus, Search, Percent, CheckCircle2, Shield } from 'lucide-react';
 import { apiFetch, formatCurrency } from '../../services/apiClient.ts';
 import { CurrentUser, ChannelPartner } from '../../types/index.ts';
+import { useMobile } from '../../context/MobileContext.tsx';
 
 interface ChannelPartnersViewProps {
   user: CurrentUser | null;
 }
 
 export const ChannelPartnersView: React.FC<ChannelPartnersViewProps> = ({ user }) => {
+  const { isMobile } = useMobile();
   const [partners, setPartners] = useState<ChannelPartner[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -74,11 +76,38 @@ export const ChannelPartnersView: React.FC<ChannelPartnersViewProps> = ({ user }
         </button>
       </div>
 
-      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
+      {/* Mobile Partner Cards */}
+      <div className={`grid grid-cols-1 gap-2.5 ${isMobile ? 'block' : 'md:hidden'}`}>
+        {partners.map((p) => (
+          <div
+            key={`mob-cp-${p.id}`}
+            className="rounded-xl border border-stone-200/90 bg-white p-3.5 shadow-xs space-y-2"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="font-num text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
+                  {p.partnerCode}
+                </span>
+                <div className="font-bold text-sm text-stone-900 mt-1">{p.companyName || p.name}</div>
+                <div className="text-[11px] text-stone-500 font-num">{p.mobile}</div>
+              </div>
+              <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-emerald-800 border border-emerald-200/60">
+                {p.status}
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-xs pt-1 border-t border-stone-100 text-stone-600">
+              <span className="text-[11px]">RERA: <span className="font-num font-semibold">{p.reraNumber || 'Pending'}</span></span>
+              <span className="font-bold font-num text-amber-800">{p.commissionRate}% Slab</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className={`rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs ${isMobile ? 'hidden' : 'hidden md:block'}`}>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-stone-200 text-[10px] font-bold uppercase tracking-wider text-stone-500 bg-[#FAF8F5]">
+              <tr className="border-b border-stone-200 text-[10px] font-bold uppercase tracking-wider text-stone-500 bg-[#F8FAFC]">
                 <th className="py-3 px-3">Partner Code & Firm</th>
                 <th className="py-3 px-3">Contact Person</th>
                 <th className="py-3 px-3">Contact Details</th>
@@ -89,7 +118,7 @@ export const ChannelPartnersView: React.FC<ChannelPartnersViewProps> = ({ user }
             </thead>
             <tbody className="divide-y divide-stone-100">
               {partners.map((p) => (
-                <tr key={p.id} className="hover:bg-[#FAF8F5]">
+                <tr key={p.id} className="hover:bg-[#F8FAFC]">
                   <td className="py-3 px-3">
                     <div className="font-bold text-stone-900">{p.companyName || p.name}</div>
                     <div className="font-num text-[10px] text-amber-800 font-bold">{p.partnerCode}</div>

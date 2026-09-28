@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Headphones, Plus, CheckCircle2, Clock, AlertTriangle } from 'lucide-react';
 import { apiFetch } from '../../services/apiClient.ts';
 import { CurrentUser, Complaint, Customer } from '../../types/index.ts';
+import { useMobile } from '../../context/MobileContext.tsx';
 
 interface ComplaintsViewProps {
   user: CurrentUser | null;
 }
 
 export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
+  const { isMobile } = useMobile();
   const [complaints, setComplaints] = useState<Complaint[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
@@ -93,7 +95,48 @@ export const ComplaintsView: React.FC<ComplaintsViewProps> = ({ user }) => {
         </button>
       </div>
 
-      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
+      {/* Mobile Complaint Cards */}
+      <div className={`grid grid-cols-1 gap-2.5 ${isMobile ? 'block' : 'md:hidden'}`}>
+        {complaints.map((c) => (
+          <div
+            key={`mob-cmp-${c.id}`}
+            className="rounded-xl border border-stone-200/90 bg-white p-3.5 shadow-xs space-y-2"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="font-num text-[10px] font-bold text-stone-700 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">
+                  {c.ticketNumber}
+                </span>
+                <div className="font-bold text-sm text-stone-900 mt-1">{c.customerName}</div>
+                <div className="text-[11px] text-stone-500">{c.category}</div>
+              </div>
+              <span
+                className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                  c.status === 'Resolved'
+                    ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                    : 'bg-amber-50 text-amber-800 border border-amber-200'
+                }`}
+              >
+                {c.status}
+              </span>
+            </div>
+            <p className="text-xs text-stone-600 line-clamp-2">{c.description}</p>
+            <div className="flex items-center justify-between pt-1 border-t border-stone-100 text-xs">
+              <span className="text-[11px] text-stone-400 font-num">SLA: {c.slaDays} Days</span>
+              {c.status !== 'Resolved' && (
+                <button
+                  onClick={() => setSelectedTicket(c)}
+                  className="rounded px-2.5 py-1 text-[11px] font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 transition"
+                >
+                  Resolve →
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className={`rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs ${isMobile ? 'hidden' : 'hidden md:block'}`}>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>

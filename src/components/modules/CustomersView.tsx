@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { apiFetch, formatCurrency } from '../../services/apiClient.ts';
 import { CurrentUser, Customer } from '../../types/index.ts';
+import { useMobile } from '../../context/MobileContext.tsx';
 
 interface CustomersViewProps {
   user: CurrentUser | null;
@@ -20,6 +21,7 @@ interface CustomersViewProps {
 }
 
 export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }) => {
+  const { isMobile } = useMobile();
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -101,7 +103,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
               placeholder="Search customer name, code..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
+              className="w-full rounded-lg border border-stone-200 bg-[#F8FAFC] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
             />
           </div>
           <button
@@ -114,8 +116,38 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
         </div>
       </div>
 
+      {/* Mobile Customer Cards */}
+      <div className={`grid grid-cols-1 gap-2.5 ${isMobile ? 'block' : 'md:hidden'}`}>
+        {customers.map((c) => (
+          <div
+            key={`mob-c-${c.id}`}
+            onClick={() => openCustomer360(c.id)}
+            className="rounded-xl border border-stone-200/90 bg-white p-3.5 shadow-xs space-y-2 cursor-pointer active:bg-stone-50 transition"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="font-num text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
+                  {c.customerCode}
+                </span>
+                <div className="font-bold text-sm text-stone-900 mt-1">{c.name}</div>
+                <div className="text-[11px] text-stone-500 font-num">{c.mobile} • {c.city || 'Kolkata'}</div>
+              </div>
+              <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-800 border border-amber-200/60 font-num">
+                {c.bookingsCount || 0} Units
+              </span>
+            </div>
+            <div className="flex items-center justify-between pt-1 border-t border-stone-100 text-xs">
+              <span className="text-[11px] text-stone-500">
+                Paid: <strong className="text-emerald-800 font-num">{formatCurrency(c.totalPaid)}</strong>
+              </span>
+              <span className="text-[11px] font-bold text-amber-800">360° Profile →</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* Customer Table */}
-      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
+      <div className={`rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs ${isMobile ? 'hidden' : 'hidden md:block'}`}>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
@@ -197,7 +229,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
             </div>
 
             {/* KYC & Identity Summary */}
-            <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 rounded-lg bg-[#FAF8F5] p-3 text-xs border border-stone-200/70">
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 rounded-lg bg-[#F8FAFC] p-3 text-xs border border-stone-200/70">
               <div>
                 <span className="block text-[10px] text-stone-400">PAN Card</span>
                 <span className="font-num font-bold text-stone-800">{selectedCustomer.customer.pan || 'N/A'}</span>
@@ -226,7 +258,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
                   selectedCustomer.bookings.map((b: any) => (
                     <div
                       key={b.id}
-                      className="flex flex-col sm:flex-row sm:items-center justify-between rounded-lg border border-stone-200 p-3 text-xs gap-2 bg-[#FAF8F5]"
+                      className="flex flex-col sm:flex-row sm:items-center justify-between rounded-lg border border-stone-200 p-3 text-xs gap-2 bg-[#F8FAFC]"
                     >
                       <div>
                         <div className="font-bold text-stone-900">
@@ -255,7 +287,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({ user, onNavigate }
               </h4>
               <div className="mt-2 max-h-48 overflow-y-auto rounded-lg border border-stone-200 text-xs">
                 <table className="w-full text-left">
-                  <thead className="bg-[#FAF8F5] text-[10px] uppercase font-semibold text-stone-500">
+                  <thead className="bg-[#F8FAFC] text-[10px] uppercase font-semibold text-stone-500">
                     <tr>
                       <th className="py-2 px-3">Receipt #</th>
                       <th className="py-2 px-3">Date</th>

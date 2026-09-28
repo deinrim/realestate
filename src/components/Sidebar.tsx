@@ -166,7 +166,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           {/* User profile footer card in sidebar */}
-          <div className="mt-6 rounded-xl border border-stone-200/80 bg-[#FAF8F5] p-3">
+          <div className="mt-6 rounded-xl border border-stone-200/80 bg-[#F8FAFC] p-3">
             <div className="flex items-center gap-2.5">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 border border-amber-300/60 text-xs font-bold text-amber-900">
                 {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}

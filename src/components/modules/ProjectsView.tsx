@@ -116,20 +116,20 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
             Manage residential, commercial and township properties with RERA compliance
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="relative w-64">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
+          <div className="relative w-full sm:w-64">
             <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-stone-400" />
             <input
               type="text"
               placeholder="Search projects..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
+              className="w-full rounded-lg border border-stone-200 bg-[#F8FAFC] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
             />
           </div>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-amber-800 transition"
+            className="flex items-center justify-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-amber-800 transition"
           >
             <Plus className="h-4 w-4" />
             <span>New Project</span>
@@ -173,7 +173,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
               )}
 
               {/* Stats pill row */}
-              <div className="mt-4 grid grid-cols-3 gap-2 rounded-lg bg-[#FAF8F5] p-2.5 text-center text-xs border border-stone-200/70">
+              <div className="mt-4 grid grid-cols-3 gap-2 rounded-lg bg-[#F8FAFC] p-2.5 text-center text-xs border border-stone-200/70">
                 <div>
                   <span className="block font-bold text-stone-800 font-num">{proj.towersCount || 1}</span>
                   <span className="text-[10px] text-stone-400">Towers</span>
@@ -230,7 +230,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
               <h4 className="text-xs font-bold uppercase tracking-wider text-stone-500">Towers & Blocks</h4>
               <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {selectedProject.towers.map((t: any) => (
-                  <div key={t.id} className="rounded-lg border border-stone-200 bg-[#FAF8F5] p-3">
+                  <div key={t.id} className="rounded-lg border border-stone-200 bg-[#F8FAFC] p-3">
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-stone-800 text-xs">{t.name}</span>
                       <span className="font-num text-[10px] text-stone-500 font-bold">{t.code}</span>
@@ -261,7 +261,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
 
               <div className="mt-2 max-h-60 overflow-y-auto rounded-lg border border-stone-200">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-[#FAF8F5] text-[10px] uppercase font-semibold text-stone-500 sticky top-0">
+                  <thead className="bg-[#F8FAFC] text-[10px] uppercase font-semibold text-stone-500 sticky top-0">
                     <tr>
                       <th className="py-2 px-3">Unit Number</th>
                       <th className="py-2 px-3">Floor</th>
@@ -326,7 +326,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                     placeholder="e.g. Skyline Signature Heights"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -337,7 +337,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                     placeholder="e.g. SKY-SGN"
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs font-mono uppercase focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs font-mono uppercase focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -348,7 +348,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                   <select
                     value={formData.projectType}
                     onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   >
                     <option value="Residential">Residential</option>
                     <option value="Commercial">Commercial</option>
@@ -364,7 +364,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                     placeholder="New Town Action Area II"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -375,7 +375,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                     placeholder="Kolkata"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -388,7 +388,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                     placeholder="e.g. WBRERA/P/KOL/2024/00099"
                     value={formData.reraNumber}
                     onChange={(e) => setFormData({ ...formData, reraNumber: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -397,7 +397,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                     type="date"
                     value={formData.expectedCompletion}
                     onChange={(e) => setFormData({ ...formData, expectedCompletion: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -409,7 +409,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ user, onNavigate }) 
                   placeholder="Luxury 3 & 4 BHK apartments with club amenities and panoramic city views"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
                 />
               </div>
 

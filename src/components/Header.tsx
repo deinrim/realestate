@@ -159,7 +159,7 @@ export const Header: React.FC<HeaderProps> = ({
             placeholder="Search leads, units, bookings, customers..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-9 pr-4 text-sm text-stone-800 placeholder-stone-400 transition focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
+            className="w-full rounded-lg border border-stone-200 bg-[#F8FAFC] py-1.5 pl-9 pr-4 text-sm text-stone-800 placeholder-stone-400 transition focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
           />
         </div>
 
@@ -314,7 +314,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="relative">
           <button
             onClick={() => setShowPersonaMenu(!showPersonaMenu)}
-            className="flex items-center gap-2 rounded-lg border border-stone-200 bg-[#FAF8F5] px-3 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-100 transition shadow-2xs"
+            className="flex items-center gap-2 rounded-lg border border-stone-200 bg-[#F8FAFC] px-3 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-100 transition shadow-2xs"
             title="Switch Persona / Role"
           >
             <Shield className="h-3.5 w-3.5 text-amber-700" />

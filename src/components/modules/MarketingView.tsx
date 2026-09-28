@@ -291,7 +291,7 @@ export const MarketingView: React.FC<MarketingViewProps> = ({ user, onNavigate }
                   placeholder="e.g. Navratri Festive Solus 3BHK Special"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                 />
               </div>
 
@@ -301,7 +301,7 @@ export const MarketingView: React.FC<MarketingViewProps> = ({ user, onNavigate }
                   <select
                     value={formData.platform}
                     onChange={(e) => setFormData({ ...formData, platform: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   >
                     <option value="Meta Ads">Meta Ads (FB/Insta)</option>
                     <option value="Google Ads">Google Ads (Search/PMax)</option>
@@ -319,7 +319,7 @@ export const MarketingView: React.FC<MarketingViewProps> = ({ user, onNavigate }
                     placeholder="250000"
                     value={formData.budget}
                     onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -331,7 +331,7 @@ export const MarketingView: React.FC<MarketingViewProps> = ({ user, onNavigate }
                     type="date"
                     value={formData.startDate}
                     onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -340,7 +340,7 @@ export const MarketingView: React.FC<MarketingViewProps> = ({ user, onNavigate }
                     type="date"
                     value={formData.endDate}
                     onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -351,7 +351,7 @@ export const MarketingView: React.FC<MarketingViewProps> = ({ user, onNavigate }
                   type="text"
                   value={formData.projectName}
                   onChange={(e) => setFormData({ ...formData, projectName: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                 />
               </div>
 

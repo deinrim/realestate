@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Calendar, Plus, Clock, Car, User, CheckCircle2, Star } from 'lucide-react';
 import { apiFetch } from '../../services/apiClient.ts';
 import { CurrentUser, SiteVisit, Project, Lead } from '../../types/index.ts';
+import { useMobile } from '../../context/MobileContext.tsx';
 
 interface SiteVisitsViewProps {
   user: CurrentUser | null;
 }
 
 export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
+  const { isMobile } = useMobile();
   const [visits, setVisits] = useState<SiteVisit[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -84,11 +86,35 @@ export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
         </button>
       </div>
 
-      <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
+      {/* Mobile Cards */}
+      <div className={`grid grid-cols-1 gap-2.5 ${isMobile ? 'block' : 'md:hidden'}`}>
+        {visits.map((v) => (
+          <div
+            key={`mob-v-${v.id}`}
+            className="rounded-xl border border-stone-200/90 bg-white p-3.5 shadow-xs space-y-2"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <div className="font-bold text-sm text-stone-900">{v.leadName || 'Direct Walk-in'}</div>
+                <div className="text-[11px] text-stone-500 font-num">{v.leadMobile} • {v.projectName}</div>
+              </div>
+              <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-emerald-800 border border-emerald-200/60">
+                {v.status}
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-xs pt-1 border-t border-stone-100 text-stone-600">
+              <span className="font-medium">{v.visitDate} • {v.visitTime}</span>
+              <span className="font-num">{v.numberOfVisitors} Persons</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className={`rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs ${isMobile ? 'hidden' : 'hidden md:block'}`}>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-stone-200 text-[10px] font-bold uppercase tracking-wider text-stone-500 bg-[#FAF8F5]">
+              <tr className="border-b border-stone-200 text-[10px] font-bold uppercase tracking-wider text-stone-500 bg-[#F8FAFC]">
                 <th className="py-3 px-3">Visitor / Lead</th>
                 <th className="py-3 px-3">Project</th>
                 <th className="py-3 px-3">Date & Slot</th>
@@ -100,7 +126,7 @@ export const SiteVisitsView: React.FC<SiteVisitsViewProps> = ({ user }) => {
             </thead>
             <tbody className="divide-y divide-stone-100">
               {visits.map((v) => (
-                <tr key={v.id} className="hover:bg-[#FAF8F5]">
+                <tr key={v.id} className="hover:bg-[#F8FAFC]">
                   <td className="py-3 px-3">
                     <div className="font-bold text-stone-900">{v.leadName || 'Direct Walk-in'}</div>
                     <div className="text-[11px] text-stone-500 font-num">{v.leadMobile}</div>

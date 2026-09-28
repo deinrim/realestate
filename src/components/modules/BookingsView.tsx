@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { apiFetch, formatCurrency } from '../../services/apiClient.ts';
 import { CurrentUser, Booking, Customer, Project, Unit } from '../../types/index.ts';
+import { useMobile } from '../../context/MobileContext.tsx';
 
 interface BookingsViewProps {
   user: CurrentUser | null;
@@ -21,6 +22,7 @@ interface BookingsViewProps {
 }
 
 export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavigate }) => {
+  const { isMobile } = useMobile();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -164,8 +166,8 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
       {/* Bookings List */}
       {/* Bookings View: Mobile Cards & Desktop Table */}
       <div className="space-y-3">
-        {/* Mobile Android-Style Card System (Visible on small screens) */}
-        <div className="grid grid-cols-1 gap-2.5 md:hidden">
+        {/* Mobile Android-Style Card System */}
+        <div className={`grid grid-cols-1 gap-2.5 ${isMobile ? 'block' : 'md:hidden'}`}>
           {bookings.map((b) => (
             <div
               key={`mob-${b.id}`}
@@ -190,7 +192,7 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
                 </span>
               </div>
 
-              <div className="rounded-lg bg-[#FAF8F5] p-2.5 space-y-1.5 text-xs border border-stone-200/70">
+              <div className="rounded-lg bg-[#F8FAFC] p-2.5 space-y-1.5 text-xs border border-stone-200/70">
                 <div className="flex justify-between items-center text-stone-600">
                   <span>Project & Unit:</span>
                   <span className="font-semibold text-stone-800">
@@ -234,7 +236,7 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
         </div>
 
         {/* Desktop Table View (Hidden on mobile) */}
-        <div className="hidden md:block rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
+        <div className={`rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs ${isMobile ? 'hidden' : 'hidden md:block'}`}>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
@@ -316,7 +318,7 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ user, params, onNavi
             </div>
 
             <div className="mt-4 space-y-3 text-xs">
-              <div className="rounded-lg bg-[#FAF8F5] p-3 border border-stone-200/80">
+              <div className="rounded-lg bg-[#F8FAFC] p-3 border border-stone-200/80">
                 <span className="text-[10px] font-bold text-stone-400 block uppercase">Current Step</span>
                 <span className="font-bold text-amber-800 text-sm">{getStepName(approvalModalBooking.currentApprovalStep)}</span>
                 <p className="mt-1 text-stone-500 text-[11px]">

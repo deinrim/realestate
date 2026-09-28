@@ -10,8 +10,8 @@
 @layer base {
   :root {
     --brand-primary: #0e1420;
-    --brand-stone: #f8f6f1;
-    --brand-canvas: #faf8f5;
+    --brand-stone: #f1f5f9;
+    --brand-canvas: #f8fafc;
     --brand-gold: #c28834;
     --brand-amber: #b45309;
     --brand-bronze: #854d0e;
@@ -20,8 +20,8 @@
   }
 
   body {
-    background-color: #f8f6f1;
-    color: #1c1917;
+    background-color: #f1f5f9;
+    color: #1e293b;
     font-family: var(--font-sans);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
@@ -44,21 +44,21 @@
   }
 }
 
-/* Custom subtle architectural scrollbars */
+/* Custom modern light sports scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1ede4;
+  background: #e2e8f0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d5cbbb;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8aa93;
+  background: #94a3b8;
 }

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { apiFetch, formatCurrency } from '../../services/apiClient.ts';
 import { CurrentUser, Lead, Project } from '../../types/index.ts';
+import { useMobile } from '../../context/MobileContext.tsx';
 
 interface LeadsCrmViewProps {
   user: CurrentUser | null;
@@ -26,6 +27,7 @@ interface LeadsCrmViewProps {
 }
 
 export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) => {
+  const { isMobile } = useMobile();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -204,12 +206,12 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
               placeholder="Search leads..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
+              className="w-full rounded-lg border border-stone-200 bg-[#F8FAFC] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden"
             />
           </div>
 
           {/* View Toggle */}
-          <div className="flex rounded-lg border border-stone-200 bg-[#FAF8F5] p-0.5 text-xs">
+          <div className="flex rounded-lg border border-stone-200 bg-[#F8FAFC] p-0.5 text-xs">
             <button
               onClick={() => setViewMode('list')}
               className={`rounded px-2.5 py-1 font-semibold transition ${
@@ -245,13 +247,13 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
         </div>
       ) : viewMode === 'list' ? (
         <div className="space-y-3">
-          {/* Mobile Android-Style Card System (Visible on small screens) */}
-          <div className="grid grid-cols-1 gap-2.5 md:hidden">
+          {/* Mobile Android-Style Card System */}
+          <div className={`grid grid-cols-1 gap-2.5 ${isMobile ? 'block' : 'md:hidden'}`}>
             {leads.map((l) => (
               <div
                 key={`mob-${l.id}`}
                 onClick={() => openLeadDetails(l.id)}
-                className="rounded-xl border border-stone-200 bg-white p-3.5 shadow-2xs space-y-2.5 active:bg-[#FAF8F5] transition cursor-pointer"
+                className="rounded-xl border border-stone-200 bg-white p-3.5 shadow-2xs space-y-2.5 active:bg-[#F8FAFC] transition cursor-pointer"
               >
                 <div className="flex items-start justify-between">
                   <div>
@@ -270,7 +272,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between text-[11px] text-stone-600 bg-[#FAF8F5] p-2 rounded-lg border border-stone-100">
+                <div className="flex items-center justify-between text-[11px] text-stone-600 bg-[#F8FAFC] p-2 rounded-lg border border-stone-100">
                   <div>
                     <span className="text-[10px] text-stone-400 block">Budget</span>
                     <span className="font-semibold text-stone-800">{l.budget || 'Flexible'}</span>
@@ -319,7 +321,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
           </div>
 
           {/* Desktop Table View (Hidden on mobile) */}
-          <div className="hidden md:block rounded-xl border border-stone-200/90 bg-white p-5 shadow-2xs">
+          <div className={`rounded-xl border border-stone-200/90 bg-white p-5 shadow-2xs ${isMobile ? 'hidden' : 'hidden md:block'}`}>
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
@@ -335,7 +337,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                 </thead>
                 <tbody className="divide-y divide-stone-100">
                   {leads.map((l) => (
-                    <tr key={l.id} className="hover:bg-[#FAF8F5] transition cursor-pointer" onClick={() => openLeadDetails(l.id)}>
+                    <tr key={l.id} className="hover:bg-[#F8FAFC] transition cursor-pointer" onClick={() => openLeadDetails(l.id)}>
                       <td className="py-3 px-2">
                         <div className="font-bold text-stone-800">{l.name}</div>
                         <div className="font-mono text-[10px] text-amber-800 font-bold">{l.leadCode}</div>
@@ -385,7 +387,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
             return (
               <div
                 key={stage}
-                className="w-72 shrink-0 rounded-xl border border-stone-200/90 bg-[#FAF8F5] p-3 shadow-2xs flex flex-col"
+                className="w-72 shrink-0 rounded-xl border border-stone-200/90 bg-[#F8FAFC] p-3 shadow-2xs flex flex-col"
               >
                 <div className="flex items-center justify-between border-b border-stone-200 pb-2">
                   <span className="font-bold text-xs text-stone-800">{stage}</span>
@@ -447,7 +449,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
             </div>
 
             {/* Stage Progression Bar */}
-            <div className="mt-4 rounded-xl bg-[#FAF8F5] border border-stone-200/80 p-3">
+            <div className="mt-4 rounded-xl bg-[#F8FAFC] border border-stone-200/80 p-3">
               <span className="block text-[10px] font-bold uppercase tracking-wider text-amber-900 mb-1.5">
                 Update Pipeline Stage
               </span>
@@ -493,7 +495,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                     <select
                       value={newActivity.activityType}
                       onChange={(e) => setNewActivity({ ...newActivity, activityType: e.target.value })}
-                      className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-1.5 text-xs focus:border-amber-600"
+                      className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-1.5 text-xs focus:border-amber-600"
                     >
                       <option value="Call">Phone Call</option>
                       <option value="WhatsApp">WhatsApp Message</option>
@@ -510,7 +512,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                       placeholder="e.g. Discussed 3BHK budget"
                       value={newActivity.subject}
                       onChange={(e) => setNewActivity({ ...newActivity, subject: e.target.value })}
-                      className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-1.5 text-xs focus:border-amber-600"
+                      className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-1.5 text-xs focus:border-amber-600"
                     />
                   </div>
                   <div>
@@ -519,7 +521,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                       type="datetime-local"
                       value={newActivity.nextFollowUpDate}
                       onChange={(e) => setNewActivity({ ...newActivity, nextFollowUpDate: e.target.value })}
-                      className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-1.5 text-xs focus:border-amber-600"
+                      className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-1.5 text-xs focus:border-amber-600"
                     />
                   </div>
                 </div>
@@ -531,7 +533,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                     placeholder="Enter discussion notes, buyer feedback, unit preferences..."
                     value={newActivity.details}
                     onChange={(e) => setNewActivity({ ...newActivity, details: e.target.value })}
-                    className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600"
+                    className="w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600"
                   />
                 </div>
 
@@ -553,7 +555,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
               <div className="mt-3 space-y-3">
                 {selectedLeadDetails.activities?.length > 0 ? (
                   selectedLeadDetails.activities.map((a: any) => (
-                    <div key={a.id} className="rounded-xl border border-stone-200/80 bg-[#FAF8F5] p-3 text-xs">
+                    <div key={a.id} className="rounded-xl border border-stone-200/80 bg-[#F8FAFC] p-3 text-xs">
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-stone-800">{a.subject}</span>
                         <span className="text-[10px] text-stone-400">
@@ -607,7 +609,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                     placeholder="Vikramaditya Roy"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -618,7 +620,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                     placeholder="+91 98300 44556"
                     value={formData.mobile}
                     onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -650,7 +652,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                     placeholder="vikram@domain.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -658,7 +660,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                   <select
                     value={formData.projectId}
                     onChange={(e) => setFormData({ ...formData, projectId: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs focus:border-amber-600 focus:outline-hidden"
                   >
                     <option value="">Select Project</option>
                     {projects.map((p) => (
@@ -676,7 +678,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                   <select
                     value={formData.source}
                     onChange={(e) => setFormData({ ...formData, source: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs"
                   >
                     <option value="Website">Website</option>
                     <option value="MagicBricks">MagicBricks</option>
@@ -691,7 +693,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                   <select
                     value={formData.unitPreference}
                     onChange={(e) => setFormData({ ...formData, unitPreference: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs"
                   >
                     <option value="2 BHK">2 BHK</option>
                     <option value="3 BHK">3 BHK</option>
@@ -706,7 +708,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                     placeholder="₹80L - ₹1.2Cr"
                     value={formData.budget}
                     onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs"
                   />
                 </div>
               </div>
@@ -718,7 +720,7 @@ export const LeadsCrmView: React.FC<LeadsCrmViewProps> = ({ user, onNavigate }) 
                   placeholder="Looking for higher floor, corner 3 BHK with 2 covered car parkings"
                   value={formData.remarks}
                   onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 text-xs"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 text-xs"
                 />
               </div>
 

@@ -19,6 +19,7 @@ import {
   FolderOpen,
 } from 'lucide-react';
 import { CurrentUser, Organization } from '../../types/index.ts';
+import { useMobile } from '../../context/MobileContext.tsx';
 
 interface MobileFooterNavProps {
   currentModule: string;
@@ -35,10 +36,15 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
   user,
   organization,
   onOpenQuickAction,
-  isMobileMode,
 }) => {
+  const { isMobile, isSimulatedMobile } = useMobile();
   const [showMoreDrawer, setShowMoreDrawer] = useState(false);
   const [showFabDial, setShowFabDial] = useState(false);
+
+  // If not in mobile mode or not on mobile screen, hide mobile bottom nav
+  if (!isMobile) {
+    return null;
+  }
 
   const mainTabs = [
     { id: 'dashboard', label: 'Home', icon: LayoutDashboard },
@@ -74,19 +80,19 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
       {/* Expandable Android Speed-Dial FAB (Floating Action Button) */}
       <div
         className={`fixed z-40 ${
-          isMobileMode
-            ? 'bottom-20 right-4 sm:right-auto sm:left-1/2 sm:ml-36'
-            : 'bottom-20 right-4 md:hidden'
+          isSimulatedMobile
+            ? 'bottom-20 right-4 sm:right-auto sm:left-1/2 sm:ml-38'
+            : 'bottom-20 right-4'
         }`}
       >
         {showFabDial && (
-          <div className="mb-3 flex flex-col items-end gap-2 animate-in fade-in slide-in-from-bottom-2 duration-150">
+          <div className="mb-2.5 flex flex-col items-end gap-2 animate-in fade-in slide-in-from-bottom-2 duration-150">
             <button
               onClick={() => {
                 setShowFabDial(false);
                 onNavigate('crm');
               }}
-              className="flex items-center gap-2 rounded-full bg-stone-900 border border-amber-600/30 px-3.5 py-2 text-xs font-bold text-white shadow-xl active:scale-95 transition"
+              className="flex items-center gap-2 rounded-full bg-stone-900 border border-amber-600/30 px-3.5 py-1.5 text-xs font-bold text-white shadow-xl active:scale-95 transition"
             >
               <span>+ New Lead</span>
               <div className="rounded-full bg-amber-500/20 p-1 text-amber-400">
@@ -99,7 +105,7 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
                 setShowFabDial(false);
                 onNavigate('bookings');
               }}
-              className="flex items-center gap-2 rounded-full bg-stone-900 border border-amber-600/30 px-3.5 py-2 text-xs font-bold text-white shadow-xl active:scale-95 transition"
+              className="flex items-center gap-2 rounded-full bg-stone-900 border border-amber-600/30 px-3.5 py-1.5 text-xs font-bold text-white shadow-xl active:scale-95 transition"
             >
               <span>+ New Booking</span>
               <div className="rounded-full bg-emerald-500/20 p-1 text-emerald-400">
@@ -112,7 +118,7 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
                 setShowFabDial(false);
                 onNavigate('site-visits');
               }}
-              className="flex items-center gap-2 rounded-full bg-stone-900 border border-amber-600/30 px-3.5 py-2 text-xs font-bold text-white shadow-xl active:scale-95 transition"
+              className="flex items-center gap-2 rounded-full bg-stone-900 border border-amber-600/30 px-3.5 py-1.5 text-xs font-bold text-white shadow-xl active:scale-95 transition"
             >
               <span>+ Book Site Visit</span>
               <div className="rounded-full bg-amber-500/20 p-1 text-amber-400">
@@ -124,19 +130,19 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
 
         <button
           onClick={() => setShowFabDial(!showFabDial)}
-          className={`h-13 w-13 rounded-full bg-gradient-to-tr from-amber-700 via-amber-600 to-stone-900 flex items-center justify-center text-amber-100 shadow-xl shadow-amber-950/40 border border-amber-500/30 transition active:scale-95 ${
+          className={`h-11 w-11 rounded-full bg-gradient-to-tr from-amber-700 via-amber-600 to-stone-900 flex items-center justify-center text-amber-100 shadow-xl shadow-amber-950/40 border border-amber-500/30 transition active:scale-95 ${
             showFabDial ? 'rotate-45' : ''
           }`}
           title="Quick Actions"
         >
-          <Plus className="h-6 w-6 stroke-[2.5]" />
+          <Plus className="h-5 w-5 stroke-[2.5]" />
         </button>
       </div>
 
       {/* Android Bottom Navigation Bar (Footer Menu) */}
       <nav
         className={`fixed bottom-0 inset-x-0 z-40 bg-[#0E1420]/98 backdrop-blur-xl border-t border-stone-800/90 text-stone-300 flex items-center justify-around h-16 px-1 select-none shadow-[0_-4px_25px_rgba(0,0,0,0.4)] ${
-          isMobileMode ? 'max-w-md mx-auto sm:rounded-t-2xl sm:border-x sm:border-stone-800' : 'md:hidden'
+          isSimulatedMobile ? 'max-w-md mx-auto sm:rounded-t-2xl sm:border-x sm:border-stone-800' : 'w-full'
         }`}
         aria-label="Mobile Navigation"
       >
@@ -184,14 +190,12 @@ export const MobileFooterNav: React.FC<MobileFooterNavProps> = ({
       {/* Full Android Material Bottom Sheet for "More" Menu */}
       {showMoreDrawer && (
         <div
-          className={`fixed inset-0 z-50 bg-black/65 backdrop-blur-xs flex flex-col justify-end ${
-            isMobileMode ? '' : 'md:hidden'
-          }`}
+          className="fixed inset-0 z-50 bg-black/65 backdrop-blur-xs flex flex-col justify-end"
           onClick={() => setShowMoreDrawer(false)}
         >
           <div
             className={`bg-[#0E1420] border-t border-amber-900/30 rounded-t-3xl max-h-[82vh] overflow-y-auto p-4 pb-20 space-y-4 shadow-2xl animate-in slide-in-from-bottom duration-200 ${
-              isMobileMode ? 'max-w-md mx-auto w-full' : ''
+              isSimulatedMobile ? 'max-w-md mx-auto w-full' : 'w-full'
             }`}
             onClick={(e) => e.stopPropagation()}
           >

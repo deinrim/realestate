@@ -330,7 +330,7 @@ export const FinanceAccountsView: React.FC<FinanceAccountsViewProps> = ({ user }
                   <select
                     value={formData.type}
                     onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   >
                     <option value="Expense">Expense / Outflow</option>
                     <option value="Income">Income / Inflow</option>
@@ -344,7 +344,7 @@ export const FinanceAccountsView: React.FC<FinanceAccountsViewProps> = ({ user }
                     placeholder="500000"
                     value={formData.amount}
                     onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden font-bold"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden font-bold"
                   />
                 </div>
               </div>
@@ -354,7 +354,7 @@ export const FinanceAccountsView: React.FC<FinanceAccountsViewProps> = ({ user }
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                 >
                   <option value="Civil Material - TMT Steel Procurement">Civil Material - TMT Steel Procurement</option>
                   <option value="Ready Mix Concrete (RMC)">Ready Mix Concrete (RMC)</option>
@@ -376,7 +376,7 @@ export const FinanceAccountsView: React.FC<FinanceAccountsViewProps> = ({ user }
                     placeholder="Vendor or Customer Name"
                     value={formData.payeeOrPayer}
                     onChange={(e) => setFormData({ ...formData, payeeOrPayer: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -386,7 +386,7 @@ export const FinanceAccountsView: React.FC<FinanceAccountsViewProps> = ({ user }
                     placeholder="HDFCR92026..."
                     value={formData.referenceNumber}
                     onChange={(e) => setFormData({ ...formData, referenceNumber: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden font-mono uppercase"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden font-mono uppercase"
                   />
                 </div>
               </div>
@@ -398,7 +398,7 @@ export const FinanceAccountsView: React.FC<FinanceAccountsViewProps> = ({ user }
                   placeholder="Stage payment towards 3rd Floor Slab casting..."
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                 />
               </div>
 

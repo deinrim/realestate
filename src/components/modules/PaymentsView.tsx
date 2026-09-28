@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { apiFetch, formatCurrency } from '../../services/apiClient.ts';
 import { CurrentUser, Payment, Booking, Organization } from '../../types/index.ts';
+import { useMobile } from '../../context/MobileContext.tsx';
 
 interface PaymentsViewProps {
   user: CurrentUser | null;
@@ -46,6 +47,7 @@ interface MilestoneDemand {
 }
 
 export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }) => {
+  const { isMobile } = useMobile();
   const [payments, setPayments] = useState<Payment[]>([]);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
@@ -183,7 +185,7 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
               placeholder="Search receipt #, customer..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-stone-200 bg-[#FAF8F5] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
+              className="w-full rounded-lg border border-stone-200 bg-[#F8FAFC] py-1.5 pl-8 pr-3 text-xs focus:border-amber-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-100"
             />
           </div>
           <button
@@ -197,10 +199,10 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
       </div>
 
       {/* Module Sub-Tabs */}
-      <div className="flex gap-2 border-b border-stone-200 pb-2">
+      <div className="flex gap-2 border-b border-stone-200 pb-2 overflow-x-auto no-scrollbar whitespace-nowrap">
         <button
           onClick={() => setActiveTab('receipts')}
-          className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition ${
+          className={`flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-bold shrink-0 transition ${
             activeTab === 'receipts'
               ? 'bg-amber-700 text-white shadow-xs'
               : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
@@ -212,82 +214,138 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
 
         <button
           onClick={() => setActiveTab('demands')}
-          className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition ${
+          className={`flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-bold shrink-0 transition ${
             activeTab === 'demands'
               ? 'bg-amber-700 text-white shadow-xs'
               : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
           }`}
         >
           <FileText className="h-4 w-4" />
-          <span>RERA Milestone Demand Notices (CLP)</span>
+          <span>Demand Notices (CLP)</span>
         </button>
 
         <button
           onClick={() => setActiveTab('tds')}
-          className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition ${
+          className={`flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-bold shrink-0 transition ${
             activeTab === 'tds'
               ? 'bg-amber-700 text-white shadow-xs'
               : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
           }`}
         >
           <ShieldCheck className="h-4 w-4" />
-          <span>Section 194-IA (1% Buyer TDS) Register</span>
+          <span>1% Buyer TDS Register</span>
         </button>
       </div>
 
-      {/* Tab 1: Payment Receipts Table */}
+      {/* Tab 1: Payment Receipts Table & Mobile Cards */}
       {activeTab === 'receipts' && (
-        <div className="rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="border-b border-stone-100 text-[11px] font-semibold uppercase tracking-wider text-stone-400">
-                  <th className="py-3 px-2">Receipt #</th>
-                  <th className="py-3 px-2">Date</th>
-                  <th className="py-3 px-2">Customer & Unit</th>
-                  <th className="py-3 px-2">Amount Collected</th>
-                  <th className="py-3 px-2">Payment Mode</th>
-                  <th className="py-3 px-2">Reference / Bank</th>
-                  <th className="py-3 px-2">Status</th>
-                  <th className="py-3 px-2 text-right">Receipt</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-stone-100">
-                {filtered.map((p) => (
-                  <tr key={p.id} className="hover:bg-stone-50 transition">
-                    <td className="py-3 px-2 font-mono font-bold text-amber-800">{p.receiptNumber}</td>
-                    <td className="py-3 px-2 text-stone-600">{p.paymentDate}</td>
-                    <td className="py-3 px-2">
-                      <div className="font-semibold text-stone-900">{p.customerName}</div>
-                      <div className="text-[11px] text-stone-400">
-                        {p.projectName} • Unit {p.unitNumber}
-                      </div>
-                    </td>
-                    <td className="py-3 px-2 font-bold text-stone-900">{formatCurrency(p.amount)}</td>
-                    <td className="py-3 px-2 text-stone-600">{p.paymentMode}</td>
-                    <td className="py-3 px-2">
-                      <div className="font-mono text-stone-700">{p.referenceNumber || '—'}</div>
-                      <div className="text-[10px] text-stone-400">{p.bankName}</div>
-                    </td>
-                    <td className="py-3 px-2">
-                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700 border border-emerald-200">
-                        <CheckCircle2 className="h-3 w-3" />
-                        {p.status || 'Verified'}
-                      </span>
-                    </td>
-                    <td className="py-3 px-2 text-right">
-                      <button
-                        onClick={() => setPrintableReceipt(p)}
-                        className="inline-flex items-center gap-1 rounded border border-stone-200 bg-white px-2 py-1 text-[11px] font-semibold text-stone-700 shadow-2xs hover:bg-stone-50"
-                      >
-                        <Printer className="h-3 w-3 text-stone-500" />
-                        <span>Print</span>
-                      </button>
-                    </td>
+        <div className="space-y-3">
+          {/* Mobile Card Layout */}
+          <div className={`grid grid-cols-1 gap-2.5 ${isMobile ? 'block' : 'md:hidden'}`}>
+            {filtered.map((p) => (
+              <div
+                key={`mob-pay-${p.id}`}
+                className="rounded-xl border border-stone-200/90 bg-white p-3.5 shadow-xs space-y-2.5"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <span className="font-num text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
+                      {p.receiptNumber}
+                    </span>
+                    <div className="font-bold text-sm text-stone-900 mt-1">{p.customerName}</div>
+                    <div className="text-[11px] text-stone-500">{p.projectName} • Unit {p.unitNumber}</div>
+                  </div>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700 border border-emerald-200">
+                    <CheckCircle2 className="h-3 w-3" />
+                    {p.status || 'Verified'}
+                  </span>
+                </div>
+
+                <div className="rounded-lg bg-[#F8FAFC] p-2.5 space-y-1.5 text-xs border border-stone-200/70">
+                  <div className="flex justify-between items-center text-stone-600">
+                    <span>Amount Collected:</span>
+                    <span className="font-bold font-num text-emerald-800 text-sm">{formatCurrency(p.amount)}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-stone-600">
+                    <span>Payment Mode:</span>
+                    <span className="font-semibold text-stone-800">{p.paymentMode}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-stone-600">
+                    <span>Bank Ref:</span>
+                    <span className="font-num text-stone-700">{p.referenceNumber || '—'} ({p.bankName})</span>
+                  </div>
+                  <div className="flex justify-between items-center text-stone-600">
+                    <span>Date:</span>
+                    <span className="font-num text-stone-600">{p.paymentDate}</span>
+                  </div>
+                </div>
+
+                <div className="flex justify-end pt-1 border-t border-stone-100">
+                  <button
+                    onClick={() => setPrintableReceipt(p)}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 shadow-2xs hover:bg-stone-50"
+                  >
+                    <Printer className="h-3.5 w-3.5 text-amber-700" />
+                    <span>Print Tax Receipt</span>
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className={`rounded-xl border border-stone-200/90 bg-white p-5 shadow-xs ${isMobile ? 'hidden' : 'hidden md:block'}`}>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-stone-100 text-[11px] font-semibold uppercase tracking-wider text-stone-400">
+                    <th className="py-3 px-2">Receipt #</th>
+                    <th className="py-3 px-2">Date</th>
+                    <th className="py-3 px-2">Customer & Unit</th>
+                    <th className="py-3 px-2">Amount Collected</th>
+                    <th className="py-3 px-2">Payment Mode</th>
+                    <th className="py-3 px-2">Reference / Bank</th>
+                    <th className="py-3 px-2">Status</th>
+                    <th className="py-3 px-2 text-right">Receipt</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-stone-100">
+                  {filtered.map((p) => (
+                    <tr key={p.id} className="hover:bg-stone-50 transition">
+                      <td className="py-3 px-2 font-mono font-bold text-amber-800">{p.receiptNumber}</td>
+                      <td className="py-3 px-2 text-stone-600">{p.paymentDate}</td>
+                      <td className="py-3 px-2">
+                        <div className="font-semibold text-stone-900">{p.customerName}</div>
+                        <div className="text-[11px] text-stone-400">
+                          {p.projectName} • Unit {p.unitNumber}
+                        </div>
+                      </td>
+                      <td className="py-3 px-2 font-bold text-stone-900">{formatCurrency(p.amount)}</td>
+                      <td className="py-3 px-2 text-stone-600">{p.paymentMode}</td>
+                      <td className="py-3 px-2">
+                        <div className="font-mono text-stone-700">{p.referenceNumber || '—'}</div>
+                        <div className="text-[10px] text-stone-400">{p.bankName}</div>
+                      </td>
+                      <td className="py-3 px-2">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700 border border-emerald-200">
+                          <CheckCircle2 className="h-3 w-3" />
+                          {p.status || 'Verified'}
+                        </span>
+                      </td>
+                      <td className="py-3 px-2 text-right">
+                        <button
+                          onClick={() => setPrintableReceipt(p)}
+                          className="inline-flex items-center gap-1 rounded border border-stone-200 bg-white px-2 py-1 text-[11px] font-semibold text-stone-700 shadow-2xs hover:bg-stone-50"
+                        >
+                          <Printer className="h-3 w-3 text-stone-500" />
+                          <span>Print</span>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
@@ -488,7 +546,7 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
               {/* Financial Breakdown Table */}
               <div className="border border-stone-200 rounded-lg overflow-hidden">
                 <table className="w-full text-left">
-                  <thead className="bg-[#FAF8F5] text-[10px] uppercase font-bold text-stone-600 border-b border-stone-200">
+                  <thead className="bg-[#F8FAFC] text-[10px] uppercase font-bold text-stone-600 border-b border-stone-200">
                     <tr>
                       <th className="p-2.5">Component</th>
                       <th className="p-2.5 text-right">Amount (₹)</th>
@@ -668,7 +726,7 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
                   required
                   value={formData.bookingId}
                   onChange={(e) => setFormData({ ...formData, bookingId: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                 >
                   <option value="">Choose Booking</option>
                   {bookings.map((b) => (
@@ -688,7 +746,7 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
                     placeholder="1000000"
                     value={formData.amount}
                     onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -698,7 +756,7 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
                     required
                     value={formData.paymentDate}
                     onChange={(e) => setFormData({ ...formData, paymentDate: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -709,7 +767,7 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
                   <select
                     value={formData.paymentMode}
                     onChange={(e) => setFormData({ ...formData, paymentMode: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   >
                     <option value="Bank Transfer (NEFT/RTGS)">NEFT / RTGS</option>
                     <option value="Cheque / Pay Order">Cheque / Pay Order</option>
@@ -724,7 +782,7 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
                     placeholder="HDFCR92024092000012"
                     value={formData.referenceNumber}
                     onChange={(e) => setFormData({ ...formData, referenceNumber: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 uppercase font-mono focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                    className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 uppercase font-mono focus:border-amber-600 focus:bg-white focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -736,7 +794,7 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
                   placeholder="State Bank of India - Solus RERA Escrow A/C #40291823901"
                   value={formData.bankName}
                   onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                 />
               </div>
 
@@ -747,7 +805,7 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ user, organization }
                   placeholder="Stage payment towards 3rd Floor Slab"
                   value={formData.remarks}
                   onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#FAF8F5] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
+                  className="mt-1 w-full rounded-lg border border-stone-200 bg-[#F8FAFC] p-2 focus:border-amber-600 focus:bg-white focus:outline-hidden"
                 />
               </div>
 
