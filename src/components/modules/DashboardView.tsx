@@ -107,79 +107,91 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
       </div>
 
-      {/* KPI Cards Grid */}
+      {/* KPI Cards Grid - Light Colorful System */}
       <div className={`grid gap-2.5 sm:gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'}`}>
-        {/* Total Consideration & Bookings */}
-        <div className="rounded-xl border border-stone-200/90 bg-white p-3 sm:p-4 shadow-2xs flex flex-col justify-between">
-          <div className="flex items-start justify-between text-stone-500 gap-1">
-            <span className="text-[10px] sm:text-xs font-medium line-clamp-1">Sales Consideration</span>
-            <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-amber-50 text-amber-700 border border-amber-200/60 shrink-0">
-              <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4" />
+        {/* Total Consideration & Bookings - Light Amber/Peach */}
+        <div className="rounded-xl border border-amber-200/90 bg-gradient-to-br from-amber-50/95 via-orange-50/40 to-white p-3 sm:p-4.5 shadow-2xs hover:shadow-md hover:border-amber-300 transition-all flex flex-col justify-between relative overflow-hidden group">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
+          <div className="flex items-start justify-between gap-1">
+            <span className="text-[10px] sm:text-xs font-semibold text-amber-900/85 tracking-wide uppercase">Sales Consideration</span>
+            <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-amber-500/15 text-amber-800 border border-amber-300/80 shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+              <TrendingUp className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-amber-700" />
             </div>
           </div>
-          <div className="mt-1.5 sm:mt-2 font-num text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-stone-900 truncate">
+          <div className="mt-2 font-num text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-stone-900 truncate">
             {formatCurrency(m.totalSalesValue)}
           </div>
-          <div className="mt-1 flex items-center gap-1 text-[10px] sm:text-xs text-stone-500 truncate">
-            <span className="font-semibold text-stone-800 font-num">{m.totalBookings}</span> bookings recorded
+          <div className="mt-1.5 flex items-center gap-1.5 text-[10px] sm:text-xs truncate">
+            <span className="inline-flex items-center gap-1 rounded bg-amber-100/90 px-1.5 py-0.5 font-bold text-amber-900 border border-amber-300/60 font-num">
+              {m.totalBookings} Booked
+            </span>
+            <span className="text-stone-500 font-medium truncate">records active</span>
           </div>
         </div>
 
-        {/* Collections */}
-        <div className="rounded-xl border border-stone-200/90 bg-white p-3 sm:p-4 shadow-2xs flex flex-col justify-between">
-          <div className="flex items-start justify-between text-stone-500 gap-1">
-            <span className="text-[10px] sm:text-xs font-medium line-clamp-1">Collections Cleared</span>
-            <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200/60 shrink-0">
-              <DollarSign className="h-3 w-3 sm:h-4 sm:w-4" />
+        {/* Collections - Light Mint/Emerald */}
+        <div className="rounded-xl border border-emerald-200/90 bg-gradient-to-br from-emerald-50/95 via-teal-50/40 to-white p-3 sm:p-4.5 shadow-2xs hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between relative overflow-hidden group">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-500" />
+          <div className="flex items-start justify-between gap-1">
+            <span className="text-[10px] sm:text-xs font-semibold text-emerald-900/85 tracking-wide uppercase">Collections Cleared</span>
+            <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-800 border border-emerald-300/80 shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+              <DollarSign className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-700" />
             </div>
           </div>
-          <div className="mt-1.5 sm:mt-2 font-num text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-emerald-800 truncate">
+          <div className="mt-2 font-num text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-emerald-800 truncate">
             {formatCurrency(m.totalCollected)}
           </div>
-          <div className="mt-1 flex items-center justify-between text-[10px] sm:text-xs text-stone-500 truncate">
-            <span className="truncate">Due:</span>
-            <span className="font-semibold text-rose-700 font-num truncate ml-1">{formatCurrency(m.outstanding)}</span>
+          <div className="mt-1.5 flex items-center justify-between text-[10px] sm:text-xs text-stone-500 truncate">
+            <span className="text-emerald-950 font-medium truncate">Due:</span>
+            <span className="inline-flex items-center rounded bg-rose-50 px-1.5 py-0.5 font-bold text-rose-700 border border-rose-200/80 font-num truncate ml-1">
+              {formatCurrency(m.outstanding)}
+            </span>
           </div>
         </div>
 
-        {/* Inventory Units */}
-        <div className="rounded-xl border border-stone-200/90 bg-white p-3 sm:p-4 shadow-2xs flex flex-col justify-between">
-          <div className="flex items-start justify-between text-stone-500 gap-1">
-            <span className="text-[10px] sm:text-xs font-medium line-clamp-1">Property Inventory</span>
-            <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-stone-100 text-stone-700 border border-stone-200 shrink-0">
-              <Layers className="h-3 w-3 sm:h-4 sm:w-4" />
+        {/* Inventory Units - Light Sky/Blue */}
+        <div className="rounded-xl border border-sky-200/90 bg-gradient-to-br from-sky-50/95 via-blue-50/40 to-white p-3 sm:p-4.5 shadow-2xs hover:shadow-md hover:border-sky-300 transition-all flex flex-col justify-between relative overflow-hidden group">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 to-blue-500" />
+          <div className="flex items-start justify-between gap-1">
+            <span className="text-[10px] sm:text-xs font-semibold text-sky-900/85 tracking-wide uppercase">Property Inventory</span>
+            <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-sky-500/15 text-sky-800 border border-sky-300/80 shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+              <Layers className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-sky-700" />
             </div>
           </div>
-          <div className="mt-1.5 sm:mt-2 flex items-baseline gap-1 sm:gap-2 truncate">
+          <div className="mt-2 flex items-baseline gap-1 sm:gap-2 truncate">
             <span className="font-num text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-stone-900">{m.availableUnits}</span>
-            <span className="text-[10px] sm:text-xs text-stone-500 font-num truncate">/ {m.totalUnits} Units</span>
+            <span className="text-[11px] sm:text-xs text-sky-800/80 font-semibold font-num truncate">/ {m.totalUnits} Units</span>
           </div>
-          <div className="mt-1 flex items-center gap-1 text-[10px] sm:text-xs truncate">
-            <span className="inline-flex items-center rounded bg-emerald-50 px-1.5 py-0.5 font-semibold text-emerald-800 border border-emerald-200/60 font-num truncate">
+          <div className="mt-1.5 flex items-center gap-1.5 text-[10px] sm:text-xs truncate">
+            <span className="inline-flex items-center rounded bg-emerald-100/90 px-1.5 py-0.5 font-bold text-emerald-800 border border-emerald-300/60 font-num truncate">
               {m.availableUnits} Ready
             </span>
-            <span className="inline-flex items-center rounded bg-stone-100 px-1.5 py-0.5 font-medium text-stone-600 font-num truncate">
+            <span className="inline-flex items-center rounded bg-sky-100/90 px-1.5 py-0.5 font-bold text-sky-900 border border-sky-300/60 font-num truncate">
               {m.bookedUnits} Sold
             </span>
           </div>
         </div>
 
-        {/* CRM Leads & Pipeline */}
-        <div className="rounded-xl border border-stone-200/90 bg-white p-3 sm:p-4 shadow-2xs flex flex-col justify-between">
-          <div className="flex items-start justify-between text-stone-500 gap-1">
-            <span className="text-[10px] sm:text-xs font-medium line-clamp-1">Leads & Pipeline</span>
-            <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-amber-100/70 text-amber-800 border border-amber-300/50 shrink-0">
-              <Compass className="h-3 w-3 sm:h-4 sm:w-4" />
+        {/* CRM Leads & Pipeline - Light Purple/Lavender */}
+        <div className="rounded-xl border border-purple-200/90 bg-gradient-to-br from-purple-50/95 via-fuchsia-50/40 to-white p-3 sm:p-4.5 shadow-2xs hover:shadow-md hover:border-purple-300 transition-all flex flex-col justify-between relative overflow-hidden group">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-400 to-indigo-500" />
+          <div className="flex items-start justify-between gap-1">
+            <span className="text-[10px] sm:text-xs font-semibold text-purple-900/85 tracking-wide uppercase">Leads & Pipeline</span>
+            <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-purple-500/15 text-purple-800 border border-purple-300/80 shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+              <Compass className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-purple-700" />
             </div>
           </div>
-          <div className="mt-1.5 sm:mt-2 flex items-baseline gap-1 sm:gap-2 truncate">
+          <div className="mt-2 flex items-baseline gap-1 sm:gap-2 truncate">
             <span className="font-num text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-stone-900">{m.totalLeads}</span>
-            <span className="text-[10px] sm:text-xs text-stone-500 truncate">Total Leads</span>
+            <span className="text-[11px] sm:text-xs text-purple-800/80 font-semibold truncate">Total Leads</span>
           </div>
-          <div className="mt-1 flex items-center justify-between text-[10px] sm:text-xs text-stone-500 truncate">
-            <span className="font-num truncate">{m.newLeads} Inbound</span>
-            <span className="mx-1">•</span>
-            <span className="text-amber-800 font-semibold font-num truncate">{m.siteVisits} Visits</span>
+          <div className="mt-1.5 flex items-center justify-between text-[10px] sm:text-xs truncate">
+            <span className="inline-flex items-center rounded bg-purple-100/90 px-1.5 py-0.5 font-bold text-purple-800 border border-purple-300/60 font-num truncate">
+              {m.newLeads} Inbound
+            </span>
+            <span className="inline-flex items-center rounded bg-amber-100/90 px-1.5 py-0.5 font-bold text-amber-900 border border-amber-300/60 font-num truncate ml-1">
+              {m.siteVisits} Visits
+            </span>
           </div>
         </div>
       </div>
@@ -300,9 +312,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <p className="text-xs text-stone-500">Distribution of inbound buyer enquiries across Indian portals & CPs</p>
 
             <div className="mt-4 space-y-3">
-              {data?.leadSources?.map((src: any) => {
+              {data?.leadSources?.map((src: any, idx: number) => {
                 const total = m.totalLeads || 1;
                 const pct = Math.round((Number(src.count) / total) * 100);
+                const barGradients = [
+                  'bg-gradient-to-r from-amber-500 to-orange-500',
+                  'bg-gradient-to-r from-emerald-500 to-teal-500',
+                  'bg-gradient-to-r from-sky-500 to-blue-500',
+                  'bg-gradient-to-r from-purple-500 to-indigo-500',
+                  'bg-gradient-to-r from-rose-500 to-pink-500',
+                ];
+                const grad = barGradients[idx % barGradients.length];
                 return (
                   <div key={src.source}>
                     <div className="flex items-center justify-between text-xs">
@@ -311,7 +331,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                     </div>
                     <div className="mt-1 h-2 w-full rounded-full bg-stone-100 overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-amber-600 transition-all duration-500"
+                        className={`h-full rounded-full ${grad} transition-all duration-500`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
